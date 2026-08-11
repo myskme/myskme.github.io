@@ -375,6 +375,53 @@ body.shaking{animation:shake .4s cubic-bezier(.36,.07,.19,.97)}
 .deepBox{margin-top:10px;border:2.5px solid var(--purple);border-radius:12px;background:rgba(142,111,216,.08);
   padding:11px 15px;font-size:.86rem;line-height:1.85;color:var(--ink)}
 .deepBox .deepT{font-weight:900;color:var(--purple);letter-spacing:.06em;margin-bottom:3px;font-size:.8rem}
+
+/* ---- MYSKME 品牌层 ---- */
+#splash{position:fixed;inset:0;z-index:200;background:var(--paper);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;cursor:pointer;transition:opacity .35s}
+#splash.spOut{opacity:0}
+.spLetters{display:flex;gap:.5vw}
+.spL{font-family:var(--sans);font-weight:900;font-size:clamp(2.6rem,11vw,5rem);color:var(--ink);
+  animation:spPop .45s cubic-bezier(.34,1.56,.64,1) both;display:inline-block;
+  text-shadow:4px 4px 0 var(--banana)}
+@keyframes spPop{0%{opacity:0;transform:translateY(30px) scale(.4) rotate(-8deg)}100%{opacity:1;transform:none}}
+.spK{transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.spK.spKnocked{transform:rotate(14deg) translateY(6px);text-shadow:4px 4px 0 var(--red)}
+.spSub{font-weight:800;letter-spacing:.6em;color:var(--ink3);font-size:.9rem;margin-top:10px;
+  animation:cardIn .5s .6s both}
+.spRunner{position:absolute;bottom:12%;left:-140px;width:120px;animation:spRun 1.5s .9s ease-in both}
+.spRunner svg{width:100%;height:auto}
+@keyframes spRun{0%{transform:translateX(0)}100%{transform:translateX(120vw)}}
+.spSkip{position:absolute;bottom:4%;right:6%;font-size:.72rem;font-weight:700;color:var(--ink3);
+  border:2px dashed var(--ink3);border-radius:99px;padding:3px 12px;animation:cardIn .4s 1s both}
+.permit{margin-top:14px;font-size:.68rem;font-weight:700;color:var(--ink3);letter-spacing:.04em;
+  border-top:2px dashed var(--ink3);padding-top:8px;opacity:.85}
+.brandBox{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
+  border:2.5px solid var(--line);border-radius:12px;padding:8px 14px;background:rgba(245,183,49,.09)}
+.brandLogo{font-weight:900;letter-spacing:.12em;font-size:.95rem;color:var(--ink);
+  text-shadow:2px 2px 0 var(--banana);white-space:nowrap}
+.brandTxt{font-size:.7rem;font-weight:700;color:var(--ink2);line-height:1.5;text-align:left;max-width:420px}
+.fxStampSub{font-size:.32em;letter-spacing:.3em;margin-top:4px;opacity:.8;font-weight:800}
+.fxCrateDrop{left:50%;top:-160px;width:110px;margin-left:-55px;animation:crateDrop 3.4s cubic-bezier(.34,1.56,.64,1) both}
+.fxCrateDrop svg{width:100%;height:auto}
+@keyframes crateDrop{0%{transform:translateY(0)}18%{transform:translateY(46vh)}24%{transform:translateY(42vh)}30%{transform:translateY(46vh)}82%{transform:translateY(46vh);opacity:1}100%{transform:translateY(46vh);opacity:0}}
+
+/* ---- v6 品牌惊喜 ---- */
+.fxSealWrap{width:min(56vw,300px);opacity:.88;animation:sealSlam .45s cubic-bezier(.34,1.56,.64,1) both, sealFade .5s ease 1.4s both;transform:rotate(-14deg)}
+.fxSealWrap svg{width:100%;height:auto}
+@keyframes sealSlam{0%{transform:scale(3.2) rotate(-14deg);opacity:0}100%{transform:scale(1) rotate(-14deg);opacity:.88}}
+@keyframes sealFade{to{opacity:0}}
+.fxFaxWrap{right:-300px;top:22%;animation:faxIn 3.8s ease-in-out both}
+@keyframes faxIn{0%{transform:translateX(0)}18%{transform:translateX(-330px)}82%{transform:translateX(-330px)}100%{transform:translateX(60px);opacity:0}}
+.fxFax{width:270px;background:#fff;border:3px solid var(--line);border-radius:8px 0 0 8px;
+  box-shadow:var(--pop);padding:14px 18px;font-family:var(--sans)}
+.fxFaxHead{font-weight:900;letter-spacing:.14em;font-size:.85rem}
+.fxFaxLine{border-top:2.5px solid var(--line);margin:6px 0}
+.fxFaxBody{font-size:1.05rem;font-weight:800;padding:10px 0;line-height:1.7}
+.fxFaxFoot{font-size:.66rem;color:var(--ink3);font-weight:700;text-align:right}
+.inspectChip{position:absolute;top:-11px;left:14px;background:#fff;border:2px dashed #c8281e;
+  color:#c8281e;font-size:.66rem;font-weight:900;letter-spacing:.08em;border-radius:99px;
+  padding:2px 10px;transform:rotate(-3deg);animation:cardIn .3s both, sealFade .4s ease 2s both}
 </style>
 </head>
 <body>
@@ -538,6 +585,7 @@ monkeyCannon: `<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
   <path d="M60 35 Q64 32 68 35 M76 35 Q80 32 84 35" stroke-width="2.6" fill="none"/>
   <path d="M92 62 Q104 70 116 74" fill="none" stroke-width="5"/>
   <path d="M118 60 L164 46 Q174 44 176 52 Q178 60 168 62 L124 74 Q116 76 114 68 Q112 62 118 60 Z" fill="#4a4038"/>
+  <text x="146" y="61" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="900" fill="#f5b731" stroke="none" transform="rotate(-15 146 61)">MYSKME</text>
   <circle cx="120" cy="86" r="11" fill="#28211a"/><circle cx="152" cy="76" r="11" fill="#28211a"/>
   <circle cx="120" cy="86" r="4" fill="#6b5f4e" stroke="none"/><circle cx="152" cy="76" r="4" fill="#6b5f4e" stroke="none"/>
   <path d="M176 46 Q184 40 190 44" stroke="#e0452c" stroke-width="3.4" fill="none"/>
@@ -597,10 +645,50 @@ donkeyPeek: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
   <circle cx="97.5" cy="50.5" r="3.4" fill="#28211a" stroke="none"/>
   <path d="M92 42 L102 40" stroke-width="3"/>
 </g></svg>`,
+// MYSKME 空投箱
+crate: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M28 20 Q60 8 92 20 L86 30 Q60 20 34 30 Z" fill="#e8d9c2"/>
+  <rect x="26" y="34" width="68" height="56" rx="5" fill="#c9a05e"/>
+  <path d="M26 50 L94 50 M26 74 L94 74 M43 34 L43 90 M77 34 L77 90" stroke-width="3" opacity=".55"/>
+  <rect x="34" y="54" width="52" height="16" rx="3" fill="#f5b731" stroke-width="3.4"/>
+  <text x="60" y="66" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="900" fill="#28211a" stroke="none">MYSKME</text>
+  <path d="M52 26 Q60 22 68 26" fill="none" stroke-width="3"/>
+</g></svg>`,
 };
 
 // ============ v3 惊喜引擎:出其不意事件库 ============
 // 规则:答对/答错事件只在课堂模式的"揭晓"时触发;行为事件(抢答警报/发呆蛇/路过客串)全模式生效。
+
+// MYSKME 官方语录池(一本正经的荒诞)
+const SLOGANS = [
+  'MYSKME:让你错得明明白白。',
+  'MYSKME——错题界的老字号,童叟无欺,题题有坑。',
+  'MYSKME 质检部:本卷每个坑均经三次人工踩踏,踩踏员为猴先生。',
+  'MYSKME:知识是甜的,前提是你先咽下这口错。',
+  'MYSKME 谜题管理局温馨提示:回头重读,幸福一生。',
+  'MYSKME:自 MYSKME 成立以来,一直是 MYSKME。(本广告语已被蛋举报冗余,举报无效)',
+  '猴先生也是 MYSKME 深度用户。效果因人而异。',
+  'MYSKME:每道题都有户口,每个坑都交过房租。',
+  'MYSKME 错题减免券:本券不减免任何错题。最终解释权归 MYSKME。',
+  'MYSKME 会员权益:无。但你已自动成为会员。',
+  'MYSKME 驯猴办公示:猴先生已连续 0 天未抢答。',
+  'MYSKME 房租稽查科:今日查获白住单词 3 枚,已遣返词典。',
+];
+
+// 谜题管理局公章(香蕉芯,戏仿版)
+const SEAL_SVG = `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<g fill="none" stroke="#c8281e" stroke-width="5">
+  <circle cx="100" cy="100" r="92"/>
+  <circle cx="100" cy="100" r="64" stroke-width="2.5" opacity=".7"/>
+  <path d="M100 66 Q84 88 96 112 Q101 122 110 126 Q98 118 94 102 Q91 84 104 68 Z" fill="#c8281e" stroke="none"/>
+</g>
+<defs><path id="arcT" d="M100,100 m-78,0 a78,78 0 1,1 156,0"/></defs>
+<text font-family="sans-serif" font-size="19" font-weight="900" fill="#c8281e">
+  <textPath href="#arcT" startOffset="12%">M Y S K M E 谜 题 管 理 局</textPath>
+</text>
+<text x="100" y="156" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="900" fill="#c8281e">审 讫</text>
+</svg>`;
 
 const FX = (() => {
   const cool = {};                      // 冷却表
@@ -631,7 +719,7 @@ const FX = (() => {
         '炮是猴先生放的。他说不是庆祝,是共鸣。'])), 950);
     },
     () => { // 驴盖章
-      layer(`<div class="fxStampWrap"><div class="fxStamp">如假包换的错</div></div>`, 'fxCenter', 2200);
+      layer(`<div class="fxStampWrap"><div class="fxStamp">如假包换的错<div class="fxStampSub">MYSKME 质检部 监制</div></div></div>`, 'fxCenter', 2200);
       shake();
       setTimeout(()=>bubble(pick([
         '驴验完货,盖章了。它说这个错很正宗。',
@@ -699,15 +787,39 @@ const FX = (() => {
       '蛇探出头看了看:"没事,我曾经卡在一道谜上三年。"',
       '嘶——发呆不收费,但也不给分。'])), 800);
   }
+  function seal(){                    // 公章猛击:出其不意盖满屏
+    if(!cooled('seal', 200000)) return;
+    shake();
+    layer(`<div class="fxSealWrap">${SEAL_SVG}</div>`, 'fxCenter', 2000);
+    setTimeout(()=>bubble(pick(['本题已由 MYSKME 谜题管理局备案。备什么案?不告诉你。',
+      'MYSKME 审讫。公章是圆的,你的错是方的,盖不严,凑合看。'])), 700);
+  }
+  function fax(){                     // 总部传真:一本正经的无内容公文
+    layer(`<div class="fxFax"><div class="fxFaxHead">MYSKME 总部传真</div><div class="fxFaxLine"></div>
+      <div class="fxFaxBody">${pick(['略。','(此处故意留白)','内容同上。<br><span style="opacity:.6">注:本传真无上文。</span>','速回。<br><span style="opacity:.6">回什么?速回就行。</span>'])}</div>
+      <div class="fxFaxFoot">MYSKME 传真科 · 第 ∞ 号</div></div>`, 'fxFaxWrap', 3800);
+  }
+  function inspect(){                 // 质检抽查水印
+    const card = document.querySelector('.qCard'); if(!card) return;
+    const w = document.createElement('div'); w.className = 'inspectChip';
+    w.textContent = 'MYSKME® 质检抽查中';
+    card.appendChild(w); setTimeout(()=>w.remove(), 2600);
+  }
   function cameo(){
-    if(Math.random() > 0.045) return;
+    if(Math.random() > 0.05) return;
     if(!cooled('cameo', 90000)) return;
-    if(Math.random() < 0.5){
+    const roll = Math.random();
+    if(roll < 0.22){
       layer(ART2.donkeyPeek, 'fxDonkeyPeek', 3000);
       setTimeout(()=>bubble('驴在角落看了你三秒,什么也没说,走了。'), 900);
-    } else {
+    } else if(roll < 0.44){
       layer(ART.heihuafei, 'fxFumeAcross', 3600);
       setTimeout(()=>bubble('黑化肥恰好路过。它的全名今天依然没人读对。'), 900);
+    } else if(roll < 0.72){
+      layer(ART2.crate, 'fxCrateDrop', 3400);
+      setTimeout(()=>{ shake(); bubble('📦 MYSKME 空投 · ' + pick(SLOGANS), 3400); }, 700);
+    } else {
+      fax();
     }
   }
 
@@ -716,7 +828,7 @@ const FX = (() => {
   return {
     wrong(){ pick(WRONG_POOL)(); },
     right(){ floatNum(pick(RIGHT_LINES), '#1c7c50'); },
-    streak: streakFx, fastAlarm, idlePoke, cameo, bubble,
+    streak: streakFx, fastAlarm, idlePoke, cameo, bubble, seal, fax, inspect, slogan(){ return pick(SLOGANS); },
   };
 })();
 
@@ -773,7 +885,7 @@ const DEEP = {
 49:'"because X"结构(Because reasons. / Because science.)2013 年被美国方言学会评为年度词——互联网正把 because 从连词改造成介词。你们此刻学的语法,是这场语言变革的战前版本。',
 50:'grammar 和 glamour 是同一个词:中世纪"懂文法" = 懂拉丁文 = 疑似会魔法,苏格兰人把 grammar 讹读成 glamour(魔咒→魅力)。"语法"和"魅力"在词源上是亲姐妹——送给所有嫌语法枯燥的人。',
 51:'英语的正装/便装双层词库是 1066 年诺曼征服的化石:法语系词汇(purchase/obtain/commence)进宫廷,本土盎撒词(buy/get/start)留民间。每次选词,都是在一千年前的两个阶级之间站队。',
-52:'语义学家早川一会的经典分类:purr-words(呼噜词)与 snarl-words(咆哮词)——同一事实的褒贬双版本。他后来当选美国参议员,靠的正是这门选词政治学。',
+52:'语义学家早川(S. I. Hayakawa)的经典分类:purr-words(呼噜词)与 snarl-words(咆哮词)——同一事实的褒贬双版本。他后来当选美国参议员,靠的正是这门选词政治学。',
 53:'collocation(搭配)概念由语言学家 Firth 于 1957 年确立,其名言是:You shall know a word by the company it keeps(观其友而知其词)。搭配没有道理,只有交友记录。',
 54:'truly 属于"丢 e 家族":true→truly、argue→argument、whole→wholly、due→duly。这一族是拼写规则"去 e 加后缀"的例外区——例外区永远是考区。',
 55:'这类句子叫花园小径句(garden-path sentence),心理语言学用它研究大脑的句法回溯。更凶的同款:The horse raced past the barn fell.(被赶着跑过谷仓的那匹马摔了)以及传说级八词合法句:Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo。',
@@ -1464,12 +1576,12 @@ function renderCover(){
       <b>规则:</b>① 每题都长着送分题的脸,请勿相信任何一张脸;② 做完全部 ${TOTAL} 题才能交卷,交卷前有一次<b>回冰权</b>——至多回改 3 题;③ 对错要等交卷后才揭晓,想立刻知道答案的冲动,正是本卷考点之一;④ 没有时间限制,但用时会被记录(猴先生的纪录是 0.3 秒/题,不建议挑战)。
     </div>
     <div class="nameRow"><input id="nameIn" maxlength="12" placeholder="挑战者代号(可不填)" value="${S.name||''}"></div>
-    ${countDone()>0 || S.done ? `<button class="btn" id="startBtn">${S.done ? '查看战损报告' : '继续'+(S.mode==='class'?'课堂':'闯关')+' ('+countDone()+'/'+TOTAL+')'}</button>` : `
+    ${S.done ? `<button class="btn" id="startBtn">查看战损报告</button>` : `
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <button class="btn" id="soloBtn">🧗 单人闯关</button>
-      <button class="btn teal" id="classBtn">🏫 课堂模式 · 一题一评</button>
+      <button class="btn ${S.mode==='solo'&&countDone()>0?'':'ghost'}" id="soloBtn">🧗 单人闯关${S.mode==='solo'&&countDone()>0?' · 继续('+countDone()+'/'+TOTAL+')':''}</button>
+      <button class="btn teal" id="classBtn">🏫 课堂模式 · 一题一评${S.mode==='class'&&countDone()>0?' · 继续('+countDone()+'/'+TOTAL+')':''}</button>
     </div>
-    <div style="font-size:.75rem;color:var(--ink3);margin-top:10px;font-weight:700">课堂模式:每题作答后先听讲评,再点"揭晓判决"——自动记录对错、连对与思考用时<br>单人闯关:全部做完统一判分,交卷前有回冰权</div>`}
+    <div style="font-size:.75rem;color:var(--ink3);margin-top:10px;font-weight:700">课堂模式:每题作答后先听讲评,再点"揭晓判决"——自动记对错、连对与思考用时<br>单人闯关:全部做完统一判分,交卷前有回冰权${countDone()>0?'<br><b>已有进度 '+countDone()+'/'+TOTAL+',两种模式共享进度,任选一个继续</b>':''}</div>`}
     ${countDone()>0 ? '<div style="margin-top:10px"><button class="btn sm ghost" id="resetBtn">从头再来(清空进度)</button></div>' : ''}
   </div>
   ${footHtml()}`;
@@ -1513,7 +1625,7 @@ function renderMap(){
   const ice = S.phase === 'ice';
   let html = `<div class="mapHead"><h2>${ice?'❄ 回冰阶段':'五 厅 地 图'}</h2><div class="timer">⏱ <span id="tmr">${fmtT(S.elapsed)}</span></div></div>`;
   if(ice) html += `<div class="iceBanner">回冰权剩余 <b>${S.iceLeft}</b> / 3 · 只有被你回改的题才消耗<br><span style="font-size:.8rem;font-weight:700;opacity:.9">改哪几题,本身就是一道题。改完点最下方"正式交卷"。</span></div>`;
-  if(S.done) html += `<div class="iceBanner" style="background:var(--ink)">复盘模式 · 点任意题查看解析 · <b>${S.result.score}/40</b></div>`;
+  if(S.done) html += `<div class="iceBanner" style="background:var(--ink)">复盘模式 · 点任意题查看解析 · <b>${S.result.score}/${TOTAL}</b></div>`;
 
   HALLS.forEach(h => {
     const qs = hallQs(h.id), done = qs.filter(q=>answered(q.n)).length, tot = qs.length;
@@ -1558,7 +1670,7 @@ function renderMap(){
       <div class="hint">课堂模式 · 一题一评 · 进度自动保存,下次接着上</div></div>`;
     } else if(S.phase === 'answering'){
       html += `<div class="submitZone"><button class="btn red" id="subBtn" ${allDone()?'':'disabled'}>交卷(先进入回冰阶段)</button>
-      <div class="hint">${allDone()?'交卷前,你有一次回改至多 3 题的机会':'还有 '+(TOTAL-countDone())+' 题未作答,四厅通关后开放交卷'}</div></div>`;
+      <div class="hint">${allDone()?'交卷前,你有一次回改至多 3 题的机会':'还有 '+(TOTAL-countDone())+' 题未作答,五厅通关后开放交卷'}</div></div>`;
     } else {
       html += `<div class="submitZone"><button class="btn red" id="finalBtn">正式交卷 · 揭晓战损</button>
       <div class="hint">交卷后不可再改。黑化肥在等你的成绩。</div></div>`;
@@ -1594,6 +1706,7 @@ function renderHallIntro(h){
     <div class="en">${H.en}</div>
     <div class="bio">${H.bio.map(b=>`<p>${b}</p>`).join('')}</div>
     <button class="btn" id="goBtn">开门 · 进厅答题</button>
+    <div class="permit">本厅经 MYSKME 谜题管理局批准运营 · 批号:MYSKME-谜(2026)第 00${h} 号${h===3?' · 驴亲验正版':''}</div>
   </div>${footHtml()}`;
   $('#goBtn').onclick = () => { S.seenIntro[h]=1; const first = hallQs(h).find(q=>!answered(q.n)) || hallQs(h)[0];
     S.curN = first.n; S.screen='q'; render(); };
@@ -1612,7 +1725,8 @@ function renderQ(n){
   document.body.classList.toggle('teacher', teacher);
   const q = ALLQ.find(x=>x.n===n);
   const H = HALLS.find(x=>x.id===q.hall);
-  if(S._shownFor !== n){ S._shownFor = n; S._shownAt = Date.now(); if(!S.done && !teacher) FX.cameo(); }
+  if(S._shownFor !== n){ S._shownFor = n; S._shownAt = Date.now(); if(!S.done && !teacher){ FX.cameo();
+    if(Math.random() < 0.04) setTimeout(()=>FX.inspect(), 800); } }
   const classRevealed = S.mode==='class' && !!S.revealed[n];
   const reveal = S.done || teacher || classRevealed; // 揭晓答案(复盘/教师/课堂已判)
   const a = S.answers[n];
@@ -1755,6 +1869,7 @@ function renderQ(n){
     const ok = isRight(q);
     if(ok){ S.streak++; if(S.streak > S.maxStreak) S.maxStreak = S.streak; FX.right(); FX.streak(S.streak); }
     else { S.streak = 0; FX.wrong(); }
+    if(Math.random() < 0.07) setTimeout(()=>FX.seal(), 1400);
     save(); renderQ(n);
   };
 
@@ -1893,6 +2008,7 @@ function renderClassReport(){
       ${c.fastWrong ? '🐒 猴指数最高:Q'+c.fastWrong.n+'——'+c.fastWrong.t.toFixed(1)+' 秒就答错了(比猴先生还快)' : ''}
     </div>
     ${S.egghunt ? '<div style="margin-top:8px"><span class="qBadge UR">🏅 彩蛋猎人</span></div>' : ''}
+    <div class="brandBox"><span class="brandLogo">MYSKME</span><span class="brandTxt">猴与鱼系列 · M1 红鲤鱼与绿鲤鱼与驴 · ${FX.slogan()}</span></div>
     <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
       <button class="btn teal" id="backMapBtn">${doneAll?'回地图复看':'返回地图 · 继续上课'}</button>
       ${doneAll ? '<button class="btn ghost" id="againBtn">重新挑战</button>' : ''}
@@ -1932,6 +2048,7 @@ function renderReport(){
       <button class="btn ghost" id="againBtn">重新挑战</button>
     </div>
     ${S.egghunt ? '<div style="margin-top:10px"><span class="qBadge UR">🏅 彩蛋猎人</span></div>' : ''}
+    <div class="brandBox"><span class="brandLogo">MYSKME</span><span class="brandTxt">猴与鱼系列 · M1 红鲤鱼与绿鲤鱼与驴 · ${FX.slogan()}</span></div>
     <div class="eggDot" id="eggDot">?</div>
   </div>${footHtml()}`;
   $('#eggDot').onclick = () => { S.screen='egghunt'; render(); };
@@ -1994,8 +2111,18 @@ function renderTRoom(){
 }
 
 // ---- 页脚 + 教师模式 ----
+const FOOT_VARIANTS = [
+  '本页脚由 MYSKME 页脚管理科维护 · 编号:脚(2026)001',
+  'MYSKME 提醒:页脚没有彩蛋。真的没有。别连点。(点了也就那样)',
+  '本页面已通过 MYSKME 荒诞性年检 · 有效期:一直',
+  'MYSKME 法务部声明:猴先生的一切发言不代表本机构立场',
+  '你正在阅读页脚。MYSKME 欣赏你的仔细,这正是猴先生缺的。',
+];
 function footHtml(){
-  return `<div class="foot" id="foot">猴与鱼 · THE MONKEY &amp; THE FISH <span class="dot">●</span> M1 红鲤鱼与绿鲤鱼与驴 <span class="dot">●</span> 特邀出题:MYSKME 王老师(客串)</div>`;
+  const line = Math.random() < 0.1
+    ? FOOT_VARIANTS[Math.floor(Math.random()*FOOT_VARIANTS.length)]
+    : '猴与鱼 · THE MONKEY &amp; THE FISH <span class="dot">●</span> M1 红鲤鱼与绿鲤鱼与驴 <span class="dot">●</span> 特邀出题:MYSKME 王老师(客串)';
+  return `<div class="foot" id="foot">${line}</div>`;
 }
 function bindFoot(){
   const f = $('#foot'); if(!f) return;
@@ -2050,10 +2177,27 @@ setInterval(() => {
   }
 }, 5000);
 
+// ---- MYSKME 厂牌开场 ----
+function playSplash(next){
+  const d = document.createElement('div');
+  d.id = 'splash';
+  d.innerHTML = `
+    <div class="spLetters">${'MYSKME'.split('').map((c,i)=>`<span style="animation-delay:${i*0.16}s" class="spL ${c==='K'?'spK':''}">${c}</span>`).join('')}</div>
+    <div class="spSub">P R E S E N T S</div>
+    <div class="spRunner">${ART.monkey}</div>
+    <div class="spSkip">点击跳过</div>`;
+  document.body.appendChild(d);
+  let done = false;
+  const finish = () => { if(done) return; done = true; d.classList.add('spOut'); setTimeout(()=>{ d.remove(); next(); }, 350); };
+  d.onclick = finish;
+  setTimeout(()=>{ const k = d.querySelector('.spK'); if(k) k.classList.add('spKnocked'); }, 2350);
+  setTimeout(finish, 3900);
+}
+
 // ---- 启动 ----
 load();
 if(S.done && !S.result) S.result = grade();
-render();
+playSplash(render);
 
 </script>
 </body>
