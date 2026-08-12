@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#faf3e2">
 <meta name="color-scheme" content="light">
 <meta name="description" content="MYSKME 荒诞休闲系列：猴先生收到一份上楼谈话通知，于是决定跳上去。">
+<meta name="myskme-release" content="20260812.2-monkey-visible-hotfix">
 <meta property="og:title" content="猴先生上楼 · MYSKME">
 <meta property="og:description" content="点左点右，往上。别问为什么。">
 <meta property="og:type" content="website">
@@ -63,7 +64,8 @@ button{font:inherit;color:inherit}
 #playerGroup,#playerWrapLeft,#playerWrapRight{visibility:visible;will-change:transform}
 #playerGroup{opacity:1!important}
 #playerWrapLeft,#playerWrapRight{opacity:0;pointer-events:none}
-#monkeyUse{transform-origin:center;transition:filter .15s}
+.monkey-pose{opacity:0;visibility:hidden;pointer-events:none;transform-origin:center;transition:filter .15s}
+.monkey-pose.active{opacity:1;visibility:visible}
 .monkey-motion{transform-box:fill-box;transform-origin:50% 100%;transition:transform .11s ease-out,filter .18s ease}
 .monkey-motion.rising{transform:scale(.94,1.06)}
 .monkey-motion.falling{transform:scale(1.055,.945)}
@@ -71,7 +73,7 @@ button{font:inherit;color:inherit}
 .monkey-motion.doomed{animation:monkeyDoom .24s ease-in both;filter:saturate(.72)}
 @keyframes monkeySquash{0%{transform:scale(1.06,.94)}48%{transform:scale(1.16,.78)}100%{transform:scale(1)}}
 @keyframes monkeyDoom{to{transform:scale(.92) rotate(7deg);opacity:.76}}
-#playerGroup.gold #monkeyUse{filter:sepia(1) saturate(5) hue-rotate(355deg) brightness(1.18)}
+#playerGroup.gold .monkey-pose{filter:sepia(1) saturate(5) hue-rotate(355deg) brightness(1.18)}
 #goldAura{opacity:0;fill:none;stroke:#f5b731;stroke-width:5;stroke-dasharray:8 7;animation:aura 1s linear infinite}
 #playerGroup.gold #goldAura{opacity:.95}
 @keyframes aura{to{stroke-dashoffset:-30}}
@@ -418,10 +420,22 @@ h1{font-family:var(--serif);font-size:clamp(34px,10vw,48px);line-height:1.02;tex
       <g id="itemLayer"></g>
       <g id="playerGroup" transform="translate(145 660)">
         <circle id="goldAura" cx="50" cy="55" r="52"/>
-        <g id="monkeyMotion" class="monkey-motion"><use id="monkeyUse" href="#art-monkey-rise" width="100" height="116"/></g>
+        <g id="monkeyMotion" class="monkey-motion">
+          <use class="monkey-pose active" data-pose="rise" href="#art-monkey-rise" width="100" height="116"/>
+          <use class="monkey-pose" data-pose="fall" href="#art-monkey-fall" width="100" height="116"/>
+          <use class="monkey-pose" data-pose="land" href="#art-monkey-land" width="100" height="116"/>
+        </g>
       </g>
-      <g id="playerWrapLeft"><g id="monkeyWrapLeftMotion" class="monkey-motion"><use id="monkeyWrapLeftUse" href="#art-monkey-rise" width="100" height="116"/></g></g>
-      <g id="playerWrapRight"><g id="monkeyWrapRightMotion" class="monkey-motion"><use id="monkeyWrapRightUse" href="#art-monkey-rise" width="100" height="116"/></g></g>
+      <g id="playerWrapLeft"><g id="monkeyWrapLeftMotion" class="monkey-motion">
+        <use class="monkey-pose active" data-pose="rise" href="#art-monkey-rise" width="100" height="116"/>
+        <use class="monkey-pose" data-pose="fall" href="#art-monkey-fall" width="100" height="116"/>
+        <use class="monkey-pose" data-pose="land" href="#art-monkey-land" width="100" height="116"/>
+      </g></g>
+      <g id="playerWrapRight"><g id="monkeyWrapRightMotion" class="monkey-motion">
+        <use class="monkey-pose active" data-pose="rise" href="#art-monkey-rise" width="100" height="116"/>
+        <use class="monkey-pose" data-pose="fall" href="#art-monkey-fall" width="100" height="116"/>
+        <use class="monkey-pose" data-pose="land" href="#art-monkey-land" width="100" height="116"/>
+      </g></g>
     </svg>
 
     <header id="hud" aria-live="polite">
@@ -515,11 +529,11 @@ window.MONKEY_UPSTAIRS_ERRORS=[];
 window.addEventListener('error',e=>window.MONKEY_UPSTAIRS_ERRORS.push(String(e.message||e.error||'error').slice(0,240)));
 window.addEventListener('unhandledrejection',e=>window.MONKEY_UPSTAIRS_ERRORS.push(String(e.reason||'unhandled rejection').slice(0,240)));
 
-const W=390,H=844,METER_SCALE=5,SVG_NS='http://www.w3.org/2000/svg';
+const RELEASE='20260812.2-monkey-visible-hotfix',W=390,H=844,METER_SCALE=5,SVG_NS='http://www.w3.org/2000/svg';
 const $=id=>document.getElementById(id);
 const TEST_PARAMS=new URLSearchParams(location.search),AUTO_PLAY=TEST_PARAMS.get('autoplay')==='1',STRESS_TEST=TEST_PARAMS.get('stress')==='1',FORCE_FALL=TEST_PARAMS.get('fall')==='1',FORCE_RESCUE=TEST_PARAMS.get('rescue')==='1',DEBUG_EVENT=TEST_PARAMS.get('event')||'',DEBUG_START=Math.max(0,Number(TEST_PARAMS.get('start'))||0),DEBUG_SEED=Number(TEST_PARAMS.get('seed'))||0,DEBUG_X=TEST_PARAMS.has('x')&&Number.isFinite(Number(TEST_PARAMS.get('x')))?wrap(Number(TEST_PARAMS.get('x'))):195;
 const el={
-  shell:$('gameShell'),stage:$('stage'),platformLayer:$('platformLayer'),itemLayer:$('itemLayer'),playerGroup:$('playerGroup'),motion:$('monkeyMotion'),monkey:$('monkeyUse'),wrapLeft:$('playerWrapLeft'),wrapRight:$('playerWrapRight'),wrapLeftMotion:$('monkeyWrapLeftMotion'),wrapRightMotion:$('monkeyWrapRightMotion'),wrapLeftUse:$('monkeyWrapLeftUse'),wrapRightUse:$('monkeyWrapRightUse'),
+  shell:$('gameShell'),stage:$('stage'),platformLayer:$('platformLayer'),itemLayer:$('itemLayer'),playerGroup:$('playerGroup'),motion:$('monkeyMotion'),wrapLeft:$('playerWrapLeft'),wrapRight:$('playerWrapRight'),wrapLeftMotion:$('monkeyWrapLeftMotion'),wrapRightMotion:$('monkeyWrapRightMotion'),
   height:$('heightValue'),bananas:$('bananaValue'),score:$('scoreValue'),dept:$('deptPill'),banner:$('departmentBanner'),toast:$('toastLayer'),
   bg:$('bgMood'),building:$('buildingParallax'),fish:$('fishScene'),fertilizer:$('fertilizerScene'),bubbles:$('bubbleField'),fog:$('fogField'),elevator:$('elevatorScene'),
   fax:$('faxFly'),broadcast:$('broadcast'),stamps:$('stampStorm'),donkey:$('donkeyPeek'),rescue:$('rescueBubble'),audit:$('auditCeiling'),auditCopy:$('auditCopy'),face:$('faceMeter'),
@@ -590,6 +604,8 @@ const MAJOR_EVENTS=['stamp','donkey','gravity','wind','shaft','faxRain','elevato
 
 let audioCtx=null,audioEnabled=true,lastFrame=performance.now();
 let platformEls=new Map(),itemEls=new Map(),lastDeathIndex=-1,lastSloganIndex=-1,lastPose='';
+const playerMotions=[el.motion,el.wrapLeftMotion,el.wrapRightMotion];
+const playerPoses=playerMotions.map(node=>({node,uses:[...node.querySelectorAll('.monkey-pose')]}));
 let platformSeq=0,itemSeq=0,forcedFallConsumed=false;
 const input={left:false,right:false};
 const saved=loadRecord();
@@ -683,7 +699,7 @@ function resetWorld(seed=Date.now()&0xffffffff){
   state.over=false;platformSeq=0;itemSeq=0;lastPose='';
   platformEls.forEach(node=>node.remove());platformEls.clear();itemEls.forEach(node=>node.remove());itemEls.clear();
   el.audit.classList.remove('show');el.elevator.classList.remove('show');el.flow.classList.remove('show');el.tongue.classList.remove('show');el.choice.classList.add('hidden');
-  for(const node of[el.motion,el.wrapLeftMotion,el.wrapRightMotion])node.classList.remove('rising','falling','landing','doomed');
+  for(const node of playerMotions)node.classList.remove('rising','falling','landing','doomed');
   addPlatform({x:132,y:baseY-2,w:126,type:'good',dept:startDept,solid:true,label:DEBUG_START?'临时起点':'接待台'});
   generatePlatforms(baseY+7600);
   updateDepartment(true,DEBUG_START>0);renderAll(performance.now());
@@ -809,7 +825,7 @@ function overlapsPlatform(p){
 }
 function landOn(p,now){
   const pl=state.player;pl.y=p.y;p.landed=true;let bounce=680+state.perks.spring*45;
-  for(const node of[el.motion,el.wrapLeftMotion,el.wrapRightMotion]){node.classList.remove('landing');void node.getBBox();node.classList.add('landing');setTimeout(()=>node.classList.remove('landing'),210);}
+  for(const node of playerMotions){node.classList.remove('landing');void node.getBBox();node.classList.add('landing');setTimeout(()=>node.classList.remove('landing'),210);}
   state.autoTargetId='';
   state.lastSafe={x:clamp(pl.x,p.x+8,p.x+p.w-8),y:p.y};
   state.flow=now-state.lastLandingAt<1450?Math.min(9,state.flow+1):1;state.lastLandingAt=now;state.maxFlow=Math.max(state.maxFlow,state.flow);
@@ -855,12 +871,23 @@ function openCrate(now){
   else toast('恭喜晋升为：更高处的猴。效果：无。','red');
 }
 
+function getPlayerScreenY(){return state.player?H-(state.player.y-state.cameraY)-108:NaN;}
+function restorePlayerVisual(){
+  if(!el.playerGroup.isConnected)el.stage.appendChild(el.playerGroup);
+  el.playerGroup.style.opacity='1';el.playerGroup.style.visibility='visible';el.playerGroup.style.display='inline';
+  for(const {node,uses} of playerPoses){
+    node.style.opacity='1';node.style.visibility='visible';node.style.display='inline';
+    if(!uses.some(use=>use.classList.contains('active')))uses[0].classList.add('active');
+  }
+}
 function repairPlayerState(now){
   const pl=state.player;if(!pl)return;
-  const sy=H-(pl.y-state.cameraY)-108;
-  const sane=[pl.x,pl.y,pl.vx,pl.vy,state.cameraY,sy].every(Number.isFinite)&&Math.abs(pl.vx)<5000&&Math.abs(pl.vy)<5000&&sy>38;
-  if(sane||state.deathFreezeUntil||state.stressMode)return;
+  const sy=getPlayerScreenY();
+  const sane=[pl.x,pl.y,pl.vx,pl.vy,state.cameraY,sy].every(Number.isFinite)&&Math.abs(pl.vx)<5000&&Math.abs(pl.vy)<5000&&sy>=54;
+  if(sane||state.stressMode)return;
+  if(state.deathFreezeUntil){pl.y=state.cameraY+72;pl.vx=0;pl.vy=0;restorePlayerVisual();return;}
   const safe=state.lastSafe||{x:195,y:state.cameraY+160};pl.x=clamp(safe.x,20,W-20);pl.y=Math.max(safe.y,state.cameraY+120);pl.vx=0;pl.vy=760;state.cameraY=Math.max(0,pl.y-(H-260));state.playerRepairs++;
+  restorePlayerVisual();
   toast('系统找不到猴先生，已从打印机里重新打印一只。','red');sfx('stamp');
 }
 function pruneWorld(){
@@ -879,7 +906,7 @@ function applyShaftPressure(now,dt){
 }
 
 function updatePhysics(dt,now){
-  repairPlayerState(now);if(state.deathFreezeUntil)dt*=.22;const pl=state.player,prevY=pl.y;
+  repairPlayerState(now);const pl=state.player;if(state.deathFreezeUntil){pl.y=state.cameraY+72;pl.vx=0;pl.vy=0;rescueOrEnd(now);return;}const prevY=pl.y;
   let axis=(input.right?1:0)-(input.left?1:0);
   if(AUTO_PLAY||state.autopilot){
     let target=state.platforms.find(p=>p.id===state.autoTargetId&&p.alive&&p.solid);
@@ -903,11 +930,11 @@ function updatePhysics(dt,now){
   state.maxMeters=Math.max(state.maxMeters,metersFromY(pl.y));
   state.score=state.maxMeters+state.bananas+state.bonus;
   const cameraTarget=pl.y-(H-300);if(cameraTarget>state.cameraY)state.cameraY+=(cameraTarget-state.cameraY)*Math.min(1,dt*8);
-  let playerScreenY=H-(pl.y-state.cameraY)-108;if(playerScreenY<92){state.cameraY=Math.max(state.cameraY,pl.y-(H-220));playerScreenY=112;}
+  let sy=H-(pl.y-state.cameraY)-108;if(sy<92){state.cameraY=Math.max(state.cameraY,pl.y-(H-220));sy=112;}
   applyShaftPressure(now,dt);repairPlayerState(now);
   generatePlatforms(state.cameraY+H+620);
   pruneWorld();
-  if(pl.y<state.cameraY-35)rescueOrEnd(now);
+  if(getPlayerScreenY()>H-150||pl.y<state.cameraY-35)rescueOrEnd(now);
 }
 function rescueOrEnd(now){
   const pl=state.player;
@@ -919,7 +946,7 @@ function rescueOrEnd(now){
     toast('鱼小姐觉得你可以回头重来一次。','teal');sfx('quiet');return;
   }
   if(pl.waiver>0){pl.waiver--;pl.y=state.cameraY+115;pl.vy=820;pl.vx*=.4;toast('本券本不减免任何坠落，但今天心情好。','gold');return;}
-  if(!state.deathFreezeUntil){state.deathFreezeUntil=now+240;pl.vx*=.28;for(const node of[el.motion,el.wrapLeftMotion,el.wrapRightMotion])node.classList.add('doomed');sfx('warning');return;}
+  if(!state.deathFreezeUntil){state.deathFreezeUntil=now+240;pl.y=state.cameraY+72;pl.vx=0;pl.vy=0;for(const node of playerMotions)node.classList.add('doomed');restorePlayerVisual();sfx('warning');return;}
   if(now<state.deathFreezeUntil)return;
   finishRun();
 }
@@ -1006,15 +1033,15 @@ function renderAll(now){
   }
   for(const [id,node]of itemEls){if(!liveItems.has(id)){node.remove();itemEls.delete(id);}}
   if(state.player){
-    const pl=state.player,sy=H-(pl.y-state.cameraY)-108;el.playerGroup.setAttribute('transform',`translate(${(pl.x-50).toFixed(1)} ${sy.toFixed(1)})`);
-    const pose=pl.vy>120?'#art-monkey-rise':pl.vy<-200?'#art-monkey-fall':'#art-monkey-land';for(const use of[el.monkey,el.wrapLeftUse,el.wrapRightUse]){if(use.getAttribute('href')!==pose||pose!==lastPose){use.setAttribute('href',pose);use.setAttributeNS('http://www.w3.org/1999/xlink','href',pose);}}lastPose=pose;
-    const mirror=pl.facing<0?'translate(100 0) scale(-1 1)':'';el.monkey.setAttribute('transform',mirror);el.wrapLeftUse.setAttribute('transform',mirror);el.wrapRightUse.setAttribute('transform',mirror);
+    const pl=state.player,sy=clamp(getPlayerScreenY(),54,H-150);el.playerGroup.setAttribute('transform',`translate(${(pl.x-50).toFixed(1)} ${sy.toFixed(1)})`);
+    const pose=pl.vy>120?'rise':pl.vy<-200?'fall':'land';if(pose!==lastPose){for(const {uses} of playerPoses)for(const use of uses)use.classList.toggle('active',use.dataset.pose===pose);lastPose=pose;}
+    const mirror=pl.facing<0?'translate(100 0) scale(-1 1)':'';for(const {uses} of playerPoses)for(const use of uses)use.setAttribute('transform',mirror);
     const showLeft=pl.x>W-50,showRight=pl.x<50;el.wrapLeft.style.opacity=showLeft?'1':'0';el.wrapRight.style.opacity=showRight?'1':'0';
     if(showLeft)el.wrapLeft.setAttribute('transform',`translate(${(pl.x-50-W).toFixed(1)} ${sy.toFixed(1)})`);if(showRight)el.wrapRight.setAttribute('transform',`translate(${(pl.x-50+W).toFixed(1)} ${sy.toFixed(1)})`);
-    el.playerGroup.style.opacity='1';el.playerGroup.style.visibility='visible';el.playerGroup.style.display='inline';
-    for(const node of[el.motion,el.wrapLeftMotion,el.wrapRightMotion]){node.classList.toggle('rising',pl.vy>380&&!state.deathFreezeUntil);node.classList.toggle('falling',pl.vy<-260&&!state.deathFreezeUntil);}
+    restorePlayerVisual();
+    for(const node of playerMotions){node.classList.toggle('rising',pl.vy>380&&!state.deathFreezeUntil);node.classList.toggle('falling',pl.vy<-260&&!state.deathFreezeUntil);}
     el.playerGroup.classList.toggle('gold',now<pl.goldenUntil);
-    el.monkey.style.filter=now<pl.stampedUntil?'drop-shadow(4px 0 0 #e0452c) drop-shadow(-4px 0 0 #e0452c)':'';
+    for(const {uses} of playerPoses)for(const use of uses)use.style.filter=now<pl.stampedUntil?'drop-shadow(4px 0 0 #e0452c) drop-shadow(-4px 0 0 #e0452c)':'';
   }
   if(now-state.lastLandingAt>1750)el.flow.classList.remove('show');
   el.height.textContent=state.maxMeters;el.bananas.textContent=state.bananas;el.score.textContent=state.score;
@@ -1036,7 +1063,7 @@ function startRun(){
   if(MAJOR_EVENTS.includes(DEBUG_EVENT))setTimeout(()=>triggerMajorEvent(DEBUG_EVENT,performance.now()),260);
 }
 function finishRun(){
-  if(!state.running)return;state.running=false;state.over=true;state.choiceOpen=false;state.shaftUntil=0;state.deathFreezeUntil=0;el.audit.classList.remove('show');el.elevator.classList.remove('show');el.choice.classList.add('hidden');el.shell.classList.remove('running');input.left=input.right=false;for(const node of[el.motion,el.wrapLeftMotion,el.wrapRightMotion])node.classList.remove('rising','falling','landing','doomed');sfx('fall');
+  if(!state.running)return;state.running=false;state.over=true;state.choiceOpen=false;state.shaftUntil=0;state.deathFreezeUntil=0;el.audit.classList.remove('show');el.elevator.classList.remove('show');el.choice.classList.add('hidden');el.shell.classList.remove('running');input.left=input.right=false;for(const node of playerMotions)node.classList.remove('rising','falling','landing','doomed');sfx('fall');
   const oldHeight=saved.height,oldScore=saved.score;saved.height=Math.max(saved.height,state.maxMeters);saved.score=Math.max(saved.score,state.score);saveRecord();
   const di=chooseNonRepeat(DEATH_LINES,lastDeathIndex);lastDeathIndex=di;const si=chooseNonRepeat(SLOGANS,lastSloganIndex);lastSloganIndex=si;
   const title=[...TITLES].reverse().find(t=>state.maxMeters>=t.min).name;
@@ -1095,6 +1122,7 @@ function runQA(){
     ['平台最大垂直间距不超过 132',Math.max(...gaps)<=132],['每一高度簇至少有一块实体平台',unsafeOnly.length===0],['机制表完整',MECHANICS.length>=14],
     ['死亡台词不少于 12 条',DEATH_LINES.length>=12],['称号五档',TITLES.length===5],['七种大事件，单局最多六种',MAJOR_EVENTS.length===7],
     ['本机排行榜和三选一完整',typeof rankedRows==='function'&&PERK_POOL.length>=5],['角色可见性看门狗已启用',typeof repairPlayerState==='function'],
+    ['三套常驻猴姿态完整',playerPoses.length===3&&playerPoses.every(group=>group.uses.length===3)],
     ['没有外部脚本或样式',[...document.querySelectorAll('script[src],link[rel="stylesheet"]')].length===0],['1020 米彩蛋加分值为 52',true]
   ];
   const failed=checks.filter(c=>!c[1]);$('qaReport').style.display='block';$('qaReport').textContent=`${failed.length?'FAIL':'PASS'} · 猴先生上楼静态质检\n\n`+checks.map(([n,ok])=>`${ok?'PASS':'FAIL'}  ${n}`).join('\n')+`\n\n平台样本：${state.platforms.length}\n最大间距：${Math.max(...gaps).toFixed(1)}\n死亡台词：${DEATH_LINES.length}\n部门：${DEPARTMENTS.map(d=>d.name).join(' / ')}`;
@@ -1107,11 +1135,11 @@ function runStressQA(steps=24000){
     now+=16;updateMovingPlatforms(now);updatePhysics(.016,now);updateDepartment(false,false);if(i%30===0)renderAll(now);
     const pl=state.player,sy=H-(pl.y-state.cameraY)-108;minSy=Math.min(minSy,sy);maxSy=Math.max(maxSy,sy);maxHeight=Math.max(maxHeight,state.maxMeters);
     if(![pl.x,pl.y,pl.vx,pl.vy,state.cameraY,sy].every(Number.isFinite)){fail=`第 ${i} 步出现非数值`;break;}
-    if(sy<80||sy>790){fail=`第 ${i} 步角色离开安全画面：${sy.toFixed(1)}`;break;}
+    if(sy<54||sy>H-150){fail=`第 ${i} 步角色离开安全画面：${sy.toFixed(1)}`;break;}
   }
   state.running=false;state.autopilot=false;state.stressMode=false;renderAll(now);$('qaReport').style.display='block';$('qaReport').textContent=`${fail?'FAIL':'PASS'} · 角色长局可见性压力测试\n\n模拟帧：${steps}\n模拟时长：${Math.round(steps*16/1000)} 秒\n最高高度：${maxHeight} 米\n鱼式接回：${state.stressRescues} 次\n画面纵坐标：${minSy.toFixed(1)} 至 ${maxSy.toFixed(1)}\n坐标修复：${state.playerRepairs} 次${fail?`\n失败：${fail}`:'\n结论：猴先生全程保持在安全画面内。'}`;
 }
-Object.defineProperty(window,'__MONKEY_UPSTAIRS_REPORT',{get:()=>Object.freeze({running:state.running,over:state.over,height:state.maxMeters,bananas:state.bananas,score:state.score,department:state.deptId,platforms:state.platforms.length,majorEvents:state.majorCount,flow:state.flow,maxFlow:state.maxFlow,nearMisses:state.nearMisses,playerRepairs:state.playerRepairs,playerScreenY:state.player?H-(state.player.y-state.cameraY)-108:null,rankRows:rankedRows().length,choiceOpen:state.choiceOpen,shaftFace:state.shaftFace,deathFreezeUntil:state.deathFreezeUntil,resultStamp:state.resultStamp})});
+Object.defineProperty(window,'__MONKEY_UPSTAIRS_REPORT',{get:()=>Object.freeze({release:RELEASE,running:state.running,over:state.over,height:state.maxMeters,bananas:state.bananas,score:state.score,department:state.deptId,platforms:state.platforms.length,majorEvents:state.majorCount,flow:state.flow,maxFlow:state.maxFlow,nearMisses:state.nearMisses,playerRepairs:state.playerRepairs,playerScreenY:state.player?H-(state.player.y-state.cameraY)-108:null,rankRows:rankedRows().length,choiceOpen:state.choiceOpen,shaftFace:state.shaftFace,deathFreezeUntil:state.deathFreezeUntil,resultStamp:state.resultStamp})});
 Object.defineProperty(window,'MONKEY_UPSTAIRS_REPORT',{enumerable:true,get:()=>window.__MONKEY_UPSTAIRS_REPORT});
 updateBestLabels();resetWorld(1020);state.running=false;renderAll(performance.now());requestAnimationFrame(loop);
 if(TEST_PARAMS.get('qa')==='1'){hideSplash();setTimeout(runQA,50);}
