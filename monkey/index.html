@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#faf3e2">
 <meta name="color-scheme" content="light">
 <meta name="description" content="MYSKME 荒诞休闲系列：猴先生收到一份上楼谈话通知，于是决定跳上去。">
-<meta name="myskme-release" content="20260812.4-monkey-visible-hotfix">
+<meta name="myskme-release" content="20260812.5-monkey-sound-replay">
 <meta property="og:title" content="猴先生上楼 · MYSKME">
 <meta property="og:description" content="点左点右，往上。别问为什么。">
 <meta property="og:type" content="website">
@@ -23,6 +23,8 @@
   《猴先生上楼》完整内容清单
   部门楼层：大堂、质检部、传真科、房租稽查科、驯猴办、冗余检查科、黑化肥仓库、谜题管理局、绕口令办、观景台、标点维修科、加盖工程部。
   惊喜事件：审讫满屏章、驴探头、低重力、横风、百层倒班、传真雨、电梯误弹；单局最多 6 次。
+  声音系统：自适应手绘玩具爵士、分层编曲、事件音标与全声/仅音效/静音三档。
+  复玩系统：轮值任务、档案章、四套开工装备、香蕉磁铁、回形针批文、减免券与电梯欠条。
   死亡台词：18 条，抽取时防连续重复。
   称号分档：5 档。
   技术约束：单文件、零依赖、零网络请求、触屏与键盘双支持、localStorage 防护、iPhone 竖屏优先。
@@ -99,12 +101,23 @@ button{font:inherit;color:inherit}
 #deptPill{align-self:start;max-width:150px;text-align:center;background:var(--banana);border:2.5px solid var(--ink);
   border-radius:999px;box-shadow:0 3px 0 rgba(40,33,26,.18);padding:7px 10px;font-size:11px;font-weight:1000;
   letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#soundButton{position:absolute;z-index:43;right:12px;bottom:calc(var(--safe-bottom) + 10px);width:42px;height:42px;
+#soundButton{position:absolute;z-index:43;right:12px;bottom:calc(var(--safe-bottom) + 10px);width:50px;height:42px;
   border:2.5px solid var(--ink);border-radius:50%;background:var(--card);box-shadow:var(--shadow);font-size:11px;
   font-weight:1000;cursor:pointer;pointer-events:auto}
 #soundButton:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(40,33,26,.2)}
+#missionBadge{position:absolute;z-index:21;left:12px;right:70px;bottom:calc(var(--safe-bottom) + 52px);min-height:29px;
+  display:none;align-items:center;gap:7px;padding:5px 9px;border:2px solid var(--ink);border-radius:10px;background:rgba(255,253,246,.92);
+  box-shadow:0 3px 0 rgba(40,33,26,.16);font-size:9px;font-weight:900;pointer-events:none;white-space:nowrap;overflow:hidden}
+#missionBadge b{color:var(--red);flex:0 0 auto}#missionBadge span{overflow:hidden;text-overflow:ellipsis}
+#missionBadge.done{background:#d9f3ef}#gameShell.running #missionBadge{display:flex}
+#toolDock{position:absolute;z-index:21;left:12px;bottom:calc(var(--safe-bottom) + 12px);right:72px;height:32px;
+  display:none;align-items:center;gap:5px;pointer-events:none;overflow:hidden}
+#gameShell.running #toolDock{display:flex}.tool-chip{height:29px;display:flex;align-items:center;gap:4px;padding:4px 7px;
+  border:2px solid var(--ink);border-radius:999px;background:rgba(255,253,246,.92);font-size:9px;font-weight:1000;box-shadow:0 2px 0 rgba(40,33,26,.15)}
+.tool-chip.active{background:#fff0af}.tool-icon{width:13px;height:13px;display:block}
 #controlHint{position:absolute;z-index:19;left:50%;bottom:calc(var(--safe-bottom) + 14px);transform:translateX(-50%);
   font-size:11px;font-weight:900;color:rgba(40,33,26,.56);letter-spacing:.08em;pointer-events:none;white-space:nowrap}
+#gameShell.running #controlHint{bottom:calc(var(--safe-bottom) + 88px);font-size:9px;color:rgba(40,33,26,.42)}
 #flowBadge,#tonguePrompt{position:absolute;z-index:22;left:50%;transform:translateX(-50%);border:2.5px solid var(--ink);
   border-radius:999px;background:rgba(255,253,246,.94);box-shadow:0 3px 0 rgba(40,33,26,.17);font-weight:1000;
   pointer-events:none;opacity:0;transition:opacity .2s,transform .2s;white-space:nowrap}
@@ -172,7 +185,7 @@ button{font:inherit;color:inherit}
 .notice-no{position:absolute;right:14px;top:-13px;background:var(--red);color:white;border:2.5px solid var(--ink);border-radius:999px;
   padding:4px 11px;font-size:10px;font-weight:1000;transform:rotate(4deg)}
 .eyebrow{font-size:10px;color:var(--muted);font-weight:1000;letter-spacing:.24em;text-align:center}
-.title-art{width:164px;height:150px;margin:-4px auto -4px;display:block;animation:heroBob 2.7s ease-in-out infinite}
+.title-art{width:126px;height:112px;margin:-4px auto -4px;display:block;animation:heroBob 2.7s ease-in-out infinite}
 @keyframes heroBob{50%{transform:translateY(-8px) rotate(-2deg)}}
 h1{font-family:var(--serif);font-size:clamp(34px,10vw,48px);line-height:1.02;text-align:center;margin:0 0 7px;letter-spacing:.05em}
 .subtitle{text-align:center;color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.08em;margin:0 0 15px}
@@ -185,6 +198,16 @@ h1{font-family:var(--serif);font-size:clamp(34px,10vw,48px);line-height:1.02;tex
 .btn.secondary{background:var(--card);margin-top:10px}.btn.teal{background:var(--teal);color:white}
 .btn.compact{padding:9px 12px;font-size:11px;margin-top:8px}
 .best-row{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;font-weight:900;margin-top:12px}
+#titleScreen{justify-content:flex-start;overflow-y:auto;overscroll-behavior:contain}#titleScreen .card{margin:auto 0;flex:0 0 auto}
+.career{display:grid;grid-template-columns:1fr auto;gap:7px 12px;align-items:center;margin:0 0 11px;padding:9px 11px;
+  border:2px dashed #a7977c;border-radius:12px;background:#f8efd9}.career b{font-size:12px}.career span{font-size:9px;color:var(--muted);font-weight:900}
+.career strong{grid-row:1/3;grid-column:2;font-size:23px;color:var(--red)}
+.mission-card{margin:0 0 11px;padding:8px 10px;border:2px solid var(--ink);border-radius:11px;background:#dff3ef;font-size:10px;line-height:1.45;font-weight:900}
+.mission-card b{color:var(--red);margin-right:5px}.kit-label{font-size:9px;color:var(--muted);font-weight:1000;letter-spacing:.12em;margin:0 0 6px}
+.kit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:11px}.kit-card{min-width:0;border:2px solid var(--ink);border-radius:10px;
+  background:var(--card);padding:6px 3px;font:900 9px/1.25 var(--sans);cursor:pointer}.kit-card.selected{background:var(--banana);box-shadow:inset 0 -3px 0 rgba(40,33,26,.13)}
+.kit-card:disabled{opacity:.5;cursor:not-allowed}.kit-card small{display:block;font-size:7px;color:var(--muted);margin-top:2px}
+.mission-result{padding:9px 11px;border:2px dashed #a7977c;border-radius:12px;background:#dff3ef;font-size:10px;line-height:1.55;font-weight:900;margin-bottom:11px}
 #resultScreen{justify-content:flex-start;overflow-y:auto;padding-top:calc(var(--safe-top) + 18px);overscroll-behavior:contain}
 #resultScreen .card{margin:auto 0;flex:0 0 auto}
 .death-line{font-family:var(--serif);font-size:15px;line-height:1.65;text-align:center;margin:0 0 13px;color:var(--muted)}
@@ -233,7 +256,7 @@ h1{font-family:var(--serif);font-size:clamp(34px,10vw,48px);line-height:1.02;tex
 @keyframes confetti{to{transform:translate(var(--dx),var(--dy)) rotate(540deg);opacity:0}}
 .shake{animation:shake .38s ease}
 @keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
-@media(max-height:680px){.title-art{width:110px;height:98px}.brief{margin-bottom:10px}.card{padding:16px}h1{font-size:32px}.subtitle{margin-bottom:10px}}
+@media(max-height:680px){.title-art{width:86px;height:76px}.brief{margin-bottom:8px;padding:7px 9px;line-height:1.45}.card{padding:15px}h1{font-size:30px}.subtitle{margin-bottom:8px}.career,.mission-card,.kit-grid{margin-bottom:7px}}
 @media(min-width:700px){#gameShell{border:3px solid var(--ink);border-radius:22px}.screen{border-radius:18px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.cloud,.title-art,#bubbleField circle{animation-duration:1ms!important;animation-iteration-count:1!important}}
 </style>
@@ -436,7 +459,9 @@ h1{font-family:var(--serif);font-size:clamp(34px,10vw,48px);line-height:1.02;tex
     <button id="leftZone" class="touch-zone" aria-label="向左"></button>
     <button id="rightZone" class="touch-zone" aria-label="向右"></button>
     <div id="controlHint">点左点右。往上。别问为什么。</div>
-    <button id="soundButton" aria-label="切换声音">声音开</button>
+    <div id="missionBadge"><b>轮值</b><span id="missionBadgeText">正在领取荒唐任务</span></div>
+    <div id="toolDock" aria-label="本局道具状态"></div>
+    <button id="soundButton" aria-label="切换音乐与音效" title="点按切换：音乐与音效、仅音效、静音">乐＋效</button>
 
     <div id="departmentBanner"><div class="kicker">MYSKME 内部楼层</div><strong></strong><span></span></div>
     <div id="toastLayer" aria-live="assertive"></div>
@@ -454,6 +479,10 @@ h1{font-family:var(--serif);font-size:clamp(34px,10vw,48px);line-height:1.02;tex
         <svg class="title-art" viewBox="0 0 100 116"><use href="#art-monkey-rise"/></svg>
         <h1>猴先生上楼</h1>
         <p class="subtitle">电梯在等他。他没看见。</p>
+        <div class="career"><b>长期档案</b><span id="careerCopy">档案章可解锁开工装备</span><strong id="careerStamps">0</strong></div>
+        <div id="titleMission" class="mission-card"><b>本局轮值</b><span>正在从传真机里抽一张任务。</span></div>
+        <div class="kit-label">选择开工装备</div>
+        <div id="kitGrid" class="kit-grid"></div>
         <div class="brief"><b>内部通知：</b>请猴先生上楼谈话。通知剩余 418 字，他已出发。<br>点左点右。往上。别问为什么。</div>
         <button id="startButton" class="btn">立即上楼，不读附件</button>
         <button id="leaderboardButton" class="btn secondary compact">查看本机坠楼榜</button>
@@ -475,6 +504,7 @@ h1{font-family:var(--serif);font-size:clamp(34px,10vw,48px);line-height:1.02;tex
           <div class="stat"><b id="resultFloors">1</b><span>到访部门</span></div>
         </div>
         <div id="visitedDepartments" class="visited"></div>
+        <div id="missionResult" class="mission-result"></div>
         <div class="brand-box"><b>MYSKME</b><p id="resultSlogan"></p></div>
         <div class="rank-entry"><label for="rankName">把本局写进本机榜单。姓名可真可假，分数较真。</label><div class="rank-form"><input id="rankName" class="rank-input" maxlength="8" value="猴先生" aria-label="榜单姓名"><button id="rankSaveButton" class="rank-save">登记</button></div></div>
         <button id="restartButton" class="btn">再来一局，仍不读附件</button>
@@ -517,15 +547,15 @@ window.MONKEY_UPSTAIRS_ERRORS=[];
 window.addEventListener('error',e=>window.MONKEY_UPSTAIRS_ERRORS.push(String(e.message||e.error||'error').slice(0,240)));
 window.addEventListener('unhandledrejection',e=>window.MONKEY_UPSTAIRS_ERRORS.push(String(e.reason||'unhandled rejection').slice(0,240)));
 
-const RELEASE='20260812.4-monkey-visible-hotfix',W=390,H=844,METER_SCALE=5,SVG_NS='http://www.w3.org/2000/svg';
+const RELEASE='20260812.5-monkey-sound-replay',W=390,H=844,METER_SCALE=5,SVG_NS='http://www.w3.org/2000/svg';
 const $=id=>document.getElementById(id);
-const TEST_PARAMS=new URLSearchParams(location.search),AUTO_PLAY=TEST_PARAMS.get('autoplay')==='1',STRESS_TEST=TEST_PARAMS.get('stress')==='1',FORCE_FALL=TEST_PARAMS.get('fall')==='1',FORCE_RESCUE=TEST_PARAMS.get('rescue')==='1',DEBUG_EVENT=TEST_PARAMS.get('event')||'',DEBUG_START=Math.max(0,Number(TEST_PARAMS.get('start'))||0),DEBUG_SEED=Number(TEST_PARAMS.get('seed'))||0,DEBUG_X=TEST_PARAMS.has('x')&&Number.isFinite(Number(TEST_PARAMS.get('x')))?wrap(Number(TEST_PARAMS.get('x'))):195;
+const TEST_PARAMS=new URLSearchParams(location.search),AUTO_PLAY=TEST_PARAMS.get('autoplay')==='1',STRESS_TEST=TEST_PARAMS.get('stress')==='1',FORCE_FALL=TEST_PARAMS.get('fall')==='1',FORCE_RESCUE=TEST_PARAMS.get('rescue')==='1',DEBUG_EVENT=TEST_PARAMS.get('event')||'',DEBUG_MISSION=TEST_PARAMS.get('mission')||'',DEBUG_START=Math.max(0,Number(TEST_PARAMS.get('start'))||0),DEBUG_SEED=Number(TEST_PARAMS.get('seed'))||0,DEBUG_X=TEST_PARAMS.has('x')&&Number.isFinite(Number(TEST_PARAMS.get('x')))?wrap(Number(TEST_PARAMS.get('x'))):195,IS_TEST_RUN=TEST_PARAMS.has('qa')||AUTO_PLAY||STRESS_TEST||FORCE_FALL||FORCE_RESCUE||!!DEBUG_EVENT||!!DEBUG_MISSION||DEBUG_START>0||DEBUG_SEED!==0;
 const el={
   shell:$('gameShell'),stage:$('stage'),platformLayer:$('platformLayer'),itemLayer:$('itemLayer'),playerGroup:$('playerGroup'),motion:$('monkeyMotion'),monkey:$('monkeyUse'),wrapLeft:$('playerWrapLeft'),wrapRight:$('playerWrapRight'),wrapLeftMotion:$('monkeyWrapLeftMotion'),wrapRightMotion:$('monkeyWrapRightMotion'),wrapLeftUse:$('monkeyWrapLeftUse'),wrapRightUse:$('monkeyWrapRightUse'),
   height:$('heightValue'),bananas:$('bananaValue'),score:$('scoreValue'),dept:$('deptPill'),banner:$('departmentBanner'),toast:$('toastLayer'),
   bg:$('bgMood'),building:$('buildingParallax'),fish:$('fishScene'),fertilizer:$('fertilizerScene'),bubbles:$('bubbleField'),fog:$('fogField'),elevator:$('elevatorScene'),
   fax:$('faxFly'),broadcast:$('broadcast'),stamps:$('stampStorm'),donkey:$('donkeyPeek'),rescue:$('rescueBubble'),audit:$('auditCeiling'),auditCopy:$('auditCopy'),face:$('faceMeter'),
-  flow:$('flowBadge'),tongue:$('tonguePrompt'),title:$('titleScreen'),result:$('resultScreen'),leaderboard:$('leaderboardScreen'),choice:$('choiceScreen'),splash:$('splash'),
+  flow:$('flowBadge'),tongue:$('tonguePrompt'),missionBadge:$('missionBadge'),missionBadgeText:$('missionBadgeText'),toolDock:$('toolDock'),title:$('titleScreen'),result:$('resultScreen'),leaderboard:$('leaderboardScreen'),choice:$('choiceScreen'),splash:$('splash'),
   start:$('startButton'),restart:$('restartButton'),copy:$('copyButton'),sound:$('soundButton'),rankOpen:$('leaderboardButton'),resultRankOpen:$('resultLeaderboardButton'),rankClose:$('leaderboardCloseButton'),rankList:$('rankList'),rankName:$('rankName'),rankSave:$('rankSaveButton'),choiceGrid:$('choiceGrid')
 };
 
@@ -589,22 +619,49 @@ const PERK_POOL=[
   {id:'calm',name:'反通风科外套',line:'横风和蛇的意见对你少生效一点。'}
 ];
 const MAJOR_EVENTS=['stamp','donkey','gravity','wind','shaft','faxRain','elevator'];
+const TOOL_POOL=['magnet','clip','waiver','rocket','wide'];
+const TOOL_INFO={
+  magnet:{name:'香蕉磁卡',short:'磁卡',line:'十秒内，附近香蕉主动办理入账。'},
+  clip:{name:'回形针批文',short:'回形针',line:'把下一块危险平台临时别成合格。'},
+  waiver:{name:'错题减免券',short:'减免券',line:'额外减免一次坠落，理由随后补交。'},
+  rocket:{name:'电梯欠条',short:'电梯欠条',line:'借用两秒电梯动力，电梯并不知情。'},
+  wide:{name:'宽容卷尺',short:'宽容尺',line:'十二秒内放宽落脚判定。'}
+};
+const KITS=[
+  {id:'bare',name:'空手上班',cost:0,line:'免费且符合预算'},
+  {id:'magnet',name:'香蕉磁卡',cost:3,line:'开局磁吸十秒'},
+  {id:'clip',name:'回形针',cost:7,line:'开局带一枚'},
+  {id:'fish',name:'鱼鳞伞',cost:12,line:'多一次减免'}
+];
+const MISSIONS=[
+  {id:'height',kind:'height',target:700,reward:1,label:'上到 700 米，别问谈话人在哪。'},
+  {id:'banana',kind:'banana',target:7,reward:1,label:'入账 7 根香蕉，财务只数不吃。'},
+  {id:'flow',kind:'flow',target:6,reward:2,label:'完成 6 连跳，让流程真正顺一次。'},
+  {id:'near',kind:'near',target:3,reward:2,label:'险落 3 次，把侥幸写成经验。'},
+  {id:'dept',kind:'dept',target:5,reward:1,label:'到访 5 个部门，仍不解决问题。'},
+  {id:'tongue',kind:'tongue',target:3,reward:2,label:'绕口令正确落脚 3 次，舌头自理。'},
+  {id:'tools',kind:'tools',target:2,reward:1,label:'使用 2 件道具，证明后勤存在。'},
+  {id:'risk',kind:'risk',target:2,reward:2,label:'踩中 2 块险字平台，危险可报销。'}
+];
 
-let audioCtx=null,audioEnabled=true,lastFrame=performance.now();
+let audioCtx=null,audioMode=loadAudioMode(),audioGraph=null,musicActive=false,musicTimer=0,musicNext=0,musicStepIndex=0,lastFrame=performance.now();
 let platformEls=new Map(),itemEls=new Map(),lastDeathIndex=-1,lastSloganIndex=-1,lastPose='';
+let lastToolSignature='__unset__';
 const playerMotions=[el.motion,el.wrapLeftMotion,el.wrapRightMotion];
 const playerUses=[el.monkey,el.wrapLeftUse,el.wrapRightUse];
 let platformSeq=0,itemSeq=0,forcedFallConsumed=false;
 const input={left:false,right:false};
 const saved=loadRecord();
 const localBoard=loadBoard();
+const career=loadCareer();
 const state={running:false,over:false,seed:1,rng:Math.random,player:null,platforms:[],items:[],cameraY:0,nextY:0,lastX:195,
   maxMeters:0,bananas:0,bonus:0,score:0,visited:new Set(),deptId:'lobby',deptIndex:0,deptCache:[],randomBag:[],
   majorCount:0,eventPool:[],nextEventMeter:620,lowGravityUntil:0,windUntil:0,windDirection:0,faxNextAt:0,
   lastTime:0,unsafeStreak:0,crateGiven:false,recordToast:false,milestones:new Set(),lucky:false,fertilizerCoughed:false,
   animationFrame:0,pausedAt:0,flow:0,maxFlow:0,lastLandingAt:0,nearMisses:0,tonguePack:0,tongueGenerated:0,tongueExpected:0,tongueCombo:0,
   perks:{wide:0,spring:0,banana:0,calm:0},nextChoiceMeter:1200,choiceOpen:false,shaftUntil:0,shaftFace:3,shaftLastHit:0,shaftStartedAt:0,
-  runId:'',rankSubmitted:false,lastSafe:null,playerRepairs:0,faxRainUntil:0,autopilot:false,autoTargetId:'',stressMode:false,stressRescues:0,deathFreezeUntil:0,resultStamp:''};
+  runId:'',rankSubmitted:false,lastSafe:null,playerRepairs:0,faxRainUntil:0,autopilot:false,autoTargetId:'',stressMode:false,stressRescues:0,deathFreezeUntil:0,resultStamp:'',
+  mission:null,missionRewarded:false,missionAnnounced:false,toolsUsed:0,tongueHits:0,goldRisks:0,clips:0,magnetUntil:0,wideUntil:0,nextToolMeter:0,kitId:'bare'};
 
 function loadRecord(){
   try{return {height:Number(localStorage.getItem('myskme_monkey_upstairs_height'))||0,score:Number(localStorage.getItem('myskme_monkey_upstairs_score'))||0};}
@@ -626,6 +683,13 @@ function loadBoard(){
   }catch(_){return [];}
 }
 function saveBoard(){try{localStorage.setItem('myskme_monkey_upstairs_board_v2',JSON.stringify(localBoard.slice(0,30)));}catch(_){}}
+function loadCareer(){
+  try{const raw=JSON.parse(localStorage.getItem('myskme_monkey_career_v1')||'{}');return {stamps:Math.max(0,Math.floor(Number(raw.stamps)||0)),runs:Math.max(0,Math.floor(Number(raw.runs)||0)),kit:KITS.some(k=>k.id===raw.kit)?raw.kit:'bare'};}
+  catch(_){return {stamps:0,runs:0,kit:'bare'};}
+}
+function saveCareer(){try{localStorage.setItem('myskme_monkey_career_v1',JSON.stringify(career));}catch(_){}}
+function loadAudioMode(){try{const mode=localStorage.getItem('myskme_monkey_audio_v1');return ['full','sfx','off'].includes(mode)?mode:'full';}catch(_){return 'full';}}
+function saveAudioMode(){try{localStorage.setItem('myskme_monkey_audio_v1',audioMode);}catch(_){}}
 function makeRunId(){return `${Date.now().toString(36)}-${Math.floor(Math.random()*1e8).toString(36)}`;}
 function cleanName(value){return String(value||'猴先生').replace(/[<>\n\r]/g,'').trim().slice(0,8)||'匿名猴';}
 function rankedRows(){return [...localBoard,...NPC_RANKS].sort((a,b)=>b.score-a.score||b.height-a.height||(a.at||0)-(b.at||0)).slice(0,10);}
@@ -635,6 +699,26 @@ function chooseNonRepeat(pool,last){if(pool.length<2)return 0;let i=Math.floor(M
 function clamp(v,min,max){return Math.max(min,Math.min(max,v));}
 function wrap(v,max=W){return(v%max+max)%max;}
 function metersFromY(y){return Math.max(0,Math.floor(y/METER_SCALE));}
+function missionForRun(run=career.runs){
+  const day=Math.floor(Date.now()/86400000),index=(Math.imul(day,17)+Math.imul(run,5)+run*run)%MISSIONS.length;return MISSIONS[(index+MISSIONS.length)%MISSIONS.length];
+}
+function missionValue(m=state.mission){
+  if(!m)return 0;if(m.kind==='height')return state.maxMeters;if(m.kind==='banana')return state.bananas;if(m.kind==='flow')return state.maxFlow;
+  if(m.kind==='near')return state.nearMisses;if(m.kind==='dept')return state.visited.size;if(m.kind==='tongue')return state.tongueHits;
+  if(m.kind==='tools')return state.toolsUsed;if(m.kind==='risk')return state.goldRisks;return 0;
+}
+function missionDone(m=state.mission){return !!m&&missionValue(m)>=m.target;}
+function unlockedKit(id){const kit=KITS.find(k=>k.id===id);return !!kit&&career.stamps>=kit.cost;}
+function selectKit(id){if(!unlockedKit(id))return;career.kit=id;saveCareer();renderCareer();sfx('select');}
+function renderCareer(){
+  const mission=state.running&&state.mission?state.mission:missionForRun();$('careerStamps').textContent=career.stamps;$('careerCopy').textContent=`完成轮值可得档案章 · 已上班 ${career.runs} 局`;
+  $('titleMission').innerHTML=`<b>本局轮值</b><span>${mission.label} 完成盖 ${mission.reward} 枚章。</span>`;el.kitGrid=$('kitGrid');el.kitGrid.innerHTML='';
+  if(!unlockedKit(career.kit))career.kit='bare';
+  for(const kit of KITS){const b=document.createElement('button'),open=unlockedKit(kit.id);b.className=`kit-card${career.kit===kit.id?' selected':''}`;b.disabled=!open;b.innerHTML=`${kit.name}<small>${open?kit.line:`需 ${kit.cost} 枚章`}</small>`;b.addEventListener('click',()=>selectKit(kit.id));el.kitGrid.appendChild(b);}
+}
+function updateMissionUI(){
+  const m=state.mission;if(!m)return;const value=Math.min(m.target,missionValue(m)),done=value>=m.target;el.missionBadge.classList.toggle('done',done);el.missionBadgeText.textContent=`${m.label} ${value}/${m.target}`;
+}
 
 function departmentIdAt(meters){
   const idx=Math.max(0,Math.floor(meters/300));
@@ -652,24 +736,84 @@ function departmentIdAt(meters){
 }
 
 function unlockAudio(){
-  if(!audioEnabled)return;
-  try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();}catch(_){}
+  if(audioMode==='off')return;
+  try{
+    if(!audioCtx){audioCtx=new(window.AudioContext||window.webkitAudioContext)();buildAudioGraph();}
+    if(audioCtx.state==='suspended')audioCtx.resume();
+    if(state.running&&audioMode==='full')startMusic();
+  }catch(_){}
 }
-function tone(freq,duration=.08,type='sine',gain=.035,delay=0){
-  if(!audioEnabled||!audioCtx)return;
-  const t=audioCtx.currentTime+delay,o=audioCtx.createOscillator(),g=audioCtx.createGain();
-  o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(gain,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+duration);
-  o.connect(g);g.connect(audioCtx.destination);o.start(t);o.stop(t+duration+.02);
+function buildAudioGraph(){
+  const master=audioCtx.createGain(),music=audioCtx.createGain(),effects=audioCtx.createGain(),dry=audioCtx.createGain(),wet=audioCtx.createGain(),reverb=audioCtx.createConvolver(),compressor=audioCtx.createDynamicsCompressor();
+  master.gain.value=.76;music.gain.value=.19;effects.gain.value=.72;dry.gain.value=1;wet.gain.value=.13;
+  compressor.threshold.value=-20;compressor.knee.value=18;compressor.ratio.value=7;compressor.attack.value=.004;compressor.release.value=.22;
+  const length=Math.floor(audioCtx.sampleRate*1.15),impulse=audioCtx.createBuffer(2,length,audioCtx.sampleRate);
+  for(let c=0;c<2;c++){const data=impulse.getChannelData(c);for(let i=0;i<length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/length,2.8);}
+  reverb.buffer=impulse;music.connect(dry);effects.connect(dry);music.connect(reverb);effects.connect(reverb);reverb.connect(wet);dry.connect(master);wet.connect(master);master.connect(compressor);compressor.connect(audioCtx.destination);
+  const noise=audioCtx.createBuffer(1,Math.floor(audioCtx.sampleRate*.9),audioCtx.sampleRate),channel=noise.getChannelData(0);for(let i=0;i<channel.length;i++)channel[i]=Math.random()*2-1;
+  audioGraph={master,music,effects,noise,scheduled:0};
+}
+function connectPan(node,pan=0){
+  if(audioCtx.createStereoPanner){const p=audioCtx.createStereoPanner();p.pan.value=clamp(pan,-1,1);node.connect(p);return p;}return node;
+}
+function synth(freq,duration=.12,type='sine',gain=.04,delay=0,options={}){
+  if(audioMode==='off'||!audioCtx||!audioGraph)return;
+  const t=audioCtx.currentTime+delay,bus=options.music?audioGraph.music:audioGraph.effects,o=audioCtx.createOscillator(),filter=audioCtx.createBiquadFilter(),g=audioCtx.createGain();
+  o.type=type;o.frequency.setValueAtTime(Math.max(24,freq),t);if(options.slide)o.frequency.exponentialRampToValueAtTime(Math.max(24,options.slide),t+duration);if(options.detune)o.detune.value=options.detune;
+  filter.type=options.filterType||'lowpass';filter.frequency.value=options.filter||6800;filter.Q.value=options.q||.5;
+  const attack=options.attack??.008,hold=Math.max(t+attack+.004,t+duration*(options.hold??.42));g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(Math.max(.0002,gain),t+attack);g.gain.setValueAtTime(Math.max(.0002,gain*.82),hold);g.gain.exponentialRampToValueAtTime(.0001,t+duration);
+  o.connect(filter);filter.connect(g);connectPan(g,options.pan||0).connect(bus);o.start(t);o.stop(t+duration+.03);audioGraph.scheduled++;
+}
+function noiseHit(duration=.08,gain=.035,delay=0,filter=4500,pan=0,music=false){
+  if(audioMode==='off'||!audioCtx||!audioGraph)return;const t=audioCtx.currentTime+delay,src=audioCtx.createBufferSource(),f=audioCtx.createBiquadFilter(),g=audioCtx.createGain();src.buffer=audioGraph.noise;f.type=filter<1200?'lowpass':'highpass';f.frequency.value=filter;g.gain.setValueAtTime(Math.max(.0002,gain),t);g.gain.exponentialRampToValueAtTime(.0001,t+duration);src.connect(f);f.connect(g);connectPan(g,pan).connect(music?audioGraph.music:audioGraph.effects);src.start(t);src.stop(t+duration+.02);audioGraph.scheduled++;
+}
+function midi(n){return 440*Math.pow(2,(n-69)/12);}
+function toyMallet(note,t,gain=.04,pan=0){const delay=t-audioCtx.currentTime;synth(midi(note),.36,'sine',gain,delay,{music:true,filter:3200,pan});synth(midi(note)*2.01,.13,'triangle',gain*.24,delay,{music:true,filter:4800,pan,detune:3});}
+function fingerBass(note,t,gain=.055){const delay=t-audioCtx.currentTime;synth(midi(note),.3,'triangle',gain,delay,{music:true,filter:520,hold:.6});synth(midi(note)/2,.19,'sine',gain*.38,delay,{music:true,filter:280});}
+function brush(t,strong=false){const delay=t-audioCtx.currentTime;noiseHit(strong?.1:.055,strong?.022:.013,delay,strong?2600:5200,strong?-.18:.25,true);if(strong)synth(76,.12,'sine',.035,delay,{music:true,slide:42,filter:180});}
+function musicIntensity(){if(!state.running)return 0;return clamp(.38+state.maxMeters/4200+state.flow*.045,0,1);}
+function scheduleMusicStep(step,t){
+  if(audioMode!=='full'||!state.running||!audioGraph)return;const bpm=104+Math.min(18,state.maxMeters/280),beat=60/bpm,intensity=musicIntensity(),bar=Math.floor(step/16),root=[43,38,41,36][bar%4],s=step%16,danger=!!state.deathFreezeUntil||state.player?.vy<-620;
+  if(s%4===0)fingerBass(root+(s===8?7:0),t,.047+intensity*.012);
+  if(!danger&&(s===2||s===6||s===10||s===14)){const melodies=[[12,14,16,19,16,14,11,9],[12,16,19,21,19,16,14,11],[19,16,14,12,9,11,14,16]],melody=melodies[(state.seed>>>0)%melodies.length],note=root+melody[(bar*4+s/2)%melody.length];toyMallet(note,t,.022+intensity*.025,s<8?-.28:.28);}
+  if(state.maxMeters>360&&(s===0||s===8)){toyMallet(root+12,t,.022,-.35);toyMallet(root+16,t,.018,.35);}
+  if(s%2===0)brush(t,s%8===0);if(state.flow>=4&&s%2===1)noiseHit(.025,.006,t-audioCtx.currentTime,7200,s%4===1?-.5:.5,true);
+  if(state.deptId==='fax'&&(s===3||s===11))synth(1180,.035,'square',.007,t-audioCtx.currentTime,{music:true,filter:2100,pan:.42});
+  if(state.deptId==='puzzle'&&(s===4||s===12))synth(210,.045,'square',.012,t-audioCtx.currentTime,{music:true,filter:900,pan:-.38});
+  if(state.deptId==='observation'&&(s===1||s===9))toyMallet(root+24,t,.013,.38);
+  if(danger&&s%4===0)synth(58,.32,'sine',.028,t-audioCtx.currentTime,{music:true,slide:48,filter:160});
+  return beat/2*(s%2===0?1.12:.88);
+}
+function musicTick(){
+  if(!audioCtx||audioMode!=='full'||!musicActive||!state.running)return;if(musicNext<audioCtx.currentTime-.24)musicNext=audioCtx.currentTime+.04;while(musicNext<audioCtx.currentTime+.18){const duration=scheduleMusicStep(musicStepIndex++,musicNext)||.27;musicNext+=duration;}
+}
+function startMusic(){
+  if(audioMode!=='full'||!audioCtx||!audioGraph||musicActive)return;musicActive=true;musicStepIndex=0;musicNext=audioCtx.currentTime+.06;audioGraph.music.gain.cancelScheduledValues(audioCtx.currentTime);audioGraph.music.gain.setTargetAtTime(.2,audioCtx.currentTime,.16);musicTimer=setInterval(musicTick,25);
+}
+function stopMusic(fade=.16){
+  if(musicTimer)clearInterval(musicTimer);musicTimer=0;musicActive=false;if(audioCtx&&audioGraph){audioGraph.music.gain.cancelScheduledValues(audioCtx.currentTime);audioGraph.music.gain.setTargetAtTime(.0001,audioCtx.currentTime,fade);}
+}
+function setAudioMode(mode,activate=true){
+  audioMode=mode;saveAudioMode();el.sound.textContent=mode==='full'?'乐＋效':mode==='sfx'?'仅音效':'静音';el.sound.setAttribute('aria-label',mode==='full'?'音乐与音效已开启':mode==='sfx'?'仅音效已开启':'声音已关闭');
+  if(mode==='full'&&activate){unlockAudio();if(state.running)startMusic();}else if(mode!=='full')stopMusic();
+}
+function cycleAudioMode(){setAudioMode(audioMode==='full'?'sfx':audioMode==='sfx'?'off':'full');if(audioMode!=='off')sfx('select');
 }
 function sfx(kind){
-  if(kind==='jump')tone(240,.07,'triangle',.025);
-  if(kind==='boost'){tone(260,.08,'square',.025);tone(470,.13,'triangle',.03,.07);}
-  if(kind==='banana'){tone(520,.06,'sine',.04);tone(760,.08,'sine',.03,.055);}
-  if(kind==='break'){tone(125,.11,'sawtooth',.025);}
-  if(kind==='stamp'){tone(92,.12,'square',.045);tone(72,.18,'square',.03,.08);}
-  if(kind==='fall'){tone(190,.12,'sawtooth',.035);tone(120,.22,'sawtooth',.025,.1);}
-  if(kind==='warning'){tone(210,.08,'triangle',.022);tone(158,.11,'triangle',.018,.065);tone(104,.16,'sine',.015,.13);}
-  if(kind==='quiet'){tone(440,.24,'sine',.012);tone(660,.34,'sine',.009,.16);}
+  if(audioMode==='off'||!audioCtx)return;
+  if(kind==='jump'){synth(165,.055,'triangle',.025,0,{slide:235,filter:1300});noiseHit(.025,.008,0,3500);}
+  if(kind==='boost'){synth(180,.18,'sawtooth',.032,0,{slide:620,filter:1700});synth(760,.12,'sine',.024,.09,{slide:1040,filter:3200});}
+  if(kind==='banana'){[0,4,9].forEach((n,i)=>synth(midi(72+n),.15,'sine',.035-i*.006,i*.045,{filter:4600,pan:(i-1)*.28}));}
+  if(kind==='break'){noiseHit(.16,.06,0,420);synth(145,.14,'square',.024,0,{slide:63,filter:650});}
+  if(kind==='stamp'){noiseHit(.07,.045,0,380);synth(86,.16,'sine',.06,0,{slide:58,filter:170});synth(121,.08,'square',.02,.025,{filter:420});}
+  if(kind==='fall'){synth(310,.48,'sawtooth',.03,0,{slide:64,filter:1100});noiseHit(.27,.025,.18,480);}
+  if(kind==='warning'){[0,.13,.26].forEach((d,i)=>synth(220-i*42,.12,'triangle',.025,d,{filter:900}));}
+  if(kind==='quiet'){[69,76,81,88].forEach((n,i)=>synth(midi(n),.3,'sine',.022,i*.1,{filter:3400,pan:(i-1.5)*.2}));}
+  if(kind==='tool'){synth(410,.09,'triangle',.035,0,{slide:590,filter:1800});synth(880,.16,'sine',.025,.07,{filter:3600});}
+  if(kind==='select'){synth(560,.075,'sine',.022,0,{filter:2400});}
+  if(kind==='mission'){[67,71,74,79].forEach((n,i)=>synth(midi(n),.22,'triangle',.025,i*.07,{filter:2600,pan:(i-1.5)*.2}));}
+  if(kind==='fax'){noiseHit(.12,.025,0,2600);synth(980,.045,'square',.012,.02,{filter:1800});}
+  if(kind==='elevator'){synth(82,.32,'sine',.04,0,{slide:246,filter:600});synth(659,.18,'sine',.028,.24,{filter:2600});}
 }
 
 function resetWorld(seed=Date.now()&0xffffffff){
@@ -684,6 +828,8 @@ function resetWorld(seed=Date.now()&0xffffffff){
   state.perks={wide:0,spring:0,banana:0,calm:0};state.nextChoiceMeter=DEBUG_START<1200?1200:1200+(Math.floor((DEBUG_START-1200)/1500)+1)*1500;state.choiceOpen=false;state.shaftUntil=0;state.shaftFace=3;state.shaftLastHit=0;state.shaftStartedAt=0;
   state.runId=makeRunId();state.rankSubmitted=false;state.lastSafe={x:DEBUG_X,y:baseY};state.playerRepairs=0;state.faxRainUntil=0;
   state.autopilot=false;state.autoTargetId='';state.stressMode=false;state.stressRescues=0;state.deathFreezeUntil=0;state.resultStamp='';
+  state.mission=MISSIONS.find(m=>m.id===DEBUG_MISSION)||missionForRun();state.missionRewarded=false;state.missionAnnounced=false;state.toolsUsed=0;state.tongueHits=0;state.goldRisks=0;state.clips=0;state.magnetUntil=0;state.wideUntil=0;state.nextToolMeter=DEBUG_START+230+Math.floor(state.rng()*120);state.kitId=unlockedKit(career.kit)?career.kit:'bare';
+  if(state.kitId==='magnet')state.magnetUntil=performance.now()+10000;if(state.kitId==='clip')state.clips=1;if(state.kitId==='fish')state.player.waiver=1;
   state.over=false;platformSeq=0;itemSeq=0;lastPose='';
   platformEls.forEach(node=>node.remove());platformEls.clear();itemEls.forEach(node=>node.remove());itemEls.clear();
   el.audit.classList.remove('show');el.elevator.classList.remove('show');el.flow.classList.remove('show');el.tongue.classList.remove('show');el.choice.classList.add('hidden');
@@ -755,6 +901,7 @@ function generatePlatforms(targetY){
       if(state.rng()<clamp(.18-meters/30000,.1,.18)&&primary.type!=='snake')addItem('banana',primary);
       const forceCrate=!state.crateGiven&&meters>430;
       if((forceCrate||state.rng()<.026)&&meters>300){addItem('crate',primary);state.crateGiven=true;}
+      if(meters>=state.nextToolMeter&&!state.items.some(item=>item.platformId===primary.id)){addItem(TOOL_POOL[Math.floor(state.rng()*TOOL_POOL.length)],primary);state.nextToolMeter=meters+390+Math.floor(state.rng()*310);}
     }
     state.nextY+=Math.min(gap,132);
   }
@@ -787,7 +934,10 @@ function ensurePlatformNode(p){
 }
 function ensureItemNode(item){
   let node=itemEls.get(item.id);if(node)return node;
-  node=document.createElementNS(SVG_NS,'g');node.innerHTML=item.kind==='banana'?'<use href="#art-banana" x="-22" y="-46" width="44" height="44"/>':'<use href="#art-crate" x="-30" y="-58" width="60" height="60"/>';
+  node=document.createElementNS(SVG_NS,'g');
+  if(item.kind==='banana')node.innerHTML='<use href="#art-banana" x="-22" y="-46" width="44" height="44"/>';
+  else if(item.kind==='crate')node.innerHTML='<use href="#art-crate" x="-30" y="-58" width="60" height="60"/>';
+  else{const info=TOOL_INFO[item.kind],glyph=item.kind==='magnet'?'U':item.kind==='clip'?'@':item.kind==='waiver'?'免':item.kind==='rocket'?'↑':'宽';node.innerHTML=`<g transform="translate(-24 -52)"><path d="M5 13 Q24 1 43 13 L41 43 Q24 51 7 43 Z" fill="#d9f3ef" stroke="#28211a" stroke-width="3"/><path d="M7 17 H41" stroke="#1f9e8e" stroke-width="3"/><circle cx="24" cy="30" r="12" fill="#fffdf6" stroke="#28211a" stroke-width="2"/><text x="24" y="35" text-anchor="middle" font-size="14" font-weight="1000" fill="#e0452c">${glyph}</text><title>${info.name}</title></g>`;}
   el.itemLayer.appendChild(node);itemEls.set(item.id,node);return node;
 }
 
@@ -809,7 +959,7 @@ function updateMovingPlatforms(now){
 }
 
 function overlapsPlatform(p){
-  const half=22+state.perks.wide*7;return state.player.x+half>p.x&&state.player.x-half<p.x+p.w;
+  const half=22+state.perks.wide*7+(performance.now()<state.wideUntil?13:0);return state.player.x+half>p.x&&state.player.x-half<p.x+p.w;
 }
 function landOn(p,now){
   const pl=state.player;pl.y=p.y;p.landed=true;let bounce=680+state.perks.spring*45;
@@ -821,6 +971,7 @@ function landOn(p,now){
   else el.flow.classList.remove('show');
   const edge=Math.min(Math.max(0,pl.x-p.x),Math.max(0,p.x+p.w-pl.x));
   if(edge<9&&!['bad','vapor','snake'].includes(p.type)){state.nearMisses++;state.bonus+=7;if(state.nearMisses<=3||state.nearMisses%5===0)toast('险落 +7：差一点就很有经验。','gold');}
+  if(state.clips>0&&['bad','vapor','snake'].includes(p.type)){state.clips--;state.toolsUsed++;p.type='good';p.label='回形针合格';p.opacity=1;p.breakAt=0;const node=platformEls.get(p.id);if(node)node.innerHTML=platformMarkup(p);toast('回形针批文：该危险暂按合格处理。','teal');sfx('tool');}
   if(p.type==='bad'){p.breakAt=now+110;pl.stampedUntil=now+2600;toast('质检结论：猴也不合格。','red');sfx('stamp');}
   if(p.type==='fax')p.breakAt=now+150;
   if(p.type==='rent'&&!p.expireAt){p.expireAt=now+1500;const node=platformEls.get(p.id);if(node)node.innerHTML=platformMarkup(p);toast('站着也要交房租。','red');}
@@ -830,13 +981,13 @@ function landOn(p,now){
   if(p.type==='snake'){bounce=770;pl.vx=(state.rng()<.5?-1:1)*(340+state.rng()*90)*(state.perks.calm?0.58:1);toast('嘶——方向仅供参考。','teal');}
   if(p.type==='tongue'){
     const pack=TONGUE_PACKS[state.tonguePack];
-    if(p.tongueCorrect){state.tongueCombo++;state.bonus+=5+state.tongueCombo*2;bounce=Math.max(bounce,815);toast(`${p.label}。舌头尚未离职。`,'teal');
+    if(p.tongueCorrect){state.tongueCombo++;state.tongueHits++;state.bonus+=5+state.tongueCombo*2;bounce=Math.max(bounce,815);toast(`${p.label}。舌头尚未离职。`,'teal');
       if(state.tongueCombo%pack.words.length===0){state.bonus+=35;celebrate(TONGUE_JOKES[state.tonguePack]);}}
     else{state.tongueCombo=0;bounce=610;pl.vx=(state.rng()<.5?-1:1)*260;toast('绕错了。舌头已进入工伤审批。','red');}
   }
   if(p.type==='bubble')bounce=735;
   if(p.type==='conveyor'){pl.vx=p.direction*(state.perks.calm?170:310);toast('流程把你运走了。本人意见不重要。','teal');}
-  if(p.type==='goldRisk'){state.bonus+=p.riskBonus||25;pl.goldenUntil=now+1600;bounce=Math.max(bounce,825);toast('险字平台：危险已折算成 25 分。','gold');}
+  if(p.type==='goldRisk'){state.goldRisks++;state.bonus+=p.riskBonus||25;pl.goldenUntil=now+1600;bounce=Math.max(bounce,825);toast('险字平台：危险已折算成 25 分。','gold');}
   if(now<state.shaftUntil&&p.type==='good'&&state.shaftFace<3){state.shaftFace++;updateFaceMeter();toast('普通平台恢复一点脸面。','teal');}
   pl.vy=bounce;sfx('jump');
 }
@@ -844,19 +995,24 @@ function collectItems(now){
   const pl=state.player;
   for(const item of state.items){
     if(item.collected)continue;
-    const dx=Math.abs(pl.x-item.x),dy=Math.abs(pl.y-(item.y+6));
-    if(dx<34&&dy<62){
+    const rawDx=Math.abs(pl.x-item.x),dx=Math.min(rawDx,W-rawDx),dy=Math.abs(pl.y-(item.y+6)),magnet=item.kind==='banana'&&now<state.magnetUntil;
+    if((dx<(magnet?132:34)&&dy<(magnet?108:62))){
       item.collected=true;
       if(item.kind==='banana'){const gain=1+state.perks.banana;state.bananas+=gain;toast(gain>1?'香蕉发生复利：一根按两根入账。':'香蕉已入账。用途：香蕉。','gold');sfx('banana');}
-      else openCrate(now);
+      else if(item.kind==='crate')openCrate(now);else useTool(item.kind,now);
     }
   }
 }
+function useTool(kind,now){
+  state.toolsUsed++;sfx('tool');
+  if(kind==='magnet'){state.magnetUntil=Math.max(state.magnetUntil,now)+10000;toast('香蕉磁卡已刷：附近香蕉开始主动报到。','gold');}
+  if(kind==='clip'){state.clips++;toast('回形针批文到手：下一处危险可以别成合格。','teal');}
+  if(kind==='waiver'){state.player.waiver++;toast('错题减免券入袋：坠落可少算一次。','teal');}
+  if(kind==='rocket'){state.player.rocketUntil=Math.max(state.player.rocketUntil,now+2200);toast('电梯欠条生效：先上去，债务随后自由落体。','gold');sfx('elevator');}
+  if(kind==='wide'){state.wideUntil=Math.max(state.wideUntil,now)+12000;toast('宽容卷尺：落脚判定暂时学会了做人。','teal');}
+}
 function openCrate(now){
-  const roll=state.rng();sfx('stamp');
-  if(roll<.34){state.player.rocketUntil=now+3000;toast('抢答成功！虽然没人出题。','gold');}
-  else if(roll<.68){state.player.waiver++;toast('获得错题减免券：今天也减免坠落。','teal');}
-  else toast('恭喜晋升为：更高处的猴。效果：无。','red');
+  const kind=TOOL_POOL[Math.floor(state.rng()*TOOL_POOL.length)];sfx('stamp');useTool(kind,now);toast(`后勤抽屉开出：${TOOL_INFO[kind].name}。${TOOL_INFO[kind].line}`,'gold');
 }
 
 function getPlayerScreenY(){return state.player?H-(state.player.y-state.cameraY)-108:NaN;}
@@ -963,6 +1119,8 @@ function maybeDepartmentEffects(now){
   if(state.maxMeters>=state.nextChoiceMeter&&!state.choiceOpen){state.nextChoiceMeter+=1500;openPerkChoice();}
   if(state.shaftUntil&&now>=state.shaftUntil)endShaftEvent('百层倒班结束。你一层也没下，但脸面受到了锻炼。');
   if(!state.recordToast&&saved.score>0&&state.score>saved.score){state.recordToast=true;el.shell.classList.add('shake');setTimeout(()=>el.shell.classList.remove('shake'),420);toast('破纪录：谜题管理局为你重新盖了一个章。','gold');}
+  updateMissionUI();
+  if(missionDone()&&!state.missionAnnounced){state.missionAnnounced=true;celebrate(`轮值完成：${state.mission.label} 档案章等坠落后入账。`);sfx('mission');}
 }
 function maybeMajorEvent(now){
   if(state.majorCount>=6||state.maxMeters<state.nextEventMeter)return;
@@ -971,12 +1129,12 @@ function maybeMajorEvent(now){
 }
 function triggerMajorEvent(type,now){
   if(type==='stamp'){el.stamps.classList.remove('show');void el.stamps.offsetWidth;el.stamps.classList.add('show');sfx('stamp');}
-  if(type==='donkey'){el.donkey.classList.add('show');setTimeout(()=>el.donkey.classList.remove('show'),3000);}
-  if(type==='gravity'){state.lowGravityUntil=now+3000;el.broadcast.classList.add('show');setTimeout(()=>el.broadcast.classList.remove('show'),4200);}
-  if(type==='wind'){state.windUntil=now+3000;state.windDirection=state.rng()<.5?-1:1;toast('通风科开窗。对此表示歉意，但不改。','teal');}
+  if(type==='donkey'){el.donkey.classList.add('show');setTimeout(()=>el.donkey.classList.remove('show'),3000);sfx('select');}
+  if(type==='gravity'){state.lowGravityUntil=now+3000;el.broadcast.classList.add('show');setTimeout(()=>el.broadcast.classList.remove('show'),4200);sfx('quiet');}
+  if(type==='wind'){state.windUntil=now+3000;state.windDirection=state.rng()<.5?-1:1;toast('通风科开窗。对此表示歉意，但不改。','teal');noiseHit(.42,.03,0,2800,state.windDirection*.5);}
   if(type==='shaft'){state.shaftUntil=now+7800;state.shaftStartedAt=now;state.shaftLastHit=0;state.shaftFace=3;updateFaceMeter();el.audit.classList.add('show');toast('临时插播：是猴就上完再下。百层倒班启动。','red');sfx('stamp');}
-  if(type==='faxRain'){state.faxRainUntil=now+4800;for(let i=0;i<4;i++)setTimeout(()=>{if(state.running&&performance.now()<state.faxRainUntil){el.fax.classList.remove('show');void el.fax.offsetWidth;el.fax.classList.add('show');}},i*1050);toast('传真科天气：局部有纸，正文略。','teal');}
-  if(type==='elevator'){state.player.rocketUntil=Math.max(state.player.rocketUntil,now+1700);state.bonus+=18;el.elevator.classList.add('show');setTimeout(()=>el.elevator.classList.remove('show'),2600);toast('电梯终于赶上了猴先生，并把他弹了出去。+18。','gold');sfx('boost');}
+  if(type==='faxRain'){state.faxRainUntil=now+4800;for(let i=0;i<4;i++)setTimeout(()=>{if(state.running&&performance.now()<state.faxRainUntil){el.fax.classList.remove('show');void el.fax.offsetWidth;el.fax.classList.add('show');sfx('fax');}},i*1050);toast('传真科天气：局部有纸，正文略。','teal');}
+  if(type==='elevator'){state.player.rocketUntil=Math.max(state.player.rocketUntil,now+1700);state.bonus+=18;el.elevator.classList.add('show');setTimeout(()=>el.elevator.classList.remove('show'),2600);toast('电梯终于赶上了猴先生，并把他弹了出去。+18。','gold');sfx('elevator');}
 }
 function openPerkChoice(){
   state.choiceOpen=true;input.left=input.right=false;const choices=shuffle(PERK_POOL).slice(0,3);el.choiceGrid.innerHTML='';
@@ -1030,6 +1188,15 @@ function renderAll(now){
   }
   if(now-state.lastLandingAt>1750)el.flow.classList.remove('show');
   el.height.textContent=state.maxMeters;el.bananas.textContent=state.bananas;el.score.textContent=state.score;
+  renderToolDock(now);
+  el.shell.dataset.release=RELEASE;el.shell.dataset.audioMode=audioMode;el.shell.dataset.musicActive=String(musicActive);el.shell.dataset.musicScheduled=String(audioGraph?.scheduled||0);el.shell.dataset.playerScreenY=state.player?getPlayerScreenY().toFixed(1):'';el.shell.dataset.mission=state.mission?.id||'';el.shell.dataset.missionValue=String(missionValue());el.shell.dataset.missionDone=String(missionDone());el.shell.dataset.toolsUsed=String(state.toolsUsed);el.shell.dataset.kit=state.kitId;el.shell.dataset.itemKinds=[...new Set(state.items.map(i=>i.kind))].join(',');
+}
+
+function renderToolDock(now){
+  if(!state.player)return;const tools=[];
+  if(now<state.magnetUntil)tools.push(['磁卡',Math.ceil((state.magnetUntil-now)/1000)]);if(now<state.wideUntil)tools.push(['宽容',Math.ceil((state.wideUntil-now)/1000)]);
+  if(state.clips)tools.push(['回形针',state.clips]);if(state.player.waiver)tools.push(['减免',state.player.waiver]);if(now<state.player.rocketUntil)tools.push(['电梯',Math.ceil((state.player.rocketUntil-now)/1000)]);
+  const signature=tools.map(t=>t.join(':')).join('|');if(signature===lastToolSignature)return;lastToolSignature=signature;el.toolDock.innerHTML=tools.length?tools.map(([name,count])=>`<span class="tool-chip active"><svg class="tool-icon" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="#f5b731" stroke="#28211a" stroke-width="2"/></svg>${name} ${count}</span>`).join(''):'<span class="tool-chip">后勤尚未上班</span>';
 }
 
 function loop(now){
@@ -1041,21 +1208,24 @@ function loop(now){
 }
 
 function startRun(){
-  unlockAudio();resetWorld();state.running=true;state.over=false;el.shell.classList.add('running');el.title.classList.add('hidden');el.result.classList.add('hidden');el.leaderboard.classList.add('hidden');
+  resetWorld();state.running=true;state.over=false;unlockAudio();startMusic();el.shell.classList.add('running');el.title.classList.add('hidden');el.result.classList.add('hidden');el.leaderboard.classList.add('hidden');
   if(FORCE_FALL&&!forcedFallConsumed){forcedFallConsumed=true;state.player.bubble=false;state.player.y=state.cameraY-110;state.player.vy=-240;}
   else if(FORCE_RESCUE){state.player.y=state.cameraY-110;state.player.vy=-240;}
-  input.left=input.right=false;lastFrame=performance.now();toast('点左点右。往上。别问为什么。','gold');
+  input.left=input.right=false;lastFrame=performance.now();lastToolSignature='__start__';updateMissionUI();toast(`开工装备：${KITS.find(k=>k.id===state.kitId).name}。点左点右，往上。`,'gold');
   if(MAJOR_EVENTS.includes(DEBUG_EVENT))setTimeout(()=>triggerMajorEvent(DEBUG_EVENT,performance.now()),260);
 }
 function finishRun(){
-  if(!state.running)return;state.running=false;state.over=true;state.choiceOpen=false;state.shaftUntil=0;state.deathFreezeUntil=0;el.audit.classList.remove('show');el.elevator.classList.remove('show');el.choice.classList.add('hidden');el.shell.classList.remove('running');input.left=input.right=false;for(const node of playerMotions)node.classList.remove('rising','falling','landing','doomed');sfx('fall');
+  if(!state.running)return;state.running=false;state.over=true;stopMusic(.1);state.choiceOpen=false;state.shaftUntil=0;state.deathFreezeUntil=0;el.audit.classList.remove('show');el.elevator.classList.remove('show');el.choice.classList.add('hidden');el.shell.classList.remove('running');input.left=input.right=false;for(const node of playerMotions)node.classList.remove('rising','falling','landing','doomed');sfx('fall');
   const oldHeight=saved.height,oldScore=saved.score;saved.height=Math.max(saved.height,state.maxMeters);saved.score=Math.max(saved.score,state.score);saveRecord();
   const di=chooseNonRepeat(DEATH_LINES,lastDeathIndex);lastDeathIndex=di;const si=chooseNonRepeat(SLOGANS,lastSloganIndex);lastSloganIndex=si;
   const title=[...TITLES].reverse().find(t=>state.maxMeters>=t.min).name;
   $('deathLine').textContent=DEATH_LINES[di];$('resultTitle').textContent=title;$('resultHeight').textContent=state.maxMeters;$('resultBananas').textContent=state.bananas;
   $('resultScore').textContent=state.score;$('resultFloors').textContent=state.visited.size;$('resultSub').textContent=(state.maxMeters>oldHeight||state.score>oldScore)?'新纪录已盖章。旧纪录已被调去基层。':state.lucky?'高度加香蕉，再加解释不清的 52 分。':'高度加香蕉。解释权仍在楼上。';
   state.resultStamp=OFFICIAL_STAMPS[Math.floor(state.rng()*OFFICIAL_STAMPS.length)];$('resultStamp').textContent=state.resultStamp;$('visitedDepartments').textContent='本局到访：'+[...state.visited].map(id=>DEPT[id].name).join('、')+`。最高连跳 ${state.maxFlow}，险落 ${state.nearMisses} 次。`;$('resultSlogan').textContent=SLOGANS[si];
+  const completed=missionDone();if(!IS_TEST_RUN){if(completed&&!state.missionRewarded){career.stamps+=state.mission.reward;state.missionRewarded=true;}career.runs++;saveCareer();}$('missionResult').innerHTML=IS_TEST_RUN?`<b>质检局</b>：${completed?'轮值条件通过':'轮值条件未通过'}。测试参数不计入长期档案。`:completed?`<b>轮值完成</b>：${state.mission.label}<br>档案章 +${state.mission.reward}，现有 ${career.stamps} 枚。`:`<b>轮值未完成</b>：${state.mission.label}<br>本局 ${missionValue()}/${state.mission.target}。任务不扣分，只负责再来一局。`;
   el.rankSave.disabled=false;el.rankSave.textContent='登记';el.result.classList.remove('hidden');el.result.scrollTop=0;updateBestLabels();
+  renderCareer();
+  el.shell.dataset.careerStamps=String(career.stamps);el.shell.dataset.careerRuns=String(career.runs);el.shell.dataset.missionDone=String(completed);
 }
 function updateBestLabels(){$('bestHeight').textContent=saved.height;$('bestScore').textContent=saved.score;}
 function renderLeaderboard(){
@@ -1068,7 +1238,7 @@ function submitRank(){
   localBoard.push(row);localBoard.sort((a,b)=>b.score-a.score||b.height-a.height||b.at-a.at);localBoard.splice(30);saveBoard();state.rankSubmitted=true;el.rankSave.disabled=true;el.rankSave.textContent='已登记';renderLeaderboard();toast('榜单已写入本机。云端对此一无所知。','teal');
 }
 function copyReport(){
-  const text=`《猴先生上楼》坠落报告\n高度：${state.maxMeters} 米\n香蕉：${state.bananas}\n总分：${state.score}\n最高连跳：${state.maxFlow}\n险落：${state.nearMisses} 次\n称号：${$('resultTitle').textContent}\n本次公章：${state.resultStamp||'已阅'}\nMYSKME：${$('resultSlogan').textContent}\n立即上楼：https://monkey.myskme.com/`;
+  const text=`《猴先生上楼》坠落报告\n高度：${state.maxMeters} 米\n香蕉：${state.bananas}\n总分：${state.score}\n最高连跳：${state.maxFlow}\n险落：${state.nearMisses} 次\n轮值：${missionDone()?'完成':'未完成'} · ${state.mission?.label||'略'}\n档案章：${career.stamps}\n称号：${$('resultTitle').textContent}\n本次公章：${state.resultStamp||'已阅'}\nMYSKME：${$('resultSlogan').textContent}\n立即上楼：https://monkey.myskme.com/`;
   const done=()=>toast('坠落报告已复制。请谨慎传播事实。','teal');
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(done).catch(()=>fallbackCopy(text,done));else fallbackCopy(text,done);
 }
@@ -1090,10 +1260,10 @@ window.addEventListener('keydown',e=>{
 window.addEventListener('keyup',e=>{if(['ArrowLeft','a','A'].includes(e.key))input.left=false;if(['ArrowRight','d','D'].includes(e.key))input.right=false;});
 window.addEventListener('blur',()=>{input.left=input.right=false;});
 window.addEventListener('contextmenu',e=>e.preventDefault());
-document.addEventListener('visibilitychange',()=>{if(document.hidden){input.left=input.right=false;lastFrame=performance.now();}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){input.left=input.right=false;lastFrame=performance.now();stopMusic();if(audioCtx&&audioCtx.state==='running')audioCtx.suspend();}else if(state.running&&audioMode==='full')unlockAudio();});
 el.start.addEventListener('click',startRun);el.restart.addEventListener('click',startRun);el.copy.addEventListener('click',copyReport);
 el.rankOpen.addEventListener('click',openLeaderboard);el.resultRankOpen.addEventListener('click',openLeaderboard);el.rankClose.addEventListener('click',closeLeaderboard);el.rankSave.addEventListener('click',submitRank);
-el.sound.addEventListener('click',()=>{audioEnabled=!audioEnabled;el.sound.textContent=audioEnabled?'声音开':'声音关';if(audioEnabled)unlockAudio();});
+el.sound.addEventListener('click',cycleAudioMode);
 function hideSplash(){el.splash.classList.add('hidden');}
 el.splash.addEventListener('click',hideSplash);setTimeout(hideSplash,1650);
 
@@ -1106,7 +1276,8 @@ function runQA(){
     ['12 个部门完整登记',DEPARTMENTS.length===12],['十个指定部门均存在',['lobby','quality','fax','rent','monkey','redundancy','fertilizer','puzzle','tongue','observation'].every(id=>DEPT[id])],
     ['平台最大垂直间距不超过 132',Math.max(...gaps)<=132],['每一高度簇至少有一块实体平台',unsafeOnly.length===0],['机制表完整',MECHANICS.length>=14],
     ['死亡台词不少于 12 条',DEATH_LINES.length>=12],['称号五档',TITLES.length===5],['七种大事件，单局最多六种',MAJOR_EVENTS.length===7],
-    ['本机排行榜和三选一完整',typeof rankedRows==='function'&&PERK_POOL.length>=5],['角色可见性看门狗已启用',typeof repairPlayerState==='function'],
+    ['本机排行榜和三选一完整',typeof rankedRows==='function'&&PERK_POOL.length>=5],['帮助道具与轮值任务完整',TOOL_POOL.length>=5&&MISSIONS.length>=8&&KITS.length>=4],
+    ['自适应音乐与三档声音完整',typeof startMusic==='function'&&typeof cycleAudioMode==='function'&&['full','sfx','off'].includes(audioMode)],['角色可见性看门狗已启用',typeof repairPlayerState==='function'],
     ['主猴与环屏副本完整',playerUses.length===3&&playerUses.every(use=>use.isConnected&&use.getAttribute('href'))],
     ['没有外部脚本或样式',[...document.querySelectorAll('script[src],link[rel="stylesheet"]')].length===0],['1020 米彩蛋加分值为 52',true]
   ];
@@ -1124,9 +1295,9 @@ function runStressQA(steps=24000){
   }
   state.running=false;state.autopilot=false;state.stressMode=false;renderAll(now);$('qaReport').style.display='block';$('qaReport').textContent=`${fail?'FAIL':'PASS'} · 角色长局可见性压力测试\n\n模拟帧：${steps}\n模拟时长：${Math.round(steps*16/1000)} 秒\n最高高度：${maxHeight} 米\n鱼式接回：${state.stressRescues} 次\n画面纵坐标：${minSy.toFixed(1)} 至 ${maxSy.toFixed(1)}\n坐标修复：${state.playerRepairs} 次${fail?`\n失败：${fail}`:'\n结论：猴先生全程保持在安全画面内。'}`;
 }
-Object.defineProperty(window,'__MONKEY_UPSTAIRS_REPORT',{get:()=>Object.freeze({release:RELEASE,running:state.running,over:state.over,height:state.maxMeters,bananas:state.bananas,score:state.score,department:state.deptId,platforms:state.platforms.length,majorEvents:state.majorCount,flow:state.flow,maxFlow:state.maxFlow,nearMisses:state.nearMisses,playerRepairs:state.playerRepairs,playerX:state.player?.x??null,playerScreenY:state.player?H-(state.player.y-state.cameraY)-108:null,rankRows:rankedRows().length,choiceOpen:state.choiceOpen,shaftFace:state.shaftFace,deathFreezeUntil:state.deathFreezeUntil,resultStamp:state.resultStamp})});
+Object.defineProperty(window,'__MONKEY_UPSTAIRS_REPORT',{get:()=>Object.freeze({release:RELEASE,running:state.running,over:state.over,height:state.maxMeters,bananas:state.bananas,score:state.score,department:state.deptId,platforms:state.platforms.length,majorEvents:state.majorCount,flow:state.flow,maxFlow:state.maxFlow,nearMisses:state.nearMisses,playerRepairs:state.playerRepairs,playerX:state.player?.x??null,playerScreenY:state.player?H-(state.player.y-state.cameraY)-108:null,rankRows:rankedRows().length,choiceOpen:state.choiceOpen,shaftFace:state.shaftFace,deathFreezeUntil:state.deathFreezeUntil,resultStamp:state.resultStamp,audioMode,musicActive,musicScheduled:audioGraph?.scheduled||0,mission:state.mission?.id||'',missionValue:missionValue(),missionDone:missionDone(),careerStamps:career.stamps,kit:state.kitId,toolsUsed:state.toolsUsed,itemKinds:[...new Set(state.items.map(i=>i.kind))]})});
 Object.defineProperty(window,'MONKEY_UPSTAIRS_REPORT',{enumerable:true,get:()=>window.__MONKEY_UPSTAIRS_REPORT});
-updateBestLabels();resetWorld(1020);state.running=false;renderAll(performance.now());requestAnimationFrame(loop);
+setAudioMode(audioMode,false);renderCareer();updateBestLabels();resetWorld(1020);state.running=false;renderAll(performance.now());requestAnimationFrame(loop);
 if(TEST_PARAMS.get('qa')==='1'){hideSplash();setTimeout(runQA,50);}
 if(STRESS_TEST){hideSplash();setTimeout(()=>runStressQA(),60);}
 if(AUTO_PLAY){hideSplash();setTimeout(startRun,80);}
