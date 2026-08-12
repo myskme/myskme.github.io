@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#faf3e2">
 <meta name="color-scheme" content="light">
 <meta name="description" content="MYSKME 荒诞休闲系列：猴先生收到一份上楼谈话通知，于是决定跳上去。">
-<meta name="myskme-release" content="20260812.2-monkey-visible-hotfix">
+<meta name="myskme-release" content="20260812.4-monkey-visible-hotfix">
 <meta property="og:title" content="猴先生上楼 · MYSKME">
 <meta property="og:description" content="点左点右，往上。别问为什么。">
 <meta property="og:type" content="website">
@@ -64,8 +64,7 @@ button{font:inherit;color:inherit}
 #playerGroup,#playerWrapLeft,#playerWrapRight{visibility:visible;will-change:transform}
 #playerGroup{opacity:1!important}
 #playerWrapLeft,#playerWrapRight{opacity:0;pointer-events:none}
-.monkey-pose{opacity:0;visibility:hidden;pointer-events:none;transform-origin:center;transition:filter .15s}
-.monkey-pose.active{opacity:1;visibility:visible}
+#monkeyUse{transform-origin:center;transition:filter .15s}
 .monkey-motion{transform-box:fill-box;transform-origin:50% 100%;transition:transform .11s ease-out,filter .18s ease}
 .monkey-motion.rising{transform:scale(.94,1.06)}
 .monkey-motion.falling{transform:scale(1.055,.945)}
@@ -73,7 +72,7 @@ button{font:inherit;color:inherit}
 .monkey-motion.doomed{animation:monkeyDoom .24s ease-in both;filter:saturate(.72)}
 @keyframes monkeySquash{0%{transform:scale(1.06,.94)}48%{transform:scale(1.16,.78)}100%{transform:scale(1)}}
 @keyframes monkeyDoom{to{transform:scale(.92) rotate(7deg);opacity:.76}}
-#playerGroup.gold .monkey-pose{filter:sepia(1) saturate(5) hue-rotate(355deg) brightness(1.18)}
+#playerGroup.gold #monkeyUse{filter:sepia(1) saturate(5) hue-rotate(355deg) brightness(1.18)}
 #goldAura{opacity:0;fill:none;stroke:#f5b731;stroke-width:5;stroke-dasharray:8 7;animation:aura 1s linear infinite}
 #playerGroup.gold #goldAura{opacity:.95}
 @keyframes aura{to{stroke-dashoffset:-30}}
@@ -119,14 +118,15 @@ button{font:inherit;color:inherit}
   color:rgba(40,33,26,.13);opacity:0;transition:opacity .15s}
 #leftZone::after{left:24px}#rightZone::after{right:24px}
 .touch-zone.active::after{opacity:1}
-#departmentBanner{position:absolute;z-index:35;left:16px;right:16px;top:21%;transform:translateX(120%);
-  background:var(--card);border:3px solid var(--ink);border-radius:16px;box-shadow:8px 8px 0 rgba(40,33,26,.22);
-  padding:14px 18px;pointer-events:none;opacity:0}
+#departmentBanner{position:absolute;z-index:35;left:10px;top:116px;width:178px;transform:translateX(-125%);
+  background:var(--card);border:2.5px solid var(--ink);border-radius:13px;box-shadow:4px 4px 0 rgba(40,33,26,.18);
+  padding:8px 10px;pointer-events:none;opacity:0}
+#departmentBanner.avoid-left{left:auto;right:10px}
 #departmentBanner.show{animation:banner 2.4s cubic-bezier(.22,1,.36,1) both}
-#departmentBanner .kicker{font-size:10px;color:var(--red);font-weight:1000;letter-spacing:.22em}
-#departmentBanner strong{display:block;font-family:var(--serif);font-size:25px;line-height:1.15;margin:3px 0 4px}
-#departmentBanner span{display:block;color:var(--muted);font-size:12px;font-weight:700}
-@keyframes banner{0%{opacity:0;transform:translateX(120%) rotate(4deg)}15%,75%{opacity:1;transform:translateX(0) rotate(-1deg)}100%{opacity:0;transform:translateX(-125%) rotate(-4deg)}}
+#departmentBanner .kicker{font-size:8px;color:var(--red);font-weight:1000;letter-spacing:.16em}
+#departmentBanner strong{display:block;font-family:var(--serif);font-size:16px;line-height:1.12;margin:2px 0 3px}
+#departmentBanner span{display:block;color:var(--muted);font-size:9px;font-weight:700;line-height:1.35}
+@keyframes banner{0%{opacity:0;transform:translateY(-12px) scale(.84)}15%,75%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-22px) scale(.96)}}
 #toastLayer{position:absolute;z-index:40;inset:0;pointer-events:none;overflow:hidden}
 .toast{position:absolute;width:156px;max-width:42%;transform:translateY(10px) scale(.88);opacity:0;
   background:var(--card);border:2.5px solid var(--ink);border-radius:12px;box-shadow:0 4px 0 rgba(40,33,26,.2);padding:8px 10px;
@@ -420,22 +420,10 @@ h1{font-family:var(--serif);font-size:clamp(34px,10vw,48px);line-height:1.02;tex
       <g id="itemLayer"></g>
       <g id="playerGroup" transform="translate(145 660)">
         <circle id="goldAura" cx="50" cy="55" r="52"/>
-        <g id="monkeyMotion" class="monkey-motion">
-          <use class="monkey-pose active" data-pose="rise" href="#art-monkey-rise" width="100" height="116"/>
-          <use class="monkey-pose" data-pose="fall" href="#art-monkey-fall" width="100" height="116"/>
-          <use class="monkey-pose" data-pose="land" href="#art-monkey-land" width="100" height="116"/>
-        </g>
+        <g id="monkeyMotion" class="monkey-motion"><use id="monkeyUse" href="#art-monkey-rise" width="100" height="116"/></g>
       </g>
-      <g id="playerWrapLeft"><g id="monkeyWrapLeftMotion" class="monkey-motion">
-        <use class="monkey-pose active" data-pose="rise" href="#art-monkey-rise" width="100" height="116"/>
-        <use class="monkey-pose" data-pose="fall" href="#art-monkey-fall" width="100" height="116"/>
-        <use class="monkey-pose" data-pose="land" href="#art-monkey-land" width="100" height="116"/>
-      </g></g>
-      <g id="playerWrapRight"><g id="monkeyWrapRightMotion" class="monkey-motion">
-        <use class="monkey-pose active" data-pose="rise" href="#art-monkey-rise" width="100" height="116"/>
-        <use class="monkey-pose" data-pose="fall" href="#art-monkey-fall" width="100" height="116"/>
-        <use class="monkey-pose" data-pose="land" href="#art-monkey-land" width="100" height="116"/>
-      </g></g>
+      <g id="playerWrapLeft"><g id="monkeyWrapLeftMotion" class="monkey-motion"><use id="monkeyWrapLeftUse" href="#art-monkey-rise" width="100" height="116"/></g></g>
+      <g id="playerWrapRight"><g id="monkeyWrapRightMotion" class="monkey-motion"><use id="monkeyWrapRightUse" href="#art-monkey-rise" width="100" height="116"/></g></g>
     </svg>
 
     <header id="hud" aria-live="polite">
@@ -529,11 +517,11 @@ window.MONKEY_UPSTAIRS_ERRORS=[];
 window.addEventListener('error',e=>window.MONKEY_UPSTAIRS_ERRORS.push(String(e.message||e.error||'error').slice(0,240)));
 window.addEventListener('unhandledrejection',e=>window.MONKEY_UPSTAIRS_ERRORS.push(String(e.reason||'unhandled rejection').slice(0,240)));
 
-const RELEASE='20260812.2-monkey-visible-hotfix',W=390,H=844,METER_SCALE=5,SVG_NS='http://www.w3.org/2000/svg';
+const RELEASE='20260812.4-monkey-visible-hotfix',W=390,H=844,METER_SCALE=5,SVG_NS='http://www.w3.org/2000/svg';
 const $=id=>document.getElementById(id);
 const TEST_PARAMS=new URLSearchParams(location.search),AUTO_PLAY=TEST_PARAMS.get('autoplay')==='1',STRESS_TEST=TEST_PARAMS.get('stress')==='1',FORCE_FALL=TEST_PARAMS.get('fall')==='1',FORCE_RESCUE=TEST_PARAMS.get('rescue')==='1',DEBUG_EVENT=TEST_PARAMS.get('event')||'',DEBUG_START=Math.max(0,Number(TEST_PARAMS.get('start'))||0),DEBUG_SEED=Number(TEST_PARAMS.get('seed'))||0,DEBUG_X=TEST_PARAMS.has('x')&&Number.isFinite(Number(TEST_PARAMS.get('x')))?wrap(Number(TEST_PARAMS.get('x'))):195;
 const el={
-  shell:$('gameShell'),stage:$('stage'),platformLayer:$('platformLayer'),itemLayer:$('itemLayer'),playerGroup:$('playerGroup'),motion:$('monkeyMotion'),wrapLeft:$('playerWrapLeft'),wrapRight:$('playerWrapRight'),wrapLeftMotion:$('monkeyWrapLeftMotion'),wrapRightMotion:$('monkeyWrapRightMotion'),
+  shell:$('gameShell'),stage:$('stage'),platformLayer:$('platformLayer'),itemLayer:$('itemLayer'),playerGroup:$('playerGroup'),motion:$('monkeyMotion'),monkey:$('monkeyUse'),wrapLeft:$('playerWrapLeft'),wrapRight:$('playerWrapRight'),wrapLeftMotion:$('monkeyWrapLeftMotion'),wrapRightMotion:$('monkeyWrapRightMotion'),wrapLeftUse:$('monkeyWrapLeftUse'),wrapRightUse:$('monkeyWrapRightUse'),
   height:$('heightValue'),bananas:$('bananaValue'),score:$('scoreValue'),dept:$('deptPill'),banner:$('departmentBanner'),toast:$('toastLayer'),
   bg:$('bgMood'),building:$('buildingParallax'),fish:$('fishScene'),fertilizer:$('fertilizerScene'),bubbles:$('bubbleField'),fog:$('fogField'),elevator:$('elevatorScene'),
   fax:$('faxFly'),broadcast:$('broadcast'),stamps:$('stampStorm'),donkey:$('donkeyPeek'),rescue:$('rescueBubble'),audit:$('auditCeiling'),auditCopy:$('auditCopy'),face:$('faceMeter'),
@@ -605,7 +593,7 @@ const MAJOR_EVENTS=['stamp','donkey','gravity','wind','shaft','faxRain','elevato
 let audioCtx=null,audioEnabled=true,lastFrame=performance.now();
 let platformEls=new Map(),itemEls=new Map(),lastDeathIndex=-1,lastSloganIndex=-1,lastPose='';
 const playerMotions=[el.motion,el.wrapLeftMotion,el.wrapRightMotion];
-const playerPoses=playerMotions.map(node=>({node,uses:[...node.querySelectorAll('.monkey-pose')]}));
+const playerUses=[el.monkey,el.wrapLeftUse,el.wrapRightUse];
 let platformSeq=0,itemSeq=0,forcedFallConsumed=false;
 const input={left:false,right:false};
 const saved=loadRecord();
@@ -875,10 +863,8 @@ function getPlayerScreenY(){return state.player?H-(state.player.y-state.cameraY)
 function restorePlayerVisual(){
   if(!el.playerGroup.isConnected)el.stage.appendChild(el.playerGroup);
   el.playerGroup.style.opacity='1';el.playerGroup.style.visibility='visible';el.playerGroup.style.display='inline';
-  for(const {node,uses} of playerPoses){
-    node.style.opacity='1';node.style.visibility='visible';node.style.display='inline';
-    if(!uses.some(use=>use.classList.contains('active')))uses[0].classList.add('active');
-  }
+  for(const node of playerMotions){node.style.opacity='1';node.style.visibility='visible';node.style.display='inline';}
+  for(const use of playerUses){use.removeAttribute('transform');if(!use.getAttribute('href')){use.setAttribute('href','#art-monkey-rise');use.setAttributeNS('http://www.w3.org/1999/xlink','href','#art-monkey-rise');}}
 }
 function repairPlayerState(now){
   const pl=state.player;if(!pl)return;
@@ -956,7 +942,7 @@ function updateDepartment(force=false,announce=true){
   if(!force&&id===state.deptId)return;
   state.deptId=id;state.deptIndex=idx;state.visited.add(id);const d=DEPT[id];
   el.bg.setAttribute('fill',d.color);el.dept.textContent=d.short;el.banner.querySelector('strong').textContent=d.name;el.banner.querySelector('span').textContent=d.line;
-  if(announce){el.banner.classList.remove('show');void el.banner.offsetWidth;el.banner.classList.add('show');}
+  if(announce){el.banner.classList.toggle('avoid-left',state.player&&state.player.x<195);el.banner.style.top=getPlayerScreenY()<250?'calc(100% - 168px)':'116px';el.banner.classList.remove('show');void el.banner.offsetWidth;el.banner.classList.add('show');}
   if(id==='fax')state.faxNextAt=performance.now()+2600;
   el.fog.classList.toggle('show',id==='fertilizer');el.fertilizer.classList.toggle('show',id==='fertilizer');
   el.bubbles.classList.toggle('show',id==='observation');el.fish.classList.toggle('show',id==='observation');
@@ -1034,14 +1020,13 @@ function renderAll(now){
   for(const [id,node]of itemEls){if(!liveItems.has(id)){node.remove();itemEls.delete(id);}}
   if(state.player){
     const pl=state.player,sy=clamp(getPlayerScreenY(),54,H-150);el.playerGroup.setAttribute('transform',`translate(${(pl.x-50).toFixed(1)} ${sy.toFixed(1)})`);
-    const pose=pl.vy>120?'rise':pl.vy<-200?'fall':'land';if(pose!==lastPose){for(const {uses} of playerPoses)for(const use of uses)use.classList.toggle('active',use.dataset.pose===pose);lastPose=pose;}
-    const mirror=pl.facing<0?'translate(100 0) scale(-1 1)':'';for(const {uses} of playerPoses)for(const use of uses)use.setAttribute('transform',mirror);
+    const pose=pl.vy>120?'#art-monkey-rise':pl.vy<-200?'#art-monkey-fall':'#art-monkey-land';if(pose!==lastPose){for(const use of playerUses){use.setAttribute('href',pose);use.setAttributeNS('http://www.w3.org/1999/xlink','href',pose);}lastPose=pose;}
     const showLeft=pl.x>W-50,showRight=pl.x<50;el.wrapLeft.style.opacity=showLeft?'1':'0';el.wrapRight.style.opacity=showRight?'1':'0';
     if(showLeft)el.wrapLeft.setAttribute('transform',`translate(${(pl.x-50-W).toFixed(1)} ${sy.toFixed(1)})`);if(showRight)el.wrapRight.setAttribute('transform',`translate(${(pl.x-50+W).toFixed(1)} ${sy.toFixed(1)})`);
     restorePlayerVisual();
     for(const node of playerMotions){node.classList.toggle('rising',pl.vy>380&&!state.deathFreezeUntil);node.classList.toggle('falling',pl.vy<-260&&!state.deathFreezeUntil);}
     el.playerGroup.classList.toggle('gold',now<pl.goldenUntil);
-    for(const {uses} of playerPoses)for(const use of uses)use.style.filter=now<pl.stampedUntil?'drop-shadow(4px 0 0 #e0452c) drop-shadow(-4px 0 0 #e0452c)':'';
+    el.monkey.style.filter=now<pl.stampedUntil?'drop-shadow(4px 0 0 #e0452c) drop-shadow(-4px 0 0 #e0452c)':'';
   }
   if(now-state.lastLandingAt>1750)el.flow.classList.remove('show');
   el.height.textContent=state.maxMeters;el.bananas.textContent=state.bananas;el.score.textContent=state.score;
@@ -1122,7 +1107,7 @@ function runQA(){
     ['平台最大垂直间距不超过 132',Math.max(...gaps)<=132],['每一高度簇至少有一块实体平台',unsafeOnly.length===0],['机制表完整',MECHANICS.length>=14],
     ['死亡台词不少于 12 条',DEATH_LINES.length>=12],['称号五档',TITLES.length===5],['七种大事件，单局最多六种',MAJOR_EVENTS.length===7],
     ['本机排行榜和三选一完整',typeof rankedRows==='function'&&PERK_POOL.length>=5],['角色可见性看门狗已启用',typeof repairPlayerState==='function'],
-    ['三套常驻猴姿态完整',playerPoses.length===3&&playerPoses.every(group=>group.uses.length===3)],
+    ['主猴与环屏副本完整',playerUses.length===3&&playerUses.every(use=>use.isConnected&&use.getAttribute('href'))],
     ['没有外部脚本或样式',[...document.querySelectorAll('script[src],link[rel="stylesheet"]')].length===0],['1020 米彩蛋加分值为 52',true]
   ];
   const failed=checks.filter(c=>!c[1]);$('qaReport').style.display='block';$('qaReport').textContent=`${failed.length?'FAIL':'PASS'} · 猴先生上楼静态质检\n\n`+checks.map(([n,ok])=>`${ok?'PASS':'FAIL'}  ${n}`).join('\n')+`\n\n平台样本：${state.platforms.length}\n最大间距：${Math.max(...gaps).toFixed(1)}\n死亡台词：${DEATH_LINES.length}\n部门：${DEPARTMENTS.map(d=>d.name).join(' / ')}`;
@@ -1139,7 +1124,7 @@ function runStressQA(steps=24000){
   }
   state.running=false;state.autopilot=false;state.stressMode=false;renderAll(now);$('qaReport').style.display='block';$('qaReport').textContent=`${fail?'FAIL':'PASS'} · 角色长局可见性压力测试\n\n模拟帧：${steps}\n模拟时长：${Math.round(steps*16/1000)} 秒\n最高高度：${maxHeight} 米\n鱼式接回：${state.stressRescues} 次\n画面纵坐标：${minSy.toFixed(1)} 至 ${maxSy.toFixed(1)}\n坐标修复：${state.playerRepairs} 次${fail?`\n失败：${fail}`:'\n结论：猴先生全程保持在安全画面内。'}`;
 }
-Object.defineProperty(window,'__MONKEY_UPSTAIRS_REPORT',{get:()=>Object.freeze({release:RELEASE,running:state.running,over:state.over,height:state.maxMeters,bananas:state.bananas,score:state.score,department:state.deptId,platforms:state.platforms.length,majorEvents:state.majorCount,flow:state.flow,maxFlow:state.maxFlow,nearMisses:state.nearMisses,playerRepairs:state.playerRepairs,playerScreenY:state.player?H-(state.player.y-state.cameraY)-108:null,rankRows:rankedRows().length,choiceOpen:state.choiceOpen,shaftFace:state.shaftFace,deathFreezeUntil:state.deathFreezeUntil,resultStamp:state.resultStamp})});
+Object.defineProperty(window,'__MONKEY_UPSTAIRS_REPORT',{get:()=>Object.freeze({release:RELEASE,running:state.running,over:state.over,height:state.maxMeters,bananas:state.bananas,score:state.score,department:state.deptId,platforms:state.platforms.length,majorEvents:state.majorCount,flow:state.flow,maxFlow:state.maxFlow,nearMisses:state.nearMisses,playerRepairs:state.playerRepairs,playerX:state.player?.x??null,playerScreenY:state.player?H-(state.player.y-state.cameraY)-108:null,rankRows:rankedRows().length,choiceOpen:state.choiceOpen,shaftFace:state.shaftFace,deathFreezeUntil:state.deathFreezeUntil,resultStamp:state.resultStamp})});
 Object.defineProperty(window,'MONKEY_UPSTAIRS_REPORT',{enumerable:true,get:()=>window.__MONKEY_UPSTAIRS_REPORT});
 updateBestLabels();resetWorld(1020);state.running=false;renderAll(performance.now());requestAnimationFrame(loop);
 if(TEST_PARAMS.get('qa')==='1'){hideSplash();setTimeout(runQA,50);}
