@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">是猴就上100层图标</title>
+  <desc id="desc">手绘猴先生正在向上跳，右上角有一条金色鱼小姐。</desc>
+  <rect width="512" height="512" rx="116" fill="#faf3e2"/>
+  <path d="M32 386C112 347 157 380 216 337s124-17 177-66c34-31 59-28 87-16v225H32Z" fill="#dff3ef"/>
+  <g fill="none" stroke="#2f5148" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M55 406h112M326 335h128M88 257h104" opacity=".5"/>
+    <path d="m67 391 18 15-18 15M338 320l18 15-18 15M100 242l18 15-18 15" opacity=".34"/>
+  </g>
+  <g stroke="#2f5148" stroke-width="13" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M168 350c-58 31-89-5-78-45 7-25 35-25 36-2" fill="none"/>
+    <path d="M168 350c-58 31-89-5-78-45 7-25 35-25 36-2" fill="none" stroke="#9a6a47" stroke-width="7"/>
+    <path d="M183 329c-32-25-39-57-25-84M323 329c30-27 38-58 22-82" fill="none" stroke-width="24"/>
+    <path d="M205 323c-31-1-52 32-46 68 7 40 39 64 91 65 57 1 92-24 99-66 5-34-17-66-50-66Z" fill="#9a6a47"/>
+    <ellipse cx="254" cy="386" rx="34" ry="47" fill="#edcf9e" stroke-width="9"/>
+    <path d="M207 416c-19 27-31 34-53 40M300 418c21 26 34 32 56 34" fill="none" stroke-width="24"/>
+    <path d="M214 204c-35-25-82-6-76 39 4 29 31 41 57 27M298 204c36-25 82-6 76 39-4 29-31 41-57 27" fill="#9a6a47"/>
+    <path d="M189 190c38-32 96-34 139-5 44 30 48 103 5 142-42 38-119 34-153-15-30-43-22-94 9-122Z" fill="#9a6a47"/>
+    <path d="M204 238c10-31 39-35 57-17 24-22 54-6 57 29 8 36-18 68-58 70-47 2-77-35-63-72Z" fill="#f0d3a4" stroke-width="10"/>
+    <ellipse cx="232" cy="254" rx="11" ry="16" fill="#2f5148" stroke="none"/>
+    <ellipse cx="287" cy="254" rx="11" ry="16" fill="#2f5148" stroke="none"/>
+    <circle cx="229" cy="249" r="4" fill="#fffdf6" stroke="none"/>
+    <circle cx="284" cy="249" r="4" fill="#fffdf6" stroke="none"/>
+    <ellipse cx="259" cy="278" rx="10" ry="7" fill="#b97d5b" stroke-width="6"/>
+    <path d="M235 295q24 23 50-1" fill="none" stroke-width="8"/>
+    <ellipse cx="204" cy="280" rx="13" ry="7" fill="#ee9f9a" stroke="none" opacity=".75"/>
+    <ellipse cx="315" cy="280" rx="13" ry="7" fill="#ee9f9a" stroke="none" opacity=".75"/>
+    <path d="M226 186q13-32 27-3 18-33 30 1" fill="#765039"/>
+  </g>
+  <g transform="translate(333 66)" stroke="#2f5148" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="69" cy="69" r="67" fill="#fffdf6"/>
+    <path d="M28 54c18-21 58-24 79 1 15 18 8 50-18 56-30 8-68-4-72-26-2-12 2-23 11-31Z" fill="#e3ad32"/>
+    <path d="M102 68c20-18 34-14 42-2-11 14-11 28-2 40-19 6-31-1-43-13Z" fill="#f4cf68"/>
+    <ellipse cx="47" cy="73" rx="9" ry="13" fill="#2f5148" stroke="none"/>
+    <circle cx="44" cy="69" r="3" fill="#fffdf6" stroke="none"/>
+    <path d="M35 93q12 10 25 1" fill="none"/>
+    <ellipse cx="29" cy="86" rx="8" ry="4" fill="#ee9f9a" stroke="none"/>
+  </g>
+</svg>
