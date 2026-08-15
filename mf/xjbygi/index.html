@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>猴与鱼 M2 · 一词多义诈骗案</title>
+<style>/* ============ 猴与鱼 M1 · 漫画喜剧皮 ============ */
+:root{
+  --paper:#faf3e2; --paper2:#f3e9d0; --card:#fffdf6;
+  --ink:#28211a; --ink2:#6b5f4e; --ink3:#a3937b;
+  --banana:#f5b731; --banana2:#ffd76b; --teal:#1f9e8e; --teal2:#7fd4c8;
+  --donkey:#a08464; --donkey2:#cbb79c; --eggwhite:#fff6e8;
+  --red:#e0452c; --purple:#8e6fd8;
+  --line:#28211a;
+  --pop:0 5px 0 rgba(40,33,26,.22);
+  --pop-sm:0 3px 0 rgba(40,33,26,.2);
+  --round:16px;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,sans-serif;
+  --serif:"Noto Serif SC","Songti SC","STSong",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);
+  line-height:1.7;min-height:100vh;overflow-x:hidden}
+/* 军规一:背景不用纯色——波普半调点 + 噪点 */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(rgba(40,33,26,.055) 1.3px,transparent 1.3px);
+  background-size:18px 18px}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.22;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E")}
+#app{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:20px 16px 90px}
+
+/* ---- 通用卡片 ---- */
+.card{background:var(--card);border:3px solid var(--line);border-radius:var(--round);
+  box-shadow:var(--pop);padding:20px 22px;margin-bottom:18px;position:relative;
+  animation:cardIn .5s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+.sticker{position:absolute;top:-12px;right:14px;background:var(--red);color:#fff;
+  font-weight:800;font-size:.72rem;padding:3px 12px;border:2.5px solid var(--line);
+  border-radius:999px;transform:rotate(4deg);box-shadow:var(--pop-sm);letter-spacing:.08em}
+
+/* ---- 按钮:果冻物理 ---- */
+.btn{display:inline-block;font-family:var(--sans);font-weight:800;font-size:1rem;
+  background:var(--banana);color:var(--ink);border:3px solid var(--line);border-radius:14px;
+  padding:12px 26px;cursor:pointer;box-shadow:var(--pop);letter-spacing:.06em;
+  transition:transform .12s,box-shadow .12s;user-select:none}
+.btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 rgba(40,33,26,.22)}
+.btn:active{transform:translateY(3px) scale(.98);box-shadow:0 2px 0 rgba(40,33,26,.22);transition-duration:.05s}
+.btn.teal{background:var(--teal);color:#fff}
+.btn.ghost{background:var(--card)}
+.btn.red{background:var(--red);color:#fff}
+.btn.sm{font-size:.85rem;padding:8px 16px;border-width:2.5px}
+.btn:disabled{opacity:.35;pointer-events:none}
+
+/* ---- 封面 ---- */
+.cover{text-align:center;padding-top:5vh}
+.cover .lore{font-size:.85rem;color:var(--ink2);letter-spacing:.25em;margin-bottom:10px;font-weight:600}
+.cover h1{font-family:var(--serif);font-weight:900;font-size:clamp(1.6rem,6.4vw,2.6rem);
+  letter-spacing:.06em;line-height:1.35;margin:6px 0 4px;
+  animation:titleIn 1s cubic-bezier(.16,1,.3,1) both}
+@keyframes titleIn{0%{opacity:0;letter-spacing:.3em;filter:blur(6px);transform:translateY(14px)}
+  100%{opacity:1;letter-spacing:.06em;filter:blur(0);transform:none}}
+.cover h1 em{font-style:normal;color:var(--teal)}
+.cover .sub{color:var(--ink2);font-size:.9rem;letter-spacing:.14em;margin-bottom:16px;font-weight:600}
+.twister{font-family:var(--serif);font-size:clamp(1.3rem,5.6vw,2rem);font-weight:900;
+  letter-spacing:.12em;margin:14px 0 6px;min-height:1.6em}
+.twister .zh{display:inline-block;transition:transform .28s cubic-bezier(.34,1.56,.64,1),opacity .28s}
+.twister .zh.out{opacity:0;transform:translateY(-16px) rotate(14deg) scale(.6)}
+.twister .zh.pop{color:var(--red);transform:scale(1.28) rotate(-5deg)}
+.cover .heroRow{display:flex;justify-content:center;gap:6px;margin:10px 0 6px;flex-wrap:wrap}
+.cover .heroRow svg{width:clamp(84px,21vw,120px);height:auto;
+  animation:bob 3.2s ease-in-out infinite}
+.cover .heroRow svg:nth-child(2){animation-delay:.5s}
+.cover .heroRow svg:nth-child(3){animation-delay:1s}
+@keyframes bob{50%{transform:translateY(-7px) rotate(-2deg)}}
+.nameRow{margin:12px auto 16px;max-width:330px;display:flex;gap:8px}
+.nameRow input{flex:1;font-family:var(--sans);font-size:1rem;font-weight:700;color:var(--ink);
+  border:3px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--card);
+  box-shadow:var(--pop-sm);outline:none}
+.nameRow input:focus{border-color:var(--teal)}
+.rulebox{text-align:left;font-size:.88rem;color:var(--ink2);border:2.5px dashed var(--ink3);
+  border-radius:12px;padding:12px 16px;margin:14px 0;background:rgba(255,255,255,.5)}
+.rulebox b{color:var(--ink)}
+
+/* ---- 地图 ---- */
+.mapHead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+.mapHead h2{font-family:var(--serif);font-weight:900;letter-spacing:.12em;font-size:1.3rem}
+.timer{font-weight:800;color:var(--ink2);font-size:.85rem;letter-spacing:.08em}
+.hallCard{display:flex;gap:16px;align-items:center;cursor:pointer;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s}
+.hallCard:hover{transform:translateY(-3px) rotate(-.4deg);box-shadow:0 8px 0 rgba(40,33,26,.2)}
+.hallCard.locked{filter:grayscale(.9);opacity:.55;pointer-events:none}
+.hallCard .portrait{flex:0 0 84px;width:84px;height:84px;border:3px solid var(--line);
+  border-radius:14px;background:radial-gradient(circle at 50% 38%,#fff 0%,var(--paper2) 100%);
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--pop-sm);overflow:hidden}
+.hallCard .portrait svg{width:74px;height:74px;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.hallCard:hover .portrait svg{transform:scale(1.12) rotate(-4deg)}
+.hallCard .info{flex:1;min-width:0}
+.hallCard .hname{font-weight:900;font-size:1.08rem;letter-spacing:.05em}
+.hallCard .hname small{font-weight:700;color:var(--ink3);font-size:.68rem;letter-spacing:.12em;margin-left:6px}
+.hallCard .htheme{font-size:.82rem;color:var(--ink2);margin:2px 0 8px}
+.hbar{height:10px;background:var(--paper2);border:2px solid var(--line);border-radius:99px;overflow:hidden;position:relative}
+.hbar i{display:block;height:100%;background:linear-gradient(90deg,var(--banana),var(--banana2));
+  transition:width .5s cubic-bezier(.16,1,.3,1);position:relative}
+.hbar i::after{content:'';position:absolute;inset:0;transform:translateX(-100%);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+  animation:sheen 2.4s ease-in-out infinite}
+@keyframes sheen{60%,100%{transform:translateX(100%)}}
+.hallCard .stat{flex:0 0 auto;text-align:center;font-weight:900;font-size:.9rem;color:var(--ink2)}
+.interludeCard{font-family:var(--serif);font-size:.92rem;color:var(--ink2);
+  border-left:5px solid var(--teal);background:rgba(31,158,142,.06);
+  padding:12px 16px;border-radius:0 12px 12px 0;margin:-6px 0 18px;line-height:1.9}
+.submitZone{text-align:center;margin-top:8px}
+.submitZone .hint{font-size:.8rem;color:var(--ink3);margin-top:8px}
+
+/* ---- 厅介绍 ---- */
+.hallIntro{text-align:center}
+.hallIntro .portraitBig{width:150px;height:150px;margin:6px auto 10px;border:3.5px solid var(--line);
+  border-radius:50%;background:radial-gradient(circle at 50% 35%,#fff,var(--paper2));
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--pop);overflow:hidden;position:relative}
+.hallIntro .portraitBig svg{width:126px;height:126px;animation:bob 3.4s ease-in-out infinite}
+.hallIntro h2{font-family:var(--serif);font-weight:900;font-size:1.5rem;letter-spacing:.1em}
+.hallIntro .en{font-size:.68rem;letter-spacing:.28em;color:var(--ink3);font-weight:700;margin:2px 0 12px}
+.hallIntro .bio{text-align:left;font-size:.92rem;color:var(--ink2);margin:0 auto 16px;max-width:520px}
+.hallIntro .bio p{margin:.35em 0;padding-left:1.2em;position:relative}
+.hallIntro .bio p::before{content:'▸';position:absolute;left:0;color:var(--teal)}
+
+/* ---- 答题界面 ---- */
+.qTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:10px}
+.qTop .back{font-weight:800;font-size:.85rem;color:var(--ink2);cursor:pointer;border:none;background:none;
+  font-family:var(--sans);padding:6px 2px}
+.qTop .back:hover{color:var(--ink)}
+.qProg{flex:1;margin:0 4px}
+.qCard{padding:22px 22px 18px}
+.qNumRow{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.qNum{background:var(--ink);color:var(--paper);font-weight:900;border-radius:10px;
+  padding:2px 12px;font-size:.95rem;letter-spacing:.05em}
+.qBadge{font-weight:900;font-size:.7rem;letter-spacing:.1em;padding:2px 10px;border-radius:99px;
+  border:2.5px solid var(--line)}
+.qBadge.UR{background:var(--banana);color:var(--ink)}
+.qBadge.SP{background:var(--red);color:#fff;animation:spPulse 2.4s ease-in-out infinite}
+@keyframes spPulse{50%{box-shadow:0 0 14px rgba(224,69,44,.55)}}
+.qMark{margin-left:auto;font-size:.78rem;font-weight:800;color:var(--ink3);cursor:pointer;
+  border:2px dashed var(--ink3);border-radius:99px;padding:2px 12px;background:none;font-family:var(--sans)}
+.qMark.on{color:var(--red);border-color:var(--red);background:rgba(224,69,44,.07)}
+.sc{font-size:.92rem;color:var(--ink2);border-left:4px solid var(--banana);
+  background:rgba(245,183,49,.09);padding:10px 14px;border-radius:0 10px 10px 0;margin-bottom:12px;line-height:1.8}
+.stem{font-size:1.02rem;font-weight:700;margin-bottom:14px;line-height:1.75}
+.opt{display:flex;gap:10px;align-items:flex-start;border:2.5px solid var(--line);border-radius:12px;
+  background:var(--card);padding:11px 14px;margin-bottom:10px;cursor:pointer;
+  transition:transform .15s cubic-bezier(.34,1.56,.64,1),box-shadow .15s,background .15s;box-shadow:var(--pop-sm)}
+.opt:hover{transform:translateX(4px);box-shadow:4px 4px 0 rgba(40,33,26,.15)}
+.opt:active{transform:scale(.985)}
+.opt .L{flex:0 0 26px;height:26px;border:2.5px solid var(--line);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;background:#fff}
+.opt .txt{flex:1;font-size:.95rem;line-height:1.6;padding-top:1px}
+.opt.sel{background:var(--banana2);transform:translateX(4px)}
+.opt.sel .L{background:var(--ink);color:var(--banana2);border-color:var(--ink)}
+.opt.good{background:#d9f2e4;border-color:#1c7c50}
+.opt.good .L{background:#1c7c50;color:#fff;border-color:#1c7c50}
+.opt.bad{background:#fde3dd;border-color:var(--red)}
+.opt.bad .L{background:var(--red);color:#fff;border-color:var(--red)}
+/* 点词题 */
+.tokens{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 4px}
+.tok{border:2.5px solid var(--line);border-radius:10px;background:var(--card);padding:6px 12px;
+  font-weight:700;font-size:.95rem;cursor:pointer;box-shadow:var(--pop-sm);
+  transition:transform .14s cubic-bezier(.34,1.56,.64,1),background .14s}
+.tok:hover{transform:translateY(-3px) rotate(-1.5deg)}
+.tok.sel{background:var(--teal);color:#fff;transform:translateY(-3px)}
+.tok.good{background:#1c7c50;color:#fff}
+.tok.bad{background:var(--red);color:#fff;animation:shakeX .35s ease}
+@keyframes shakeX{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+/* 连线题 */
+.matchWrap{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mItem{border:2.5px solid var(--line);border-radius:12px;background:var(--card);padding:10px 12px;
+  font-weight:700;font-size:.88rem;cursor:pointer;box-shadow:var(--pop-sm);position:relative;
+  transition:transform .15s,background .15s;line-height:1.5}
+.mItem:hover{transform:translateY(-2px)}
+.mItem.sel{background:var(--banana2);transform:translateY(-2px)}
+.mItem.paired{background:var(--paper2)}
+.mItem .pairTag{position:absolute;top:-10px;right:-6px;background:var(--teal);color:#fff;
+  font-size:.68rem;font-weight:900;border:2px solid var(--line);border-radius:99px;padding:1px 8px}
+.mItem.good{background:#d9f2e4;border-color:#1c7c50}
+.mItem.bad{background:#fde3dd;border-color:var(--red)}
+/* 输入题 */
+.inputRow{display:flex;gap:10px;margin:8px 0}
+.inputRow input{flex:1;font-family:var(--sans);font-size:1.05rem;font-weight:800;
+  border:3px solid var(--line);border-radius:12px;padding:11px 14px;background:#fff;outline:none;
+  box-shadow:var(--pop-sm)}
+.inputRow input:focus{border-color:var(--teal)}
+.qNav{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:10px}
+.qNav .mid{font-size:.8rem;font-weight:800;color:var(--ink3)}
+/* 题号格 */
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin:10px 0}
+.g{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border:2.5px solid var(--line);
+  border-radius:9px;font-weight:900;font-size:.8rem;cursor:pointer;background:var(--card);
+  transition:transform .12s;box-shadow:0 2.5px 0 rgba(40,33,26,.18)}
+.g:hover{transform:translateY(-2px)}
+.g.done{background:var(--banana2)}
+.g.marked{outline:3px dashed var(--red);outline-offset:-3px}
+.g.cur{background:var(--ink);color:var(--paper)}
+.g.right{background:#1c7c50;color:#fff;border-color:#1c7c50}
+.g.wrong{background:var(--red);color:#fff;border-color:var(--red)}
+
+/* ---- 回冰 ---- */
+.iceBanner{background:var(--teal);color:#fff;border:3px solid var(--line);border-radius:var(--round);
+  box-shadow:var(--pop);padding:16px 20px;margin-bottom:16px;font-weight:800;text-align:center;letter-spacing:.04em}
+.iceBanner b{font-size:1.3rem}
+
+/* ---- 战损报告 ---- */
+.report{text-align:center}
+.report .scoreBig{font-family:var(--serif);font-size:clamp(3rem,15vw,4.6rem);font-weight:900;line-height:1.1}
+.report .scoreBig small{font-size:.35em;color:var(--ink3);font-weight:800}
+.report .title{display:inline-block;background:var(--ink);color:var(--banana2);font-weight:900;
+  letter-spacing:.1em;border-radius:99px;padding:7px 22px;margin:10px 0;font-size:1.02rem;
+  border:3px solid var(--line);box-shadow:var(--pop-sm);transform:rotate(-1.2deg)}
+.report .note{font-size:.9rem;color:var(--ink2);max-width:480px;margin:6px auto 4px;line-height:1.85}
+.vsMonkey{font-weight:800;font-size:.92rem;margin:10px 0;color:var(--ink)}
+.vsMonkey b{color:var(--red);font-size:1.2em}
+.hallStats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;text-align:left}
+.hs{border:2.5px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--card);box-shadow:var(--pop-sm)}
+.hs .o{font-weight:900;font-size:.85rem}
+.hs .n{font-family:var(--serif);font-weight:900;font-size:1.3rem}
+.hs .n small{font-size:.6em;color:var(--ink3)}
+.stampWrap{position:relative;display:inline-block;margin-top:4px}
+.stamp{position:absolute;right:-70px;top:-16px;color:var(--red);border:3.5px solid var(--red);
+  border-radius:10px;font-weight:900;font-size:.85rem;letter-spacing:.15em;padding:4px 10px;
+  transform:rotate(10deg);opacity:.85;animation:stampIn .4s cubic-bezier(.34,1.56,.64,1) .6s both}
+@keyframes stampIn{0%{opacity:0;transform:rotate(10deg) scale(2.4)}100%{opacity:.85;transform:rotate(10deg) scale(1)}}
+
+/* ---- 解析 ---- */
+.ep{border-left:5px solid var(--banana);background:rgba(245,183,49,.1);border-radius:0 12px 12px 0;
+  padding:12px 16px;font-size:.9rem;line-height:1.85;margin-top:12px}
+.ep .epTitle{font-weight:900;letter-spacing:.06em;margin-bottom:4px}
+.eiList{list-style:none;margin-top:8px;font-size:.86rem}
+.eiList li{padding:2px 0}
+.eiList .no{color:var(--red)}
+.eiList .yes{color:#1c7c50;font-weight:800}
+.ansLine{font-weight:900;margin-top:6px}
+.revealBtnRow{text-align:center;margin-top:10px}
+
+/* ---- 教师模式标记 ---- */
+.teacherBar{position:fixed;top:0;left:0;right:0;background:var(--red);color:#fff;z-index:50;
+  text-align:center;font-weight:900;font-size:.78rem;letter-spacing:.2em;padding:4px}
+body.teacher #app{padding-top:34px}
+
+/* ---- 全屏反馈 ---- */
+#flash{position:fixed;inset:0;pointer-events:none;z-index:80;opacity:0;
+  background:radial-gradient(ellipse at center,rgba(255,255,255,.9),rgba(255,255,255,.2))}
+#flash.go{animation:flashOut .5s ease-out}
+@keyframes flashOut{0%{opacity:.8}100%{opacity:0}}
+@keyframes shake{10%,90%{transform:translate(-2px,1px)}30%,70%{transform:translate(-4px,2px)}
+  50%{transform:translate(3px,-2px)}}
+body.shaking{animation:shake .4s cubic-bezier(.36,.07,.19,.97)}
+.floatNum{position:fixed;font-weight:900;font-size:1.6rem;pointer-events:none;z-index:90;
+  animation:floatUp 1s ease forwards;text-shadow:0 2px 0 rgba(40,33,26,.25)}
+@keyframes floatUp{0%{opacity:0;transform:translate(-50%,8px) scale(.7)}
+  25%{opacity:1;transform:translate(-50%,-8px) scale(1.2)}
+  100%{opacity:0;transform:translate(-50%,-52px) scale(1)}}
+
+/* ---- 页脚 ---- */
+.foot{text-align:center;color:var(--ink3);font-size:.7rem;letter-spacing:.18em;
+  margin-top:26px;font-weight:700;user-select:none;cursor:default}
+.foot .dot{opacity:.5}
+
+@media (max-width:520px){
+  .card{padding:16px 15px}
+  .grid{grid-template-columns:repeat(8,1fr)}
+  .matchWrap{gap:8px}
+  .hallCard .portrait{flex-basis:68px;width:68px;height:68px}
+  .hallCard .portrait svg{width:58px;height:58px}
+  .stamp{right:-56px}
+}
+
+/* ---- 厅五新题型 ---- */
+.orderSlots{min-height:52px;border:2.5px dashed var(--ink3);border-radius:12px;padding:9px 10px;
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px;background:rgba(255,255,255,.55)}
+.orderHint{color:var(--ink3);font-size:.82rem;font-weight:700}
+.orderLine{border:2.5px solid var(--line);border-radius:12px;padding:10px 14px;font-weight:800;
+  font-size:.98rem;margin-bottom:8px;box-shadow:var(--pop-sm)}
+.orderLine.good{background:#d9f2e4;border-color:#1c7c50}
+.orderLine.bad{background:#fde3dd;border-color:var(--red)}
+.slotLine{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 6px;line-height:2.2}
+.slotWord{font-weight:800;font-size:1.02rem;padding:2px 2px}
+.gapBox{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:30px;
+  border:2.5px dashed var(--ink3);border-radius:9px;color:var(--ink3);font-weight:900;cursor:pointer;
+  padding:0 6px;transition:transform .14s cubic-bezier(.34,1.56,.64,1),background .14s;background:rgba(255,255,255,.5)}
+.gapBox:hover{transform:translateY(-3px);border-color:var(--teal);color:var(--teal)}
+.gapBox.filled{background:var(--banana);border-style:solid;border-color:var(--line);color:var(--ink);
+  animation:cardIn .25s cubic-bezier(.34,1.56,.64,1)}
+.gapBox.good{background:#1c7c50;border-style:solid;border-color:#1c7c50;color:#fff}
+.gapBox.bad{background:var(--red);border-style:solid;border-color:var(--red);color:#fff}
+.basketHead{display:flex;gap:10px;margin:4px 0 10px}
+.bk{flex:1;text-align:center;font-weight:900;font-size:.82rem;border:2.5px solid var(--line);
+  border-radius:10px;padding:6px 4px;box-shadow:var(--pop-sm)}
+.bkA{background:var(--banana2)}
+.bkB{background:var(--teal2)}
+.tok{position:relative}
+.tok.sortA{background:var(--banana2)}
+.tok.sortB{background:var(--teal2)}
+.sortTag{position:absolute;top:-9px;right:-7px;font-style:normal;font-size:.66rem;font-weight:900;
+  background:var(--ink);color:var(--paper);border-radius:99px;padding:1px 5px;border:2px solid var(--line)}
+
+/* ---- v3 惊喜引擎 ---- */
+.fxLayer{position:fixed;pointer-events:none;z-index:88}
+.fxBubble{position:fixed;left:50%;bottom:14%;transform:translateX(-50%);z-index:92;max-width:82vw;
+  background:var(--card);border:3px solid var(--line);border-radius:14px;box-shadow:var(--pop);
+  padding:10px 18px;font-weight:800;font-size:.9rem;line-height:1.6;text-align:center;
+  animation:bubbleIn .35s cubic-bezier(.34,1.56,.64,1) both, bubbleOut .4s ease .9s reverse}
+@keyframes bubbleIn{from{opacity:0;transform:translate(-50%,14px) scale(.85)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
+.fxCannon{left:-220px;bottom:6%;width:210px;animation:cannonIn 2.6s cubic-bezier(.34,1.56,.64,1) both}
+.fxCannon svg{width:100%;height:auto}
+@keyframes cannonIn{0%{transform:translateX(0)}22%{transform:translateX(240px)}78%{transform:translateX(240px)}100%{transform:translateX(-40px)}}
+.fxCenter{inset:0;display:flex;align-items:center;justify-content:center}
+.fxStampWrap{animation:stampDrop .5s cubic-bezier(.34,1.56,.64,1) both}
+.fxStamp{color:var(--red);border:5px solid var(--red);border-radius:14px;font-weight:900;
+  font-size:clamp(1.4rem,6vw,2.2rem);letter-spacing:.15em;padding:10px 22px;transform:rotate(-9deg);
+  background:rgba(255,253,246,.9);box-shadow:var(--pop)}
+@keyframes stampDrop{0%{opacity:0;transform:scale(2.6) rotate(-9deg)}100%{opacity:1;transform:scale(1) rotate(-9deg)}}
+.fxSnakeSlide{left:-160px;bottom:4%;width:150px;animation:snakeSlide 2.8s ease-in-out both}
+.fxSnakeSlide svg{width:100%;height:auto}
+@keyframes snakeSlide{0%{transform:translateX(0)}45%{transform:translateX(46vw)}55%{transform:translateX(46vw)}100%{transform:translateX(120vw)}}
+.fxSnakePeek{right:-150px;top:30%;width:150px;transform:scaleX(-1);animation:snakePeek 3.6s ease-in-out both}
+.fxSnakePeek svg{width:100%;height:auto}
+@keyframes snakePeek{0%{right:-150px}25%{right:-24px}75%{right:-24px}100%{right:-160px}}
+.fxFume{left:12%;bottom:-140px;width:120px;animation:fumeUp 2.6s ease-out both;opacity:.95}
+.fxFume svg{width:100%;height:auto}
+@keyframes fumeUp{0%{transform:translateY(0) rotate(-4deg)}100%{transform:translateY(-70vh) rotate(6deg);opacity:0}}
+.fxFumeAcross{left:-130px;top:18%;width:110px;animation:fumeAcross 3.6s linear both;opacity:.85}
+.fxFumeAcross svg{width:100%;height:auto}
+@keyframes fumeAcross{0%{transform:translateX(0) rotate(-3deg)}100%{transform:translateX(120vw) rotate(5deg)}}
+.fxEggRoll{left:-110px;bottom:5%;width:96px;animation:eggRoll 2.4s ease-in-out both}
+.fxEggRoll svg{width:100%;height:auto;animation:eggSpin 2.4s linear both}
+@keyframes eggRoll{0%{transform:translateX(0)}100%{transform:translateX(120vw)}}
+@keyframes eggSpin{0%{transform:rotate(0)}100%{transform:rotate(720deg)}}
+.fxFishPop{right:-160px;bottom:16%;width:150px;animation:fishPop 2.8s cubic-bezier(.34,1.56,.64,1) both}
+.fxFishPop svg{width:100%;height:auto}
+@keyframes fishPop{0%{transform:translateX(0) rotate(8deg)}20%{transform:translateX(-190px) rotate(-4deg)}80%{transform:translateX(-190px) rotate(2deg)}100%{transform:translateX(30px) rotate(10deg)}}
+.fxParadeWrap{left:0;right:0;bottom:3%}
+.fxParade{display:flex;gap:2vw;animation:paradeGo 4.2s linear both}
+.fxParade svg{width:13vw;max-width:100px;height:auto;animation:bob 1s ease-in-out infinite}
+@keyframes paradeGo{0%{transform:translateX(-80vw)}100%{transform:translateX(110vw)}}
+.fxDonkeyPeek{right:0;bottom:0;width:130px;animation:donkeyStare 3s ease-in-out both}
+.fxDonkeyPeek svg{width:100%;height:auto}
+@keyframes donkeyStare{0%{transform:translate(70px,70px)}25%{transform:translate(0,0)}80%{transform:translate(0,0)}100%{transform:translate(90px,90px)}}
+.fxFull{inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.fxDark{position:absolute;inset:0;background:rgba(30,24,18,.72);animation:darkIn .2s both}
+@keyframes darkIn{from{opacity:0}to{opacity:1}}
+.fxBigFace{position:relative;width:min(52vw,300px);animation:faceZoom .5s cubic-bezier(.34,1.56,.64,1) both}
+.fxBigFace svg{width:100%;height:auto}
+@keyframes faceZoom{0%{transform:scale(.2) rotate(-14deg)}100%{transform:scale(1) rotate(0)}}
+.fxBigTxt{position:relative;color:#fff;font-weight:900;font-size:clamp(1.2rem,5vw,1.8rem);
+  text-align:center;line-height:1.5;margin-top:8px;text-shadow:0 3px 0 rgba(0,0,0,.4)}
+.fxBigTxt span{font-size:.7em;color:var(--banana2)}
+/* 课堂判决 */
+.verdict{margin-top:12px;font-weight:900;font-size:1.02rem;border:3px solid;border-radius:12px;
+  padding:8px 14px;text-align:center;animation:cardIn .35s cubic-bezier(.34,1.56,.64,1) both}
+.v-ok{color:#1c7c50;border-color:#1c7c50;background:#d9f2e4}
+.v-no{color:var(--red);border-color:var(--red);background:#fde3dd}
+/* 隐藏彩蛋 */
+.eggDot{position:absolute;right:10px;bottom:8px;width:26px;height:26px;border:2.5px dashed var(--ink3);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;
+  color:var(--ink3);font-size:.8rem;cursor:pointer;opacity:.5;transition:all .2s}
+.eggDot:hover{opacity:1;border-color:var(--teal);color:var(--teal);transform:rotate(20deg)}
+.famRow{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.famP{width:88px;height:88px;border:3px solid var(--line);border-radius:14px;cursor:pointer;
+  background:radial-gradient(circle at 50% 38%,#fff,var(--paper2));box-shadow:var(--pop-sm);
+  display:flex;align-items:center;justify-content:center;transition:transform .16s cubic-bezier(.34,1.56,.64,1)}
+.famP:hover{transform:translateY(-4px) rotate(-2deg)}
+.famP svg{width:74px;height:74px}
+
+/* ---- 教师冷知识 ---- */
+.deepBox{margin-top:10px;border:2.5px solid var(--purple);border-radius:12px;background:rgba(142,111,216,.08);
+  padding:11px 15px;font-size:.86rem;line-height:1.85;color:var(--ink)}
+.deepBox .deepT{font-weight:900;color:var(--purple);letter-spacing:.06em;margin-bottom:3px;font-size:.8rem}
+
+/* ---- MYSKME 品牌层 ---- */
+#splash{position:fixed;inset:0;z-index:200;background:var(--paper);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;cursor:pointer;transition:opacity .35s}
+#splash.spOut{opacity:0}
+.spLetters{display:flex;gap:.5vw}
+.spL{font-family:var(--sans);font-weight:900;font-size:clamp(2.6rem,11vw,5rem);color:var(--ink);
+  animation:spPop .45s cubic-bezier(.34,1.56,.64,1) both;display:inline-block;
+  text-shadow:4px 4px 0 var(--banana)}
+@keyframes spPop{0%{opacity:0;transform:translateY(30px) scale(.4) rotate(-8deg)}100%{opacity:1;transform:none}}
+.spK{transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.spK.spKnocked{transform:rotate(14deg) translateY(6px);text-shadow:4px 4px 0 var(--red)}
+.spSub{font-weight:800;letter-spacing:.6em;color:var(--ink3);font-size:.9rem;margin-top:10px;
+  animation:cardIn .5s .6s both}
+.spRunner{position:absolute;bottom:12%;left:-140px;width:120px;animation:spRun 1.5s .9s ease-in both}
+.spRunner svg{width:100%;height:auto}
+@keyframes spRun{0%{transform:translateX(0)}100%{transform:translateX(120vw)}}
+.spSkip{position:absolute;bottom:4%;right:6%;font-size:.72rem;font-weight:700;color:var(--ink3);
+  border:2px dashed var(--ink3);border-radius:99px;padding:3px 12px;animation:cardIn .4s 1s both}
+.permit{margin-top:14px;font-size:.68rem;font-weight:700;color:var(--ink3);letter-spacing:.04em;
+  border-top:2px dashed var(--ink3);padding-top:8px;opacity:.85}
+.brandBox{margin-top:14px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
+  border:2.5px solid var(--line);border-radius:12px;padding:8px 14px;background:rgba(245,183,49,.09)}
+.brandLogo{font-weight:900;letter-spacing:.12em;font-size:.95rem;color:var(--ink);
+  text-shadow:2px 2px 0 var(--banana);white-space:nowrap}
+.brandTxt{font-size:.7rem;font-weight:700;color:var(--ink2);line-height:1.5;text-align:left;max-width:420px}
+.fxStampSub{font-size:.32em;letter-spacing:.3em;margin-top:4px;opacity:.8;font-weight:800}
+.fxCrateDrop{left:50%;top:-160px;width:110px;margin-left:-55px;animation:crateDrop 3.4s cubic-bezier(.34,1.56,.64,1) both}
+.fxCrateDrop svg{width:100%;height:auto}
+@keyframes crateDrop{0%{transform:translateY(0)}18%{transform:translateY(46vh)}24%{transform:translateY(42vh)}30%{transform:translateY(46vh)}82%{transform:translateY(46vh);opacity:1}100%{transform:translateY(46vh);opacity:0}}
+
+/* ---- v6 品牌惊喜 ---- */
+.fxSealWrap{width:min(56vw,300px);opacity:.88;animation:sealSlam .45s cubic-bezier(.34,1.56,.64,1) both, sealFade .5s ease 1.4s both;transform:rotate(-14deg)}
+.fxSealWrap svg{width:100%;height:auto}
+@keyframes sealSlam{0%{transform:scale(3.2) rotate(-14deg);opacity:0}100%{transform:scale(1) rotate(-14deg);opacity:.88}}
+@keyframes sealFade{to{opacity:0}}
+.fxFaxWrap{right:-300px;top:22%;animation:faxIn 3.8s ease-in-out both}
+@keyframes faxIn{0%{transform:translateX(0)}18%{transform:translateX(-330px)}82%{transform:translateX(-330px)}100%{transform:translateX(60px);opacity:0}}
+.fxFax{width:270px;background:#fff;border:3px solid var(--line);border-radius:8px 0 0 8px;
+  box-shadow:var(--pop);padding:14px 18px;font-family:var(--sans)}
+.fxFaxHead{font-weight:900;letter-spacing:.14em;font-size:.85rem}
+.fxFaxLine{border-top:2.5px solid var(--line);margin:6px 0}
+.fxFaxBody{font-size:1.05rem;font-weight:800;padding:10px 0;line-height:1.7}
+.fxFaxFoot{font-size:.66rem;color:var(--ink3);font-weight:700;text-align:right}
+.inspectChip{position:absolute;top:-11px;left:14px;background:#fff;border:2px dashed #c8281e;
+  color:#c8281e;font-size:.66rem;font-weight:900;letter-spacing:.08em;border-radius:99px;
+  padding:2px 10px;transform:rotate(-3deg);animation:cardIn .3s both, sealFade .4s ease 2s both}
+
+/* ============ M2 · 泳区大门 ============ */
+.gateWrap{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:14px; }
+.doorCard{ width:min(46%,250px); min-width:210px; cursor:pointer; text-align:center; padding:18px 14px 14px; transition:transform .12s; }
+.doorCard:active{ transform:scale(.955); }
+.doorArt{ width:88px; height:88px; margin:0 auto 4px; }
+.doorArt svg{ width:100%; height:100%; }
+.doorName{ font-weight:900; font-size:1.18rem; letter-spacing:.1em; }
+.doorSub{ font-size:.76rem; color:var(--ink2); font-weight:700; line-height:1.75; margin:7px 0 9px; }
+.doorStat{ display:inline-block; font-size:.72rem; font-weight:900; padding:2px 12px; border:2px solid var(--ink); border-radius:999px; background:#fff; }
+
+/* ============ M2 · 倒计时模式 ============ */
+.cdRow{ display:flex; align-items:center; gap:8px; margin:10px 2px 0; }
+.cdMonkey{ font-size:1.1rem; }
+.cdTrack{ flex:1; height:12px; border:2.5px solid var(--ink); border-radius:999px; background:#fff; overflow:hidden; }
+.cdTrack i{ display:block; height:100%; background:linear-gradient(90deg,var(--teal),var(--banana)); transition:width 1s linear; }
+.cdRow.cdLow .cdTrack i{ background:#e0452c; }
+.cdRow.cdLow{ animation:cdPulse 1s infinite; }
+@keyframes cdPulse{ 50%{ transform:scale(1.015);} }
+.cdRow #cdNum{ font-weight:900; font-size:.88rem; min-width:38px; text-align:right; font-variant-numeric:tabular-nums; }
+.cdRow.cdLocked{ display:block; text-align:center; font-weight:900; font-size:.8rem; color:#c8281e; border:2px dashed #c8281e; border-radius:12px; padding:7px; background:#fff6f4; }
+.fxWarrant{ border-color:#c8281e !important; }
+.fxWarrant .fxFaxHead{ color:#c8281e; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="flash"></div>
+<script>
+// ============ 角色 SVG 立绘(手绘漫画风,粗描边) ============
+const ART = {
+// 猴先生:棕脸大耳,举着香蕉,咧嘴笑,自带速度线
+monkey: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M18 42 L6 38 M20 52 L8 52 M18 62 L6 66" stroke-width="3" opacity=".45"/>
+  <circle cx="34" cy="46" r="12" fill="#9c6b3f"/>
+  <circle cx="94" cy="46" r="12" fill="#9c6b3f"/>
+  <circle cx="34" cy="46" r="5.5" fill="#e8b98a" stroke-width="3"/>
+  <circle cx="94" cy="46" r="5.5" fill="#e8b98a" stroke-width="3"/>
+  <ellipse cx="64" cy="52" rx="32" ry="30" fill="#9c6b3f"/>
+  <path d="M44 44 Q64 24 84 44 Q84 60 84 62 Q76 78 64 78 Q52 78 44 62 Z" fill="#e8b98a" stroke="none"/>
+  <ellipse cx="64" cy="52" rx="32" ry="30" fill="none"/>
+  <circle cx="54" cy="48" r="3.6" fill="#28211a" stroke="none"/>
+  <circle cx="74" cy="48" r="3.6" fill="#28211a" stroke="none"/>
+  <path d="M50 41 Q54 38 58 41 M70 41 Q74 38 78 41" stroke-width="3" fill="none"/>
+  <ellipse cx="64" cy="58" rx="5" ry="3.4" fill="#c98d5c" stroke-width="3"/>
+  <path d="M50 64 Q64 74 78 64" fill="none"/>
+  <path d="M56 68 Q64 71 72 68" stroke-width="2.5" fill="none" opacity=".55"/>
+  <path d="M96 84 Q112 74 108 58" fill="none" stroke-width="5"/>
+  <path d="M98 88 Q88 74 96 62 Q108 66 106 80 Q104 88 98 88 Z" fill="#f5b731"/>
+  <path d="M97 63 L99 58" stroke-width="3"/>
+  <path d="M40 86 Q52 96 64 96 Q78 96 88 88" fill="none" stroke-width="4" opacity=".9"/>
+</g></svg>`,
+// 鱼小姐:优雅青鱼,眼镜,睫毛,气泡
+fish: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="98" cy="26" r="4" fill="none" stroke-width="3" opacity=".5"/>
+  <circle cx="106" cy="16" r="2.6" fill="none" stroke-width="2.5" opacity=".4"/>
+  <path d="M20 62 Q20 40 44 34 Q72 26 88 44 Q96 52 96 60 Q96 68 88 76 Q72 94 44 86 Q20 80 20 62 Z" fill="#1f9e8e"/>
+  <path d="M96 60 L114 44 Q112 60 114 76 Z" fill="#7fd4c8"/>
+  <path d="M48 34 Q56 20 68 24 Q64 32 60 36 Z" fill="#7fd4c8"/>
+  <path d="M46 86 Q52 98 64 96 Q60 88 56 84 Z" fill="#7fd4c8"/>
+  <path d="M20 62 Q34 56 44 62 Q34 70 20 62 Z" fill="#7fd4c8" stroke-width="3.4"/>
+  <circle cx="44" cy="56" r="8.6" fill="#fff"/>
+  <circle cx="44" cy="56" r="8.6" fill="none" stroke-width="3.4"/>
+  <circle cx="44" cy="57" r="3.4" fill="#28211a" stroke="none"/>
+  <path d="M34 48 L30 44 M52 47 L56 43" stroke-width="3"/>
+  <path d="M52.6 56 L60 56" stroke-width="3"/>
+  <path d="M36 70 Q42 74 50 71" fill="none" stroke-width="3.4"/>
+  <path d="M58 47 Q64 42 70 45" stroke-width="2.6" fill="none" opacity=".5"/>
+</g></svg>`,
+// 驴 v2:垂耳长脸,半睁眼看破一切,呆毛,耳挂"正版"吊牌
+donkey: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M34 34 Q14 20 12 34 Q11 46 32 48 Z" fill="#8f7355"/>
+  <path d="M86 34 Q106 20 108 34 Q109 46 88 48 Z" fill="#8f7355"/>
+  <path d="M30 36 Q20 30 18 36 M90 36 Q100 30 102 36" stroke="#e8d9c2" stroke-width="3" fill="none"/>
+  <path d="M60 24 Q86 24 88 48 Q89 58 82 63 Q88 74 86 84 Q83 98 60 98 Q37 98 34 84 Q32 74 38 63 Q31 58 32 48 Q34 24 60 24 Z" fill="#a08464"/>
+  <path d="M52 12 Q54 4 60 8 Q57 12 58 16 M60 8 Q66 2 68 10 Q64 12 63 16" fill="#6e5540" stroke-width="3.4"/>
+  <path d="M42 76 Q42 62 60 62 Q78 62 78 76 Q78 92 60 92 Q42 92 42 76 Z" fill="#e8d9c2" stroke-width="3.4"/>
+  <ellipse cx="52" cy="78" rx="3" ry="4.4" fill="#28211a" stroke="none"/>
+  <ellipse cx="68" cy="78" rx="3" ry="4.4" fill="#28211a" stroke="none"/>
+  <path d="M54 88 Q60 90 66 88" fill="none" stroke-width="3" opacity=".6"/>
+  <path d="M43 47 Q47 44 51 47" fill="none" stroke-width="3.4"/>
+  <path d="M69 47 Q73 44 77 47" fill="none" stroke-width="3.4"/>
+  <circle cx="47.5" cy="50.5" r="3.4" fill="#28211a" stroke="none"/>
+  <circle cx="72.5" cy="50.5" r="3.4" fill="#28211a" stroke="none"/>
+  <path d="M43 42 L52 40 M68 40 L77 42" stroke-width="3"/>
+  <g transform="rotate(8 96 56)">
+    <rect x="88" y="50" width="24" height="13" rx="3" fill="#f5b731" stroke-width="3"/>
+    <text x="100" y="60" text-anchor="middle" font-family="sans-serif" font-size="8.4" font-weight="900" fill="#28211a" stroke="none">正版</text>
+  </g>
+  <path d="M92 48 L94 51" stroke-width="2.6"/>
+</g></svg>`,
+// 蛋 v2:改名毕业的冗余幸存者——名牌上 egg 被划掉,只剩"蛋";腮红;更神气
+egg: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M60 8 Q90 34 90 66 Q90 98 60 98 Q30 98 30 66 Q30 34 60 8 Z" fill="#fff6e8"/>
+  <path d="M44 22 Q50 16 56 20" stroke-width="2.6" fill="none" opacity=".35"/>
+  <circle cx="50" cy="50" r="4" fill="#28211a" stroke="none"/>
+  <circle cx="70" cy="50" r="4" fill="#28211a" stroke="none"/>
+  <circle cx="51.4" cy="48.6" r="1.3" fill="#fff" stroke="none"/>
+  <circle cx="71.4" cy="48.6" r="1.3" fill="#fff" stroke="none"/>
+  <ellipse cx="42" cy="58" rx="4.6" ry="2.8" fill="#f4b8a2" stroke="none"/>
+  <ellipse cx="78" cy="58" rx="4.6" ry="2.8" fill="#f4b8a2" stroke="none"/>
+  <path d="M54 62 Q60 67 66 62" fill="none" stroke-width="3.4"/>
+  <path d="M42 40 Q46 37 50 40 M70 40 Q74 37 78 40" stroke-width="3" fill="none"/>
+  <g transform="rotate(-4 60 82)">
+    <rect x="36" y="74" width="48" height="17" rx="4" fill="#f5b731" stroke-width="3.4"/>
+    <text x="50" y="86" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="900" fill="#a3937b" stroke="none">egg</text>
+    <path d="M41 82 L59 80" stroke="#e0452c" stroke-width="2.6"/>
+    <text x="71" y="87" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="900" fill="#28211a" stroke="none">蛋</text>
+  </g>
+</g></svg>`,
+// 蛇:盘身谜题师,身中段有个蛋形鼓包(蛇吃蛋案发现场),吐信,小礼帽
+snake: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M22 84 Q14 68 30 62 Q46 57 60 64 Q74 71 66 80 Q58 88 44 84 Q32 80 36 74" fill="none" stroke="#4d9455" stroke-width="13"/>
+  <path d="M22 84 Q14 68 30 62 Q46 57 60 64 Q74 71 66 80 Q58 88 44 84 Q32 80 36 74" fill="none" stroke="#63b06b" stroke-width="7"/>
+  <path d="M60 64 Q78 56 80 44" fill="none" stroke="#4d9455" stroke-width="13"/>
+  <path d="M60 64 Q78 56 80 44" fill="none" stroke="#63b06b" stroke-width="7"/>
+  <ellipse cx="46" cy="66" rx="12" ry="14" fill="#63b06b" stroke-width="3.6"/>
+  <ellipse cx="46" cy="66" rx="7" ry="9" fill="#fff6e8" stroke-width="3"/>
+  <circle cx="43.5" cy="64" r="1.7" fill="#28211a" stroke="none"/>
+  <circle cx="48.5" cy="64" r="1.7" fill="#28211a" stroke="none"/>
+  <path d="M43 70 Q46 71.5 49 70" fill="none" stroke-width="2.2"/>
+  <ellipse cx="80" cy="34" rx="15" ry="13" fill="#63b06b"/>
+  <circle cx="75" cy="32" r="4.4" fill="#fff"/><circle cx="75" cy="32" r="4.4" fill="none" stroke-width="3"/>
+  <circle cx="76.3" cy="33" r="2" fill="#28211a" stroke="none"/>
+  <circle cx="88" cy="32" r="4.4" fill="#fff"/><circle cx="88" cy="32" r="4.4" fill="none" stroke-width="3"/>
+  <circle cx="89.3" cy="33" r="2" fill="#28211a" stroke="none"/>
+  <path d="M69 26 L74 28 M94 26 L89 28" stroke-width="3"/>
+  <path d="M80 45 Q80 50 76 52 M80 50 Q84 52 84 55" stroke="#e0452c" stroke-width="3" fill="none"/>
+  <path d="M70 22 Q80 14 92 20 L90 24 Q80 19 72 25 Z" fill="#28211a" stroke-width="3"/>
+  <rect x="76" y="12" width="12" height="9" rx="2" fill="#28211a" stroke-width="3"/>
+</g></svg>`,
+// 黑化肥:深色麻袋,飘着挥发线,眼神游移
+heihuafei: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M40 18 Q44 8 50 14 M58 14 Q62 4 68 12 M76 18 Q82 10 84 18" stroke-width="3" opacity=".5" fill="none"/>
+  <path d="M42 34 L52 26 L68 26 L78 34 L82 84 Q82 96 60 96 Q38 96 38 84 Z" fill="#4a4038"/>
+  <path d="M52 26 Q54 18 60 18 Q66 18 68 26" fill="none" stroke-width="3.4"/>
+  <ellipse cx="52" cy="56" rx="4.6" ry="5.6" fill="#fff" stroke-width="3"/>
+  <ellipse cx="70" cy="56" rx="4.6" ry="5.6" fill="#fff" stroke-width="3"/>
+  <circle cx="53.6" cy="57" r="2" fill="#28211a" stroke="none"/>
+  <circle cx="71.6" cy="57" r="2" fill="#28211a" stroke="none"/>
+  <path d="M54 72 Q60 69 66 72" fill="none" stroke-width="3.4"/>
+  <rect x="46" y="78" width="28" height="11" rx="3" fill="#f5b731" stroke-width="3"/>
+  <text x="60" y="87" text-anchor="middle" font-family="sans-serif" font-size="7.4" font-weight="900" fill="#28211a" stroke="none">黑化肥</text>
+</g></svg>`,
+// 封面用小锦鲤(红/绿)
+carpR: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M22 62 Q24 42 48 38 Q74 32 88 48 Q94 56 94 62 Q94 68 88 76 Q74 92 48 86 Q24 82 22 62 Z" fill="#e0452c"/>
+  <path d="M94 62 L112 48 Q110 62 112 76 Z" fill="#ff8f7a"/>
+  <path d="M50 38 Q58 26 68 30 Q64 36 60 40 Z" fill="#ff8f7a"/>
+  <circle cx="44" cy="58" r="4" fill="#fff"/><circle cx="44" cy="58" r="4" fill="none" stroke-width="3"/>
+  <circle cx="45" cy="59" r="1.8" fill="#28211a" stroke="none"/>
+  <path d="M36 70 Q42 74 48 71" fill="none" stroke-width="3"/>
+</g></svg>`,
+carpG: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M26 58 Q28 40 50 36 Q74 30 88 46 Q94 52 94 58 Q94 66 88 72 Q74 88 50 82 Q28 78 26 58 Z" fill="#5da653"/>
+  <path d="M94 58 L110 46 Q108 58 110 72 Z" fill="#a5d69b"/>
+  <path d="M52 36 Q60 24 70 28 Q66 34 62 38 Z" fill="#a5d69b"/>
+  <circle cx="46" cy="54" r="4" fill="#fff"/><circle cx="46" cy="54" r="4" fill="none" stroke-width="3"/>
+  <circle cx="47" cy="55" r="1.8" fill="#28211a" stroke="none"/>
+  <path d="M38 66 Q44 70 50 67" fill="none" stroke-width="3"/>
+</g></svg>`,
+};
+
+// ============ v3 新增立绘:FX 专用姿态 ============
+const ART2 = {
+// 猴先生放炮:推着小炮,点火,坏笑
+monkeyCannon: `<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="46" cy="38" r="9" fill="#9c6b3f"/><circle cx="98" cy="38" r="9" fill="#9c6b3f"/>
+  <circle cx="46" cy="38" r="4" fill="#e8b98a" stroke-width="2.6"/><circle cx="98" cy="38" r="4" fill="#e8b98a" stroke-width="2.6"/>
+  <ellipse cx="72" cy="44" rx="26" ry="24" fill="#9c6b3f"/>
+  <path d="M56 38 Q72 22 88 38 Q88 52 82 60 Q72 66 62 60 Q56 52 56 38 Z" fill="#e8b98a" stroke="none"/>
+  <ellipse cx="72" cy="44" rx="26" ry="24" fill="none"/>
+  <circle cx="64" cy="41" r="3" fill="#28211a" stroke="none"/><circle cx="80" cy="41" r="3" fill="#28211a" stroke="none"/>
+  <path d="M62 52 Q72 60 82 52" fill="none"/>
+  <path d="M60 35 Q64 32 68 35 M76 35 Q80 32 84 35" stroke-width="2.6" fill="none"/>
+  <path d="M92 62 Q104 70 116 74" fill="none" stroke-width="5"/>
+  <path d="M118 60 L164 46 Q174 44 176 52 Q178 60 168 62 L124 74 Q116 76 114 68 Q112 62 118 60 Z" fill="#4a4038"/>
+  <text x="146" y="61" text-anchor="middle" font-family="sans-serif" font-size="7" font-weight="900" fill="#f5b731" stroke="none" transform="rotate(-15 146 61)">MYSKME</text>
+  <circle cx="120" cy="86" r="11" fill="#28211a"/><circle cx="152" cy="76" r="11" fill="#28211a"/>
+  <circle cx="120" cy="86" r="4" fill="#6b5f4e" stroke="none"/><circle cx="152" cy="76" r="4" fill="#6b5f4e" stroke="none"/>
+  <path d="M176 46 Q184 40 190 44" stroke="#e0452c" stroke-width="3.4" fill="none"/>
+  <path d="M188 40 L192 34 M192 44 L198 42 M190 48 L196 50" stroke="#f5b731" stroke-width="3.4"/>
+</g></svg>`,
+// 鱼小姐·墨镜版(连对庆祝)
+fishCool: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M96 22 L100 12 M104 26 L112 20 M106 34 L116 34" stroke="#f5b731" stroke-width="3.4"/>
+  <path d="M20 62 Q20 40 44 34 Q72 26 88 44 Q96 52 96 60 Q96 68 88 76 Q72 94 44 86 Q20 80 20 62 Z" fill="#1f9e8e"/>
+  <path d="M96 60 L114 44 Q112 60 114 76 Z" fill="#7fd4c8"/>
+  <path d="M48 34 Q56 20 68 24 Q64 32 60 36 Z" fill="#7fd4c8"/>
+  <path d="M20 62 Q34 56 44 62 Q34 70 20 62 Z" fill="#7fd4c8" stroke-width="3.4"/>
+  <path d="M32 52 L60 52 Q62 52 62 55 Q62 62 54 62 L40 62 Q33 62 32 55 Z" fill="#28211a"/>
+  <path d="M62 54 L70 52" stroke-width="3"/>
+  <path d="M36 70 Q44 76 52 71" fill="none" stroke-width="3.4"/>
+</g></svg>`,
+// 蛇头(探头/叼走用)
+snakeHead: `<svg viewBox="0 0 140 80" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M0 52 Q30 44 52 46" fill="none" stroke="#4d9455" stroke-width="13"/>
+  <path d="M0 52 Q30 44 52 46" fill="none" stroke="#63b06b" stroke-width="7"/>
+  <ellipse cx="72" cy="42" rx="24" ry="20" fill="#63b06b"/>
+  <circle cx="66" cy="38" r="6" fill="#fff"/><circle cx="66" cy="38" r="6" fill="none" stroke-width="3"/>
+  <circle cx="68" cy="39.5" r="2.6" fill="#28211a" stroke="none"/>
+  <circle cx="84" cy="38" r="6" fill="#fff"/><circle cx="84" cy="38" r="6" fill="none" stroke-width="3"/>
+  <circle cx="86" cy="39.5" r="2.6" fill="#28211a" stroke="none"/>
+  <path d="M58 30 L64 33 M92 30 L86 33" stroke-width="3"/>
+  <path d="M94 52 Q104 54 110 50 M110 50 Q114 46 112 42 M110 50 Q116 52 118 56" stroke="#e0452c" stroke-width="3" fill="none"/>
+  <path d="M60 16 Q72 8 86 14 L84 19 Q72 13 62 21 Z" fill="#28211a" stroke-width="3"/>
+  <rect x="66" y="4" width="14" height="10" rx="2" fill="#28211a" stroke-width="3"/>
+</g></svg>`,
+// 猴先生大脸(抢答警报)
+monkeyFace: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="22" cy="52" r="14" fill="#9c6b3f"/><circle cx="98" cy="52" r="14" fill="#9c6b3f"/>
+  <circle cx="22" cy="52" r="6.5" fill="#e8b98a" stroke-width="3"/><circle cx="98" cy="52" r="6.5" fill="#e8b98a" stroke-width="3"/>
+  <ellipse cx="60" cy="58" rx="40" ry="38" fill="#9c6b3f"/>
+  <path d="M35 48 Q60 22 85 48 Q86 70 78 82 Q60 92 42 82 Q34 70 35 48 Z" fill="#e8b98a" stroke="none"/>
+  <ellipse cx="60" cy="58" rx="40" ry="38" fill="none"/>
+  <circle cx="48" cy="52" r="5.5" fill="#28211a" stroke="none"/><circle cx="72" cy="52" r="5.5" fill="#28211a" stroke="none"/>
+  <circle cx="49.8" cy="50" r="1.8" fill="#fff" stroke="none"/><circle cx="73.8" cy="50" r="1.8" fill="#fff" stroke="none"/>
+  <path d="M42 42 Q48 38 54 42 M66 42 Q72 38 78 42" stroke-width="3.4" fill="none"/>
+  <ellipse cx="60" cy="64" rx="6" ry="4" fill="#c98d5c" stroke-width="3"/>
+  <ellipse cx="60" cy="78" rx="11" ry="7" fill="#28211a"/>
+  <path d="M18 24 L26 32 M60 14 L60 24 M102 24 L94 32" stroke="#e0452c" stroke-width="4.4"/>
+</g></svg>`,
+// 驴·角落凝视(探出半张脸)
+donkeyPeek: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M64 30 Q46 14 44 30 Q43 42 62 44 Z" fill="#8f7355"/>
+  <path d="M116 30 Q134 14 136 30" fill="#8f7355"/>
+  <path d="M88 22 Q114 22 118 46 Q119 58 112 62 Q118 74 116 84 Q113 98 90 98 L88 98 Z" fill="#a08464"/>
+  <path d="M92 76 Q92 62 110 64 L112 92 Q100 94 92 88 Z" fill="#e8d9c2" stroke-width="3.4"/>
+  <ellipse cx="102" cy="78" rx="3" ry="4.4" fill="#28211a" stroke="none"/>
+  <path d="M93 47 Q97 44 101 47" fill="none" stroke-width="3.4"/>
+  <circle cx="97.5" cy="50.5" r="3.4" fill="#28211a" stroke="none"/>
+  <path d="M92 42 L102 40" stroke-width="3"/>
+</g></svg>`,
+// MYSKME 空投箱
+crate: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+<g stroke="#28211a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M28 20 Q60 8 92 20 L86 30 Q60 20 34 30 Z" fill="#e8d9c2"/>
+  <rect x="26" y="34" width="68" height="56" rx="5" fill="#c9a05e"/>
+  <path d="M26 50 L94 50 M26 74 L94 74 M43 34 L43 90 M77 34 L77 90" stroke-width="3" opacity=".55"/>
+  <rect x="34" y="54" width="52" height="16" rx="3" fill="#f5b731" stroke-width="3.4"/>
+  <text x="60" y="66" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="900" fill="#28211a" stroke="none">MYSKME</text>
+  <path d="M52 26 Q60 22 68 26" fill="none" stroke-width="3"/>
+</g></svg>`,
+};
+
+// ============ v3 惊喜引擎:出其不意事件库 ============
+// 规则:答对/答错事件只在课堂模式的"揭晓"时触发;行为事件(抢答警报/发呆蛇/路过客串)全模式生效。
+
+// MYSKME 官方语录池(一本正经的荒诞)
+const SLOGANS = [
+  'MYSKME:让你错得明明白白。',
+  'MYSKME——错题界的老字号,童叟无欺,题题有坑。',
+  'MYSKME 质检部:本卷每个坑均经三次人工踩踏,踩踏员为猴先生。',
+  'MYSKME:知识是甜的,前提是你先咽下这口错。',
+  'MYSKME 谜题管理局温馨提示:回头重读,幸福一生。',
+  'MYSKME:自 MYSKME 成立以来,一直是 MYSKME。(本广告语已被蛋举报冗余,举报无效)',
+  '猴先生也是 MYSKME 深度用户。效果因人而异。',
+  'MYSKME:每道题都有户口,每个坑都交过房租。',
+  'MYSKME 错题减免券:本券不减免任何错题。最终解释权归 MYSKME。',
+  'MYSKME 会员权益:无。但你已自动成为会员。',
+  'MYSKME 驯猴办公示:猴先生已连续 0 天未抢答。',
+  'MYSKME 房租稽查科:今日查获白住单词 3 枚,已遣返词典。',
+  'MYSKME 词义稽查科:本科查获的从来不是词,是"你以为"。',
+  'MYSKME 提醒:每个单词至少有两张脸。本条提醒也有。',
+  'MYSKME 词义稽查科年度通报:今年头号在逃诈骗犯,仍然是"直译"。',
+];
+
+// 谜题管理局公章(香蕉芯,戏仿版)
+const SEAL_SVG = `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<g fill="none" stroke="#c8281e" stroke-width="5">
+  <circle cx="100" cy="100" r="92"/>
+  <circle cx="100" cy="100" r="64" stroke-width="2.5" opacity=".7"/>
+  <path d="M100 66 Q84 88 96 112 Q101 122 110 126 Q98 118 94 102 Q91 84 104 68 Z" fill="#c8281e" stroke="none"/>
+</g>
+<defs><path id="arcT" d="M100,100 m-78,0 a78,78 0 1,1 156,0"/></defs>
+<text font-family="sans-serif" font-size="19" font-weight="900" fill="#c8281e">
+  <textPath href="#arcT" startOffset="12%">M Y S K M E 谜 题 管 理 局</textPath>
+</text>
+<text x="100" y="156" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="900" fill="#c8281e">审 讫</text>
+</svg>`;
+
+const FX = (() => {
+  const cool = {};                      // 冷却表
+  function cooled(key, ms){ const t = Date.now(); if(cool[key] && t - cool[key] < ms) return false; cool[key] = t; return true; }
+
+  function layer(html, cls, dur){
+    const d = document.createElement('div');
+    d.className = 'fxLayer ' + cls; d.innerHTML = html;
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(), dur);
+    return d;
+  }
+  function bubble(txt, dur){
+    const d = document.createElement('div');
+    d.className = 'fxBubble'; d.textContent = txt;
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(), dur || 2600);
+  }
+
+  // ---- 答错事件池(随机抽,永不知道下一个是谁) ----
+  const WRONG_POOL = [
+    () => { // 猴先生放炮
+      layer(ART2.monkeyCannon, 'fxCannon', 2600);
+      setTimeout(()=>{ flash(); shake(); burst(window.innerWidth*0.5, window.innerHeight*0.45, 30); }, 900);
+      setTimeout(()=>bubble(pick([
+        '猴先生放炮:这题我 0.3 秒就错完了,你居然错得比我慢!',
+        '猴先生鸣炮致意:欢迎加入错题俱乐部,会费一根香蕉。',
+        '炮是猴先生放的。他说不是庆祝,是共鸣。'])), 950);
+    },
+    () => { // 驴盖章
+      layer(`<div class="fxStampWrap"><div class="fxStamp">如假包换的错<div class="fxStampSub">MYSKME 质检部 监制</div></div></div>`, 'fxCenter', 2200);
+      shake();
+      setTimeout(()=>bubble(pick([
+        '驴验完货,盖章了。它说这个错很正宗。',
+        '驴:"错得如假包换。放心,我认证过的错,改起来都快。"'])), 500);
+    },
+    () => { // 蛇叼走答案
+      layer(ART2.snakeHead, 'fxSnakeSlide', 2800);
+      setTimeout(()=>bubble(pick([
+        '嘶——错误答案我收走了,不谢。',
+        '蛇把你的答案叼走了。它说要拿回去当谜面。',
+        '蛇:"这个错味道不错,嘶……下次还错吗?"'])), 700);
+    },
+    () => { // 黑化肥挥发
+      layer(ART.heihuafei, 'fxFume', 2600);
+      setTimeout(()=>bubble('黑化肥飘过,你的答案挥发了一半。剩下那半也是错的。'), 600);
+    },
+    () => { // 蛋滚过收房租
+      layer(ART.egg, 'fxEggRoll', 2400);
+      setTimeout(()=>bubble(pick([
+        '蛋滚过现场:"这个错,房租 -1。"',
+        '蛋看了一眼你的答案,默默记进了房租黑名单。'])), 600);
+    },
+  ];
+
+  // ---- 答对小夸(轻量,不打断节奏) ----
+  const RIGHT_LINES = ['✓ 稳','✓ 驴点头了','✓ 蛇没咬你','✓ 这题猴先生错了,你没有','✓ 泡泡 +1','✓ 房租全额缴清','✓ 鱼小姐记下了'];
+
+  // ---- 连对升级事件 ----
+  function streakFx(k){
+    if(k === 3){
+      layer(ART.fish, 'fxFishPop', 2600);
+      bubble('三连对。鱼小姐吐了个泡泡,大概是赞许。');
+    } else if(k === 5){
+      layer(ART2.fishCool, 'fxFishPop', 3000);
+      flash();
+      bubble('五连对!鱼小姐戴上了墨镜。她没有耳朵,墨镜是贴上去的。');
+    } else if(k === 7){
+      // 全员游行
+      const row = `<div class="fxParade">${ART.monkey}${ART.fish}${ART.donkey}${ART.egg}${ART.snake}</div>`;
+      layer(row, 'fxParadeWrap', 4200);
+      burst(window.innerWidth*0.5, window.innerHeight*0.4, 40);
+      bubble('七连对!全员出动围观!(驴是被拖来的)', 3600);
+    } else if(k === 10){
+      flash(); shake();
+      layer(ART.snake, 'fxFishPop', 3200);
+      bubble('十连对——蛇提议把你吞了以绝后患,已被驴拦下。', 3600);
+    } else if(k > 10 && k % 5 === 0){
+      burst(window.innerWidth*0.5, window.innerHeight*0.35, 30);
+      bubble(k + ' 连对。出题人已开始怀疑人生。', 3000);
+    }
+  }
+
+  // ---- 行为事件 ----
+  function fastAlarm(sec){
+    if(!cooled('fast', 240000)) return;
+    layer(`<div class="fxDark"></div><div class="fxBigFace">${ART2.monkeyFace}</div>
+      <div class="fxBigTxt">⚡ ${sec.toFixed(1)} 秒?!<br>你比猴先生还猴?!<br><span>读完题了吗?!</span></div>`, 'fxFull', 2000);
+    shake();
+  }
+  function idlePoke(){
+    if(!cooled('idle', 180000)) return;
+    layer(ART2.snakeHead, 'fxSnakePeek', 3600);
+    setTimeout(()=>bubble(pick([
+      '嘶……卡住了?回头把题重读一遍试试。',
+      '蛇探出头看了看:"没事,我曾经卡在一道谜上三年。"',
+      '嘶——发呆不收费,但也不给分。'])), 800);
+  }
+  function seal(){                    // 公章猛击:出其不意盖满屏
+    if(!cooled('seal', 200000)) return;
+    shake();
+    layer(`<div class="fxSealWrap">${SEAL_SVG}</div>`, 'fxCenter', 2000);
+    setTimeout(()=>bubble(pick(['本题已由 MYSKME 谜题管理局备案。备什么案?不告诉你。',
+      'MYSKME 审讫。公章是圆的,你的错是方的,盖不严,凑合看。'])), 700);
+  }
+  function fax(){                     // 总部传真:一本正经的无内容公文
+    layer(`<div class="fxFax"><div class="fxFaxHead">MYSKME 词义稽查科 公函</div><div class="fxFaxLine"></div>
+      <div class="fxFaxBody">${pick(['兹证明:你以为的,均不属实。','查:该词第二职业属实,准予兼职。','(本公函另有一层意思,恕不奉告)','速译。<br><span style="opacity:.6">译什么?你以为呢?</span>'])}</div>
+      <div class="fxFaxFoot">MYSKME 词义稽查科文书组 · 稽字第 ∞ 号</div></div>`, 'fxFaxWrap', 3800);
+  }
+  function inspect(){                 // 质检抽查水印
+    const card = document.querySelector('.qCard'); if(!card) return;
+    const w = document.createElement('div'); w.className = 'inspectChip';
+    w.textContent = 'MYSKME® 质检抽查中';
+    card.appendChild(w); setTimeout(()=>w.remove(), 2600);
+  }
+  function cameo(){
+    if(Math.random() > 0.05) return;
+    if(!cooled('cameo', 90000)) return;
+    const roll = Math.random();
+    if(roll < 0.22){
+      layer(ART2.donkeyPeek, 'fxDonkeyPeek', 3000);
+      setTimeout(()=>bubble('驴在角落看了你三秒,什么也没说,走了。'), 900);
+    } else if(roll < 0.44){
+      layer(ART.heihuafei, 'fxFumeAcross', 3600);
+      setTimeout(()=>bubble('黑化肥恰好路过。它的全名今天依然没人读对。'), 900);
+    } else if(roll < 0.72){
+      layer(ART2.crate, 'fxCrateDrop', 3400);
+      setTimeout(()=>{ shake(); bubble('📦 MYSKME 空投 · ' + pick(SLOGANS), 3400); }, 700);
+    } else {
+      fax();
+    }
+  }
+
+  function warrant(){                 // 词义稽查科通缉令(本卷新事件)
+    if(!cooled('warrant', 240000)) return;
+    shake();
+    layer(`<div class="fxFax fxWarrant"><div class="fxFaxHead">词义稽查科 · 通缉令</div><div class="fxFaxLine"></div>
+      <div class="fxFaxBody">通缉对象:<b>你刚才以为的那个意思</b><br><span style="opacity:.7">特征:眼熟、自信、查无此义。</span></div>
+      <div class="fxFaxFoot">见到请勿相认 · 稽(2026)缉字第 ∞ 号</div></div>`, 'fxFaxWrap', 4000);
+  }
+  function takeover(){                // 倒计时超时:猴先生代答
+    layer(`<div class="fxDark"></div><div class="fxBigFace">${ART2.monkeyFace}</div>
+      <div class="fxBigTxt">⏰ 超时!<br>猴先生替你答了<br><span>用时 0.3 秒,他对自己很满意</span></div>`, 'fxFull', 2200);
+    shake();
+    setTimeout(()=>bubble(pick([
+      '猴先生:"不用谢。我选的是我最有把握的那个。"',
+      '猴先生代答完成。他说这题他熟——熟练地错过。',
+      '驴围观了全程,在报告里写:又一起。'])), 1100);
+  }
+
+  function pick(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  return {
+    wrong(){ pick(WRONG_POOL)(); },
+    right(){ floatNum(pick(RIGHT_LINES), '#1c7c50'); },
+    streak: streakFx, fastAlarm, idlePoke, cameo, bubble, seal, fax, inspect, warrant, takeover, slogan(){ return pick(SLOGANS); },
+  };
+})();
+
+// ============ M2 教师专属 · 撑场面冷知识(每题一条,仅教师模式显示) ============
+
+const DEEP_SH = {
+1:'"You can say that again" 属于语用学说的"惯常化间接言语行为":字面(允许重复)整体下岗,打包上岗的是附和义。同门师兄 "You\'re telling me!"(可不是嘛)、"Tell me about it!"(我太懂了)——三句全是"表面让你说,实际不用你说"。',
+2:'语言学叫"语义漂白"(semantic bleaching):高强度词用得太频,字面义磨损,只剩强调功能。starving(饿死了)、freezing(冻死了)同理;最极端的是 literally——漂白到词典被迫收录它的"figuratively"用法,一个词活成了自己的反义词。',
+3:'茶的词源全球分两路:海路走闽南话 te(英 tea、法 thé、荷 thee),陆路走官话 cha(俄语 чай、阿拉伯语 shay、葡语 chá——葡萄牙人从澳门进货,所以西欧只有它说 cha)。看一个国家念 tea 还是 chai,能倒推它当年走哪条商路——一杯茶里泡着一部贸易史。',
+4:'英语 dog 也有贬义残留:dog-tired、a dog\'s life、go to the dogs——义项分层,夸不夸全看搭配。最著名的"黑狗":丘吉尔把自己的抑郁症称作 black dog,这只黑狗至今仍是英语世界心理健康的头号隐喻。',
+5:'委婉语跑步机(euphemism treadmill,平克命名):toilet 本身就是委婉语(法语 toilette 梳妆),被用"脏"后换 bathroom,再换 restroom、washroom——每一代委婉语终将变直白,再换下一代。lavatory(拉丁"洗手处")是同一台跑步机上的前前任。',
+6:'跨文化语用失误(pragmatic failure)这个术语是 Jenny Thomas 1983 年提出的,经典例证正是夸奖应答。Leech 礼貌原则在两种文化里权重不同:汉语"谦逊准则"优先(贬己尊人),英语"一致准则"优先(别否定对方)——谁也没错,只是排序不同。',
+7:'2000 年代外交圈疯传一张《英式委婉语对照表》(Anglo-EU Translation Guide):英国人说 quite good = 有点失望,very interesting = 明显胡扯,I\'ll bear it in mind = 我已经忘了。语言学归类为 off-record politeness(Brown & Levinson 面子理论)——批评走暗线,拒绝不留字据。',
+8:'人类学家 Malinowski 造了个术语 phatic communion(寒暄性交际):话语的功能是维系关系,不是传递信息。"改天请你吃饭"和 "Let\'s do lunch sometime" 是同一枚硬币的两面,两边的本地人都心知肚明——只有跨文化的人会掏出日历。',
+9:'认知语言学叫"词汇化模式差异":汉语的"大"是通用放大器,英语按感官通道细分(heavy/strong/bright/loud——大雨/大风/大太阳/大嗓门)。语料库一查便知:heavy rain 对 big rain 是碾压级词频差。地道不是玄学,是统计。',
+10:'turn on 是动词化石:早期电灯开关是旋钮,拧的动作留在了动词里——设备死了,动词永生。同款化石:hang up(挂断——话筒挂回墙机挂钩)、dial a number(拨号盘)、rewind(倒带)、CC 抄送(carbon copy 复写纸)。每个短语动词都是一座工业博物馆。',
+11:'语言类型学叫"词汇切分粒度":汉语"看"是轻量通用动词,英语视觉动词按意图细分。反例方向相反:英语一个 carry,汉语切成背/扛/提/抱/挑/抬/端——粒度差是双向的,谁也别笑谁。翻译的难,难在两张网眼对不齐。',
+12:'空间认知实验(Bowerman & Choi):英语 in/on 按"包含 vs 支撑"切空间,韩语按"贴合松紧"切,汉语"上"按方位切——婴儿 18 个月就开始按母语切分空间了。介词是每种语言的隐形坐标系,学外语=给大脑装第二套坐标。',
+13:'cool = 棒的用法出自 1940 年代美国爵士圈(cool jazz,萨克斯手 Lester Young 那代人的行话),从乐手黑话进入主流,是"温度词表赞"的鼻祖;hot 同期反向服役(hot jazz 热烈演奏)。一冷一热,双双成夸——温度计对此不发表意见。',
+14:'副词位置是二语习得著名的"母语迁移"(L1 transfer)现场:法国人也说 I like very much this book(法语语序平移)。全世界学英语的人都在把母语语序走私进英文——中式英语并不孤单,它有一整个国际互助会。',
+15:'black sheep 的贬义有真实产业史:黑羊毛无法染色,商业价值低,18 世纪英格兰牧民视黑羔羊为亏损——习语是经济学化石。a lion in the way 出自《圣经·箴言》26:13:懒人说"路上有狮子"当不出门的借口——原本讽刺借口,后来才泛化成"拦路虎"。',
+16:'"Love me, love my dog" 可考至 12 世纪拉丁谚语 Qui me amat, amat et canem meum(圣伯尔纳布道引用);"爱屋及乌"出自《尚书大传》,周武王问计于太公。相隔千年万里,逻辑完全同构:爱的传递性测试。人心是一样的,选的动物不一样。',
+};
+
+const DEEP_DP = {
+1:'minute 还有第三人格:形容词读 /maɪˈnjuːt/(极小的)。词源拉丁 minutus(变小)一根三枝:分钟(小时切小)、纪要(小字速记)、微小(本义)。英语文字游戏名句 my minute minutes(我那份超短纪要)——同一拼写,三次上岗。',
+2:'Assumption 在宗教语境=圣母升天(被"接"上天),8 月 15 日 Assumption Day 是多国法定假日——同一个"接取"词根,一头接市长上任,一头接圣母升天。sumere 家族全员:consume(拿来吃)、resume(重新拿起)、presume(提前拿=擅自认定)。',
+3:'interest 词源是拉丁 inter-esse"在其间"→"与你利害相关之物"。中世纪教会法禁高利贷,放贷收益被婉称 interesse(损失补偿),"利息"义由此洗白上岗。三个义项的辈分和你以为的正好相反:利益最老,利息居中,兴趣最年轻。',
+4:'be found wanting 典出《圣经·但以理书》第五章:伯沙撒王宫墙上显出神秘手书 MENE, MENE, TEKEL…——"你被放在天平上称过,显出亏欠"。英语另一条成语 the writing on the wall(不祥之兆)出自同一夜、同一堵墙——一面墙贡献两条习语,效率惊人。',
+5:'英语集体量词的巅峰是 15 世纪《圣奥尔本斯书》的"猎场术语"(terms of venery):a murder of crows(一"谋杀"乌鸦)、a parliament of owls(一"议会"猫头鹰)、an unkindness of ravens(一"刻薄"渡鸦)——中世纪贵族卷出来的文字游戏,至今是英语最华丽的冷知识矿。',
+6:'given name(教名)用的是同一个 given——"被给的名字"。英语用"被动+介词"表天性癖好是一整个家族:be wedded to(固执于)、be addicted to(沉迷于)、be inclined to(倾向于)。一个 given,横跨"命名"与"天性",户口本比蛇的还乱。',
+7:'bill 的"文件"家族同源于拉丁 bulla(封印圆泡):教皇诏书 papal bull、汇票 bill of exchange(现代纸币前身)、Bill of Rights 权利法案——一个"盖章文件"词根,从教皇管到钱包再管到国会。鸟喙 bill 则来自古英语 bile,纯属拼写撞车的第二户人家。',
+8:'free 与 friend 同源(原始日耳曼 *frijaz"亲爱的"):部落里"自己人"即自由人,外人才为奴——"自由"和"友爱"在词源上是同一件事。for free / free of charge / feel free:三个 free,三种语法身份,词源学家看这个词像看老朋友。',
+9:'collocation(搭配)一词由伦敦学派 Firth 1957 年确立,名言:You shall know a word by the company it keeps(观其伴而知其词)。语料库语言学后来证明:母语者大脑存储的不是单词是词块(chunk)——这也是"背单词表不如背搭配"的科学依据。',
+10:'2011 年《牛津英语词典》修订确认:run 以 645 个义项超过 put 和 set,成为全词典义项最多的词——编纂者 Peter Gilliver 整理它花了九个月,词条比一部中篇小说还长。一个三字母小词,卷成了英语第一劳模。',
+11:'catch a cold 的"抓感冒"逻辑各语言不同:法语 attraper un rhume 同款"抓",德语 sich erkälten 是"使自己变冷",汉语"着凉"归因于温度。感冒的民间病因学,冻在了各家动词里——而病毒表示:这口锅它背了几百年。',
+12:'make ends meet 1661 年即见于 Thomas Fuller 的文献。ends 到底指什么,词源学界三大假说:账本两端/裁缝布料两端/航海绳索两端——OED 官方裁定:证据不足,悬案保留。一条十七世纪的过日子谚语,悬到今天没结案。',
+13:'present 三义同源:拉丁 praeesse"在面前"——在场是本义,礼物是"当面奉上之物",当前是"摆在眼前的时间"。at present(目前)、for the present(暂且)保留着最老用法。每个生日派对上,它的三个人格同时到场:人到场、礼物到手、当下此刻。',
+14:'Break a leg(祝演出成功)是剧场"说反话辟邪"的活化石:直说 good luck 招厄运,反着说消灾。同款逻辑德语 Hals- und Beinbruch(祝你脖子和腿全断,猎人黑话)——越狠越吉利。戏剧界至今不肯改口,语言学家管这叫仪式性反语。',
+15:'"Time flies like an arrow; fruit flies like a banana" 常被安在喜剧大师 Groucho Marx 头上,实为讹传;可考出处是 1966 年哈佛计算机科学家 Anthony Oettinger 团队讨论机器翻译歧义的论文。"句法歧义"从此有了官方吉祥物——而且是一只果蝇。',
+16:'battery 词源法语 battre(击打):军事上炮组 battery=连续轰击单位;富兰克林 1748 年把串联的莱顿瓶比作"炮组",电池自此得名——电学术语其实是军事隐喻。普通法里 assault(威胁)与 battery(实际接触)是两个罪名,美剧字幕组的千年难题。',
+};
+
+// ============ M2《一词多义诈骗案》浅水区(中级 · 初三~高一)题库 ============
+// 主打:认知反转——词全认识,中式思维给的第一反应恰好是错的。
+
+const HALLS_SH = [
+  {
+    id: 1, owner: '驴', en: 'BUREAU OF SECOND IDENTITIES', title: '第二职业介绍所',
+    theme: '这些词你都认识——认识的那个意思,今天恰好放假',
+    bio: ['稽查科科长。那场读错事故的唯一幸存正版,看谁都要验明正身——包括单词。',
+          '本所登记在册的单词个个有第二职业:白天当你认识的那个意思,晚上出去兼职。',
+          '名言:"你认识它,不代表你认识它的全部。"本厅四题,全是兼职现场。'],
+    interlude: '驴把四份兼职档案归档。有人问它有没有第二职业,它说:"正版是全职。"',
+    color: 'var(--donkey)', glyph: 'donkey'
+  },
+  {
+    id: 2, owner: '鱼小姐', en: 'HALL OF UNDERCOVER WORDS', title: '语境卧底厅',
+    theme: '东西方心理战 · 听懂话里的话,和话下面的话',
+    bio: ['语境卧底行动组组长。传闻记忆只有七秒,但每句话她都听两层:字面一层,底下一层。',
+          '东西方的心理战,打的从来不是单词,是"话里的话"。',
+          '名言:"听不懂下面那层,上面那层就是陷阱。"本厅四题,全是心理战现场。'],
+    interlude: '鱼小姐结束卧底任务。猴先生问她卧底累不累,她说不累,最累的是听懂之后还要装没听懂。',
+    color: 'var(--teal)', glyph: 'fish'
+  },
+  {
+    id: 3, owner: '猴先生', en: 'SCENE OF TRANSLATION CRASHES', title: '直译车祸现场',
+    theme: '中文一个字,英文分几家 · 一把钥匙变一串钥匙',
+    bio: ['直译车祸现场负责人(兼全部事故当事人)。',
+          '他坚信中文和英文是一一对应的。这个信念制造了本厅全部四起事故。',
+          '名言:"我说的每个词都是对的,它们只是组合错了。"事故现场保留原样,供后人参观。'],
+    interlude: '车祸现场清理完毕。猴先生总结:四起事故,零人伤亡,全部责任在"翻译"。他建议取缔翻译,驴在建议书上盖了"驳回"。',
+    color: 'var(--banana)', glyph: 'monkey'
+  },
+  {
+    id: 4, owner: '蛇', en: 'HALL OF EVIDENCE', title: '取证厅',
+    theme: '操作题 · 亲手把误会拆开',
+    bio: ['取证厅厅主。戒吃改行后,专职收集"误会"当藏品。',
+          '它的证物柜里没有凶器,全是被冤枉的单词——每个词都有不在场证明,在场的只有"你以为"。',
+          '名言:"嘶——误会拆开之前,都长得像真相。"本厅全部动手,拆给你看。'],
+    interlude: '蛇合上证物柜:"嘶——浅水区结案。凶手每次都是同一个:想当然。"',
+    color: 'var(--teal)', glyph: 'snake'
+  }
+];
+
+const QS_SH = [
+// ================= 厅一 · 驴的第二职业介绍所 Q1-4 =================
+{ n:1, hall:1, t:'mc', b:'UR', tag:'You can say that again',
+  sc:'猴先生对鱼小姐说:"你这次的卷子做得真漂亮。"鱼小姐说:"You can say that again."猴先生深吸一口气,真的又说了一遍——还提高了音量。',
+  stem:'鱼小姐那句话的<b>真正</b>意思是:',
+  opts:['再说一遍,我没听清(猴先生的执行方案)','说得太对了,我完全同意','这话你也好意思说第二遍?','可以再说一遍,但仅限一遍'],
+  ans:'B',
+  ep:'这是英语的<b>附和套话</b>:"这话值得再说一遍"= 说得太对了。真想请人重复,说 Pardon? / Sorry, could you say that again?(注意 could 的求人味)。字面是命令,实际是鼓掌——猴先生把鼓掌听成了点播。鱼小姐听完第二遍,说:"第三遍就不必了。"',
+  ei:[['A','no','字面直译,复读机方案。'],['B','yes','正确。惯用附和语,整句打包=我同意。'],['C','no','无讽刺义——语调平常时它只负责赞同。'],['D','no','没有次数限制条款,这不是优惠券。']] },
+
+{ n:2, hall:1, t:'mc', b:'UR', tag:'be dying to',
+  sc:'蛋收到远房表亲(一只母鸡)的信:"I\'m dying to see you!" 蛋大惊失色:表亲病危!连夜打包出发,赶到才发现表亲正在开派对。',
+  stem:'信里这句话的意思是:',
+  opts:['我快不行了,速来见最后一面(蛋的理解)','见不到你也无所谓——委婉的疏远','dying 属于讣告文体,这信写得不吉利','我特别想见你,想到不行'],
+  ans:'D',
+  ep:'be dying to do / dying for sth = <b>迫不及待想要</b>。英文拿"死"造日常夸张毫无心理负担:I\'m dying for a cup of tea(渴死了)/ My phone died(手机没电了)/ You kill me(你笑死我了)。中文里"死"要绕着走,英文里"死"天天加班——<b>禁忌不同,温度相反</b>。蛋在派对上待到切蛋糕环节,转身就走(蛋糕这个词,它一直有意见)。',
+  ei:[['A','no','字面惊悚版,英文母语者读不出病危。'],['B','no','反向鱼钩:方向整个反了,这是热情不是疏远。'],['C','no','dying 在口语里活蹦乱跳,讣告反而不用它。'],['D','yes','正确。夸张表达的想念。']] },
+
+{ n:3, hall:1, t:'mc', b:'SP', tag:'black tea',
+  sc:'猴先生进茶馆想点红茶,对服务生驴说:"Red tea, please." 驴面无表情地端出一杯洛神花。',
+  stem:'"红茶"的正确英文是:',
+  opts:['red tea','dark tea','black tea','brown tea'],
+  ans:'C',
+  ep:'中国人命名看<b>汤色</b>(泡出来红),英国人看<b>叶色</b>(发酵后黑)——同一杯茶,两双眼睛。B 是本题最毒的一勺:<b>dark tea 真实存在</b>,但对应的是中国六大茶类里的"黑茶"(普洱一族)。顺带存档:红糖 brown sugar、黑面包 brown bread、black coffee 是不加奶。驴后来把菜单改成了图片版。',
+  ei:[['A','no','直译落水点。英文 red tea 另有其茶(洛神花/南非博士茶)。'],['B','no','看走眼专用项:dark tea 是真词,但它是"黑茶"。'],['C','yes','正确。按叶色命名。'],['D','no','brown 在 sugar 和 bread 那边上班。']] },
+
+{ n:4, hall:1, t:'mc', b:'UR', tag:'lucky dog',
+  sc:'猴先生中了茶馆的抽奖,外国茶客拍着他的肩膀喊:"You lucky dog!" 猴先生当场撸起袖子,被鱼小姐一个眼神按了回去。',
+  stem:'那位茶客的意思是:',
+  opts:['你这条走了狗运的狗(骂人)','你真是个幸运儿(夸人)','你的狗很幸运(字面)','狗都比你幸运(拐着弯损人)'],
+  ans:'B',
+  ep:'英文的 dog 常带亲昵:lucky dog 幸运儿 / top dog 头号人物 / work like a dog 拼命干活。中文的"狗"负责骂人,英文的 dog 负责当家人——<b>同一种动物,两份人设</b>。反向也别翻车:把"单身狗"直译过去,对方只会关心你的狗为什么单身。',
+  ei:[['A','no','用中文狗设理解英文狗,袖子白撸了。'],['B','yes','正确。亲昵夸赞。'],['C','no','现场没有第二只狗。'],['D','no','没有比较结构,损不起来。']] },
+
+// ================= 厅二 · 鱼小姐的语境卧底厅 Q5-8 =================
+{ n:5, hall:2, t:'mc', b:'UR', tag:'restroom',
+  sc:'机场。猴先生长途飞行累瘫了,抬头看见指示牌 RESTROOM,眼睛一亮:"休息室!"他抱着枕头和毯子,排进了一条移动很快的队。',
+  stem:'RESTROOM 指示牌通向的是:',
+  opts:['洗手间(队伍尽头的真相)','休息室(猴先生的方向)','候机贵宾厅','行李寄存处'],
+  ans:'A',
+  ep:'restroom = <b>洗手间</b>的美式委婉说法。同族:bathroom(家里那间,可能根本没浴缸)、washroom(加拿大)、the Gents / Ladies(英)。英语给厕所修了一整条委婉语流水线,rest 在这里休想休息;真正的休息室叫 lounge。猴先生排到门口才醒,进去转了一圈出来,对驴说:"这休息室不错,床是陶瓷的,还带冲水。"',
+  ei:[['A','yes','正确。委婉语,rest 不管休息。'],['B','no','字面直译,枕头白带了。'],['C','no','那叫 VIP lounge。'],['D','no','那叫 luggage storage。']] },
+
+{ n:6, hall:2, t:'mc', b:'UR', tag:'夸奖的应答',
+  sc:'国际茶会上,外国朋友夸鱼小姐:"Your English is excellent!" 她刚要开口,猴先生抢答:"No no no, her English is very poor!" 空气安静了。鱼小姐的眼镜反了一下光。',
+  stem:'鱼小姐本人<b>得体</b>的回应是:',
+  opts:['No, no, my English is very poor.(传统美德版)','Where, where.(哪里哪里直译版)','Thank you! I\'m still learning.','Don\'t say that.(别这么说)'],
+  ans:'C',
+  ep:'中式谦虚=否定对方的夸奖;但在英文文化里,<b>否定夸奖=否定对方的判断力</b>("我英语差"听起来像"你眼光差")。接住夸奖,再补一句还在努力,谦虚和礼貌就都齐了。B 是上世纪著名直译事故,对方真的会开始琢磨你在问哪里。事后猴先生不服:"我这是替她谦虚!"驴说:"谦虚不能替。"',
+  ei:[['A','no','中式美德到英文频道=当众反驳对方。'],['B','no','史诗级直译事故,载入教材那种。'],['C','yes','正确。先接住,再谦虚。'],['D','no','听起来像吵架前一秒。']] },
+
+{ n:7, hall:2, t:'mc', b:'SP', tag:'Interesting…',
+  sc:'猴先生向外国投资人推销他的创业项目:给香蕉装拉链。对方全程微笑听完,缓缓说了一句:"Well… that\'s… interesting."猴先生回家开了香槟。',
+  stem:'投资人的真实态度<b>最可能</b>是:',
+  opts:['非常感兴趣,准备投钱(香槟开对了)','委婉的不看好:"呃……挺特别的……"','没听懂项目,想再听一遍','interesting 是褒义词,他只能是在夸'],
+  ans:'B',
+  ep:'拖长的 "Interesting…" 是英语的<b>礼貌降落伞</b>:不想说 bad,就说 interesting。同款:not bad(其实=挺好,方向反着走)/ I hear you(听到了≠同意)/ Let\'s think about it(≈想都不会想)。判官不是单词,是<b>语调和停顿</b>:秒接的 "Interesting!" 是真好奇,拖长的省略号是在给你留面子。香蕉拉链最终没拿到投资,但蛋私人认购了一箱——剥皮这件事,它感同身受。',
+  ei:[['A','no','香槟开早了,语调已经泄密。'],['B','yes','正确。留面子式的委婉否定。'],['C','no','没听懂会直接问,不会拖长音。'],['D','no','词典义≠语用义,这正是本题的题眼。']] },
+
+{ n:8, hall:2, t:'mc', b:'SP', tag:'sometime 客套',
+  sc:'茶会散场,外国朋友对猴先生热情挥手:"You must come over for dinner sometime!" 猴先生当场掏出小本子:"几点?我空腹去。"',
+  stem:'这句话的<b>实际功能</b>是:',
+  opts:['正式邀请,应当场敲定时间','命令:must 表示你必须到场','试探:看你会不会主动定日子','友好的客套告别,约等于"改天聚聚哈"'],
+  ans:'D',
+  ep:'sometime(不确定的某时)+ <b>没有日历信息</b> = 社交润滑剂,功能≈中文"改天请你吃饭"——你也没真等那顿饭。真邀请自带日历:"Are you free this Saturday? Seven?" 判据一条:<b>有没有具体的日子和钟点</b>。must 在这里是热情放大器,不是法律义务。据记载,猴先生此后每天傍晚去对方门口散步,散到第七天,真的被请进去吃了饭——方法不建议模仿,但效果无法否认。',
+  ei:[['A','no','没有日历信息,敲不了。'],['B','no','must 在客套里只放大热情,不产生义务。'],['C','no','对方没在等你出招,他在说再见。'],['D','yes','正确。寒暄性客套,判据是日历。']] },
+
+// ================= 厅三 · 猴先生的直译车祸现场 Q9-12 =================
+{ n:9, hall:3, t:'mc', b:'UR', tag:'大雨 ≠ big rain',
+  sc:'天气预报由猴先生代班主持:"明天有 big rain,后天的 rain 更 big,请带 big 伞。"收视率创下新高,气象台台长驴引咎辞职未遂。',
+  stem:'"明天有大雨"的地道说法是:',
+  opts:['It will rain heavily tomorrow.','There will be a big rain tomorrow.','There will be a large rain tomorrow.','Tomorrow will rain big.'],
+  ans:'A',
+  ep:'雨在英文里论<b>重量</b>不论个头:heavy rain / heavy snow / heavy fog(中文的大雨大雪大雾)。反过来,"大风"论力气 strong wind,"大太阳"论亮度 bright sunshine——<b>中文一个"大"字全包,英文按物理性质分户口</b>。记法:雨雪雾往下"压",论重;风来"推"你,论力。B、C 是一对看走眼双胞胎,谁选谁落水。',
+  ei:[['A','yes','正确。rain heavily / heavy rain。'],['B','no','big rain,直译车祸主现场。'],['C','no','large 是 big 的西装版,车祸升了个舱。'],['D','no','语序词性双重车祸,保险公司拒赔。']] },
+
+{ n:10, hall:3, t:'mc', b:'UR', tag:'开灯 ≠ open',
+  sc:'停电又来电。猴先生大喊:"Open the light!" 灯没理他。他又喊:"Open the TV!" 电视也没理他。全屋电器集体装死。',
+  stem:'"开灯"的正确说法是:',
+  opts:['open the light','start the light','turn on the light','open the lamp'],
+  ans:'C',
+  ep:'open / close 管的是有<b>开口</b>的东西:门、窗、盒子、书、嘴。电器走电路,用 <b>turn on / turn off</b>(旋钮时代传下来的动词)或 switch on。中文的"开"是万能钥匙:开灯、开车、开会、开玩笑——到英文里分别是 turn on / drive / have a meeting / joke,<b>一把钥匙变一串钥匙</b>。电器们后来原谅了猴先生,除了微波炉——它是真的被 open 过。',
+  ei:[['A','no','车祸原型。灯没有口,open 不了。'],['B','no','start 管引擎和项目,不管灯。'],['C','yes','正确。电器专用动词。'],['D','no','把 light 换成 lamp,车祸换了个车牌而已。']] },
+
+{ n:11, hall:3, t:'match', b:'UR', tag:'一个"看"字四张脸',
+  sc:'稽查科审讯室。中文字"看"被带进来问话,它当场分裂成四个英文嫌疑人,互相指认对方是主犯。',
+  stem:'连线:中文的"看",在英文里各是谁',
+  left:['看书','看电视','看医生','看黑板'],
+  right:['read','watch','see','look at'],
+  ansMap:[0,1,2,3],
+  ep:'中文"看"是总承包商,英文分包:<b>read</b> 看文字内容(书报)/ <b>watch</b> 盯动态过程(电视、比赛)/ <b>see</b> 会面(see a doctor 看病、see a film 看电影)/ <b>look at</b> 把视线投过去(看黑板、看这边)。口诀:内容 read,过程 watch,会面 see,投视线 look at。加练:看朋友 visit。四个嫌疑人最后握手言和,排了个班。' },
+
+{ n:12, hall:3, t:'mc', b:'SP', tag:'树上的户口',
+  sc:'稽查科接到举报:一棵树上,苹果和鸟因为介词吵了起来。苹果坚持自己该用 in,鸟坚持自己该用 on——双方都错了。',
+  stem:'正确的分配是:',
+  opts:['苹果 on the tree,鸟 in the tree','苹果 in the tree,鸟 on the tree(当事双方的主张)','都用 on——反正都在树上','都用 in——反正都在树里'],
+  ans:'A',
+  ep:'英文的规则:<b>树自己长出来的</b>(苹果、叶子、花)是树的一部分,用 on;<b>外来客</b>(鸟、猫、风筝、猴先生)钻在枝叶之间,用 in。中文一个"上"字和平共处,英文先查户口。同一逻辑:画挂墙面 on the wall,钉子嵌进墙 in the wall。举报最后撤销,苹果和鸟互换介词,握爪言和。',
+  ei:[['A','yes','正确。自产 on,外来 in。'],['B','no','当事双方的主张,双双落水。'],['C','no','鸟表示抗议:它不是树的一部分。'],['D','no','苹果表示抗议:它不是钻进来的。']] },
+
+// ================= 厅四 · 蛇的取证厅 Q13-16(操作题) =================
+{ n:13, hall:4, t:'input', b:'UR', tag:'一词三人格',
+  sc:'取证厅第一件物证:一个词,三张身份证。蛇:"嘶——同一个人,三个户口。把名字写出来。"',
+  stem:'一个词,填进三句都成立:<br>① The weather is getting ___ in October.<br>② Your new skateboard is so ___!<br>③ ___ down, Mr. Monkey. Breathe.<br>输入这个词:',
+  accept:['cool'],
+  ep:'<b>cool</b> 三人格:天气凉爽(十月转凉)/ 棒极了(夸滑板)/ 冷静(对猴先生的日常用语)。还有第四人格:That\'s cool with me(我没意见)。一词多义不是负担,是买一送三——前提是别在夸人的场合聊天气。蛇把三张身份证钉上墙,旁边留了个空位:"它迟早还会办新的。"' },
+
+{ n:14, hall:4, t:'order', b:'UR', tag:'副词的座位',
+  sc:'停电事件后,猴先生给全体电器写英文道歉信,第一句就出了车祸,被蛇没收存证。词块已打乱,里面照例混了一个钓鱼的。',
+  stem:'替他拼出正确的第一句(多余词块留在原地别动):',
+  tokens:['very','you','I','am','much','like'],
+  ansStr:'I like you very much',
+  ep:'中文语序"我(I)非常(very)喜欢(like)你们"直接平移就是车祸:<b>very 不能直接修饰动词</b>,它得抱着 much 组成 very much,坐到句尾去。同理"我非常同意"是 I quite agree / I totally agree,不是 I very agree。干扰词 am 在钓"我是非常喜欢"的中式强调——英文的强调另有其人:<b>I do like you</b>,do 才是强调担当。电器们收到信后集体亮了一下灯,表示原谅。' },
+
+{ n:15, hall:4, t:'match', b:'SP', tag:'动物换头案',
+  sc:'海关截获一批中文成语,开箱查验发现:里面的动物全被调了包。蛇:"嘶——不是调包,是他们那边的户口本就这么印的。"',
+  stem:'连线:中文成语 ↔ 它的英文版(注意动物已换人)',
+  left:['力大如牛','落汤鸡','害群之马','拦路虎'],
+  right:['as strong as a horse','a drowned rat','the black sheep','a lion in the way'],
+  ansMap:[0,1,2,3],
+  ep:'种地的中文选了<b>牛</b>,骑马的英文选了<b>马</b>;鸡怕水,英文让 <b>rat</b> 掉进水沟;马群里出害马,羊群里出<b>黑羊</b>(黑羊毛染不上色卖不上价,真·经济学);拦路的虎到了没有虎的欧洲,只好由<b>狮子</b>代班。成语过海关,动物要换签证——直译 as strong as a cow,英国农夫只会以为你在夸奶牛产奶多。' },
+
+{ n:16, hall:4, t:'mc', b:'SP', tag:'结案陈词 · 爱屋及乌',
+  sc:'<b>浅水区结案陈词。</b>驴宣读:"本案所有单词均无前科,作案的从头到尾只有一个——你以为。"最后一件物证是一句英文古谚,请全体起立翻译。',
+  stem:'"Love me, love my dog." 对应的中文成语是:',
+  opts:['爱狗如命','打狗看主人','狗仗人势','爱屋及乌'],
+  ans:'D',
+  ep:'标准对译:<b>爱屋及乌</b>——爱那个人,连他屋顶上的乌鸦一起爱;英文版:爱我,就连我的狗一起爱。同一套逻辑,中文选角乌鸦,英文选角狗,两边都觉得对方选角离谱——这正是全卷的结案陈词:<b>语言翻译的不是词,是世界观</b>。B 是本题的看走眼项:"打狗看主人"说的是看主人面子对狗留情,方向似近实远,专钓熟读成语的人。散会时,驴宣布:本案卷宗移交 M3。',
+  ei:[['A','no','只剩狗了,人呢?'],['B','no','最毒的近义项:那是"惩戒时给面子",不是"爱的传递"。'],['C','no','这是狗的职场黑话,与爱无关。'],['D','yes','正确。爱的传递性测试,两边各选了一只动物。']] },
+];
+
+// ============ M2《一词多义诈骗案》深水区(高级 · 雅思易错档)题库 ============
+// 主打:惯犯词——用你最熟的那张脸,干你想不到的事。
+
+const HALLS_DP = [
+  {
+    id: 1, owner: '驴', en: 'ARCHIVE OF REPEAT OFFENDERS', title: '惯犯档案室',
+    theme: '案底最厚的词,长着最无辜的脸',
+    bio: ['稽查科科长。深水区的档案柜里锁的全是惯犯:minutes、assume、interests——个个案底厚过词典。',
+          '惯犯的作案手法只有一种:用你最熟的那张脸,干你想不到的事。',
+          '名言:"越眼熟的词,越要验。"本厅四题,全部有前科。'],
+    interlude: '驴给四个惯犯盖完章,发现 wanting 的档案缺了一页。它面无表情地在事故报告里写:本厅主题,厅内上演。',
+    color: 'var(--donkey)', glyph: 'donkey'
+  },
+  {
+    id: 2, owner: '鱼小姐', en: 'HALL OF UNDERCOVER WORDS · DEEP', title: '语境卧底厅',
+    theme: '判官不是词典,是语境',
+    bio: ['深水区卧底行动组组长。她说深水区的词不伪装词义,伪装的是"频道"。',
+          'a school of fish 不上学,a bill 不结账——同一个词,换个频道换一生。',
+          '名言:"词没有第二张脸,是你只看过它一张。"'],
+    interlude: '卧底行动结束。猴先生把鱼小姐那句名言抄在香蕉上,抄完发现香蕉不够长,只抄下了前半句。',
+    color: 'var(--teal)', glyph: 'fish'
+  },
+  {
+    id: 3, owner: '猴先生', en: 'CHAIN COLLOCATION FRAUD UNIT', title: '搭配连环骗专案组',
+    theme: '单词全认识,一组队就翻脸',
+    bio: ['专案组组长(兼受害人代表)。',
+          'run、catch、meet——都是他背过的单词;run a temperature、catch one\'s eye、make ends meet——都是他没背过的人生。',
+          '名言:"单词我全认识,它们一组队我就不认识了。"'],
+    interlude: '专案组结案聚餐。猴先生举杯:"To our friendship——祝我们的船!"全桌沉默三秒。鱼小姐把 friendship 和 ship 的关系写在餐巾纸上,推了过去。',
+    color: 'var(--banana)', glyph: 'monkey'
+  },
+  {
+    id: 4, owner: '蛇', en: 'HALL OF EVIDENCE · DEEP', title: '深水取证厅',
+    theme: '操作题 · 每件证物都骗过至少一位老师',
+    bio: ['深水取证厅厅主。藏品等级比浅水区高一档:每件证物都骗过至少一位老师。',
+          '它最得意的两句藏品锁在 M1(五个词那句和七个词那句)。本厅的新藏品,专骗"以为自己不会被骗的人"。',
+          '名言:"嘶——深水区的规矩:见到送分题,先数数自己还剩几条命。"'],
+    interlude: '蛇锁上柜子:"嘶——深水区结案。你游上来的时候,数数自己以为的答案,还剩几个活着。"',
+    color: 'var(--teal)', glyph: 'snake'
+  }
+];
+
+const QS_DP = [
+// ================= 厅一 · 驴的惯犯档案室 Q1-4 =================
+{ n:1, hall:1, t:'mc', b:'UR', tag:'minutes = 纪要',
+  sc:'稽查科晨会。科长驴宣布:"Please read the minutes first." 猴先生盯着手表认真读了六十秒,汇报:"读完了,无事发生。"',
+  stem:'驴让大家读的其实是:',
+  opts:['上次会议的纪要','前几分钟的监控录像','时钟的分针刻度','散会倒计时'],
+  ans:'A',
+  ep:'minutes = <b>会议纪要</b>(必复数:the minutes of the meeting;做记录叫 take the minutes)。词源是拉丁 minuta scriptura"小字记录"——纪要用小字速记,跟"分钟"同一个词根、两个岗位。猴先生的六十秒不算白读:那是他这辈子第一次完整地看完一分钟。',
+  ei:[['A','yes','正确。开会先读上次纪要,国际惯例。'],['B','no','监控归安保科,不归会议室。'],['C','no','盯表方案,已被猴先生亲测无效。'],['D','no','散会倒计时是所有人心里读的,不用宣布。']] },
+
+{ n:2, hall:1, t:'mc', b:'UR', tag:'assume office',
+  sc:'头条新闻:The new mayor will assume office next Monday. 猴先生读完直摇头:"上任第一天就开始\'假设办公室\',这市长不实干。"',
+  stem:'assume office 的意思是:',
+  opts:['假设自己有一间办公室','正式就职','接管办公室的装修工程','假装在办公(摸鱼的高级说法)'],
+  ans:'B',
+  ep:'assume 的<b>本义是"接过来、承担"</b>(拉丁 sumere 拿取):assume office 就职 / assume responsibility 担责 / assume a new name 启用新名字。"假设"反而是引申义——把一个观点"拿来"当前提。连环考点:under an assumed name(用化名,谍战片高频)。市长本人对 D 选项表示强烈抗议。',
+  ei:[['A','no','"假设"是这个词的第二职业,今天没轮到它。'],['B','yes','正确。接任、就职。'],['C','no','装修归物业,不上头条。'],['D','no','摸鱼另有专词:slack off。市长已报警。']] },
+
+{ n:3, hall:1, t:'mc', b:'UR', tag:'interests 复数=利益',
+  sc:'财经版:The tycoon has large interests in shipping. 猴先生读后大为感动:"有钱人也不过是爱好多了一点。"',
+  stem:'句中 interests 指:',
+  opts:['兴趣爱好(猴先生的感动)','银行存款的利息','投资与股权(商业利益)','航运圈的人脉'],
+  ans:'C',
+  ep:'interest 三级跳:兴趣 → 利息(不可数:bank interest)→ <b>复数 interests 常指利益、产业、股权</b>(business interests / national interests 国家利益 / conflict of interest 利益冲突)。<b>复数一加,爱好变生意</b>。读财经英文第一课:见到 interest,先查单复数和搭配,再动笔翻译。大亨本人确认:他对航运毫无兴趣,只有利益。',
+  ei:[['A','no','爱好那位是单数或泛指,今天没上班。'],['B','no','半吊子陷阱:利息不可数,而且不"in shipping"。'],['C','yes','正确。复数变义,产业股权。'],['D','no','人脉叫 connections,另一个部门。']] },
+
+{ n:4, hall:1, t:'mc', b:'SP', tag:'found wanting',
+  sc:'戏剧评论专栏:The performance was found wanting. 猴先生连夜去排队买票:"被发现\'想要\'?说明观众想要!场场加座!"',
+  stem:'这句剧评的意思是:',
+  opts:['演出一票难求,供不应求','演出被裁定"不合格、有欠缺"','演员在台上把台词 want 念错了','演出让观众产生强烈渴望,评价极高'],
+  ans:'B',
+  ep:'wanting 作形容词 = <b>欠缺的、不够格的</b>;be found wanting 是固定裁定语:"经检验,不达标"。want 的<b>老义是"缺乏"</b>(for want of… 因缺少……),"想要"反而是引申——缺什么才想要什么。同族老古董:want of sleep 缺觉。剧团后来把这句剧评印上了海报——反正猴先生们看不懂,票真的卖光了。',
+  ei:[['A','no','反向鱼钩:方向全反,还顺手拍了个马屁。'],['B','yes','正确。裁定不合格。'],['C','no','台词事故不进剧评,进花絮。'],['D','no','和 A 同一个坑的精装修版。']] },
+
+// ================= 厅二 · 鱼小姐的语境卧底厅 Q5-8 =================
+{ n:5, hall:2, t:'mc', b:'SP', tag:'a school of fish',
+  sc:'纪录片字幕:A school of fish moved silently below.(一……学校的鱼?)猴先生对鱼小姐肃然起敬:"原来你们全族都是知识分子。"鱼小姐:"我没上过学。"',
+  stem:'a school of fish 是:',
+  opts:['一所鱼类学校(海底教育机构)','一派鱼类学者(学术流派)','一箱运往学校的鱼','一群鱼'],
+  ans:'D',
+  ep:'这个 school 和上学的 school 是<b>两个词</b>:群体义来自荷兰语 schole(与 shoal 同门),拼写撞车纯属历史事故。英语量词的豪华衣柜:a school of fish / a flock of birds / a herd of cows / a pack of wolves / a swarm of bees——<b>中文一个"群"字全包,又是反差</b>。B 是给聪明人挖的:a school of thought(学派)确实存在,但 of thought 才配学派,of fish 只配成群。鱼小姐补充:她们那群的量词,她个人倾向叫"一册鱼"。',
+  ei:[['A','no','海底没有教育机构,只有补习班传闻。'],['B','no','聪明人陷阱:school of thought 是学派,of fish 是群。'],['C','no','运输方案过于具体,字幕组没这个预算。'],['D','yes','正确。集体量词。']] },
+
+{ n:6, hall:2, t:'mc', b:'UR', tag:'be given to',
+  sc:'稽查科人事档案,蛇的一栏写着:He is given to long silences. 猴先生看完充满同情:"被人送了这么多沉默?谁送的?能退吗?"',
+  stem:'档案这句话的意思是:',
+  opts:['他有长时间沉默的习惯','他被分配了"保持沉默"的任务','别人送给他的时间,他都用来沉默','他被剥夺了发言权'],
+  ans:'A',
+  ep:'be given to + 名词/doing = <b>习惯于、有……的癖好</b>(常指不太好的倾向):given to exaggeration 爱夸张 / given to drink 贪杯。被动形式表"天性"——像上天发牌时给他发了这张。主动版 give oneself to 献身于,是另一回事。蛇对档案内容没有异议,并用沉默完成了确认。',
+  ei:[['A','yes','正确。天性倾向。'],['B','no','稽查科不分配沉默,沉默是自带的。'],['C','no','字面脑补,时间不能快递。'],['D','no','它随时可以说话,它只是不想。']] },
+
+{ n:7, hall:2, t:'mc', b:'SP', tag:'bill = 法案',
+  sc:'国际新闻:The Senate passed the bill after midnight. 猴先生一声长叹:"再大的官,吃完饭也得自己传账单,还传到半夜。不容易。"',
+  stem:'句中 bill 指:',
+  opts:['餐厅账单(传着看谁请客)','鸟喙(参议院的吉祥物)','法案/议案','百元大钞(billion 的简称)'],
+  ans:'C',
+  ep:'bill 的多面人生:账单 / <b>法案</b>(pass a bill 通过法案,签署成法后改叫 act)/ 传单海报(post no bills 禁止张贴)/ 鸟喙(duck-billed platypus 鸭嘴兽)。新闻语境 + Senate = 法案,没有悬念。<b>B 不是瞎编</b>——bill 真有鸟喙义,本题专钓"知道冷知识但不看语境"的高手:多义词的判官永远是语境,不是词典页码。D 才是瞎编的,billion 从不简称。',
+  ei:[['A','no','参议院不 AA,他们有食堂。'],['B','no','真词义钓鱼项:鸟喙是真的,语境是假的。'],['C','yes','正确。Senate + pass 锁死法案。'],['D','no','假词源,billion 表示从未授权。']] },
+
+{ n:8, hall:2, t:'tap', b:'UR', tag:'free = 空闲',
+  sc:'咖啡馆。牌子上写着:FREE WIFI. FREE WATER. 最后一行小字:This table is free until 6 p.m. 猴先生把桌子扛起来就走:"六点前免费!先到先得!"',
+  stem:'点出让猴先生"扛桌而走"的那个被误解的词:<br><i>This table is free until 6 p.m.</i>',
+  tokens:['This','table','is','free','until','6','p.m.'],
+  ansIdx:[3],
+  ep:'free 三人格:<b>免费</b>(free wifi)/ <b>空闲、未被占用</b>(Is this seat free? 这张桌六点前没人订)/ <b>自由</b>(free speech)。sugar-free 里还有第四人格"不含"。判官照旧是语境:桌子 + until 6 = 空闲到六点。桌子已由驴追回,咖啡馆新增中文告示一张:"桌子恕不免费。"' },
+
+// ================= 厅三 · 猴先生的搭配连环骗专案组 Q9-12 =================
+{ n:9, hall:3, t:'match', b:'SP', tag:'一个"浓"字四张脸',
+  sc:'翻译科实习生把"浓"字输入机器,机器吐出四个不同的词后冒烟罢工。黑化肥路过看了一眼,机器又冒了一次烟。科长驴在事故报告上写:均属正常。',
+  stem:'连线:中文的"浓",在英文里各是谁',
+  left:['浓咖啡','浓汤','浓妆','浓雾'],
+  right:['strong','thick','heavy','dense'],
+  ansMap:[0,1,2,3],
+  ep:'中文一个"浓"字全包,英文按物理属性分户口:浓咖啡论<b>劲道</b> strong / 浓汤论<b>稠度</b> thick / 浓妆论<b>分量</b> heavy / 浓雾论<b>密度</b> dense(heavy fog 也说得通,但它今天的工号被浓妆占了)。<b>本题的第二考点:先锁死不可替换的搭配,再用排除法收尾</b>——这正是雅思配对题的活命技巧。机器修好后,主动申请调去了数学组。' },
+
+{ n:10, hall:3, t:'mc', b:'UR', tag:'run a temperature',
+  sc:'医务室日志:猴先生 is running a temperature;他解释说这是因为早上 ran a red light 被驴追着 ran 了三条街。三个 run,校医只看懂了最后一个。',
+  stem:'run a temperature 的意思是:',
+  opts:['发烧','跑步跑到体温升高','测量体温','体温计读数不稳,来回跑'],
+  ans:'A',
+  ep:'run a temperature / run a fever = <b>发烧</b>(体温"运行"到高位)。run 的兼职表:run a red light 闯红灯 / run a company 经营 / run out of 用完 / in the long run 从长远看 / a runny nose 流鼻涕。《牛津英语词典》里 run 的义项六百多条,全词典最忙——猴先生听后表示:一个词都这么卷,难怪他跑不过。',
+  ei:[['A','yes','正确。发烧的惯用说法。'],['B','no','因果脑补,日志没写他跑步健身。'],['C','no','测体温是 take one\'s temperature——最毒的近义项。'],['D','no','体温计没有腿,它只是心累。']] },
+
+{ n:11, hall:3, t:'mc', b:'UR', tag:'catch one\'s eye',
+  sc:'鱼小姐的周记(被稽查科依法调阅):Caught the 7:10 train, caught a cold, and something in the shop window caught my eye.(她对"依法"二字表示保留。)',
+  stem:'something caught my eye 的意思是:',
+  opts:['有东西迷了我的眼(进沙子了)','我一眼认出了那个东西','橱窗里有东西挡住了我的视线','有东西吸引了我的注意'],
+  ans:'D',
+  ep:'catch 抓的不一定是实物:catch the train 赶上车(抓住班次)/ catch a cold 染上感冒(到底谁抓谁,学界还没吵完)/ <b>catch one\'s eye 吸引目光</b> / catch you later 回聊。同一只 catch,四个案发现场。至于橱窗里吸引她的是什么,周记往下就没写了——稽查科依法表示遗憾。',
+  ei:[['A','no','进沙子叫 got something in my eye,眼科频道。'],['B','no','认出是 recognize,方向反了:是物抓眼,不是眼抓物。'],['C','no','挡视线叫 blocked my view,物业频道。'],['D','yes','正确。吸引注意的惯用语。']] },
+
+{ n:12, hall:3, t:'mc', b:'UR', tag:'make ends meet',
+  sc:'蛋的家庭预算报告,最后一行写着:We can barely make ends meet. 附注(蛋的笔迹):两头都要交房租,而蛋只有一个。',
+  stem:'make ends meet 的意思是:',
+  opts:['把绳子的两端打上结','收支相抵,勉强过日子','让事情善始善终','在中点碰面(约会用语)'],
+  ans:'B',
+  ep:'make ends meet:让账本的两头碰上——收入这头刚好够得着支出那头,引申为<b>勉强维持生计</b>。meet 的抽象岗还有:meet the deadline 赶上期限 / meet the requirements 满足要求 / meet sb halfway 各让一步。至于 ends 原指账本两端还是绳子两端,词源学家吵了两百年——蛋建议他们 meet halfway。',
+  ei:[['A','no','字面手工课,预算报告不教打结。'],['B','yes','正确。收支勉强相抵。'],['C','no','善始善终是 see it through,励志频道。'],['D','no','约会请出门右转 meet in the middle,也不是这个。']] },
+
+// ================= 厅四 · 蛇的深水取证厅 Q13-16(操作题) =================
+{ n:13, hall:4, t:'sort', b:'UR', tag:'present 双人格分拣',
+  sc:'取证厅物证架上摆着六句话的碎片,每片里都有一个 present。蛇:"嘶——同一张脸,两本户口。分错一个,全员收监。"',
+  stem:'按 present 在片段里的身份分筐(点词切换筐位):',
+  tokens:['a birthday present','everyone present','present address','wrap the present','the present situation','a present from Paris'],
+  baskets:['礼物筐(名词)','在场/当前筐(形容词)'],
+  ansSort:['A','B','B','A','B','A'],
+  ep:'present 名词=<b>礼物</b>(重音在前 PRE-sent);形容词=<b>在场的、当前的</b>(everyone present 到场各位 / present address 现住址 / the present situation 当前局势)。还有第三人格:动词 pre-SENT 呈交、颁发(重音在后)。分辨口诀:被包起来送的是礼物,贴着名词站岗的是"当前",到场点名的是"在场"。蛇分拣完毕,给自己颁了个奖——用的是第三人格。' },
+
+{ n:14, hall:4, t:'input', b:'UR', tag:'一词四人格 · break',
+  sc:'蛇的谜语墙,三个句子缺同一个词:<br>① a lucky ___(转机、好运)<br>② ___ the news to her gently(委婉地告诉她)<br>③ take a ___(歇一会儿)<br>蛇:"嘶——提示:它还会碎。"',
+  stem:'输入这个词:',
+  accept:['break'],
+  ep:'<b>break</b> 的兼职表:lucky break 好运转机(演艺圈行话 big break 成名机会)/ break the news 委婉相告(把重磅消息"掰碎了"慢慢喂)/ take a break 休息 / break the ice 破冰 / break a promise 食言。一个"碎"字,碎出十几个岗位。谜语墙其实还有第四行:___ a leg——蛇说那句留给期末,它说到做到。' },
+
+{ n:15, hall:4, t:'order', b:'SP', tag:'花园小径 · 果蝇篇',
+  sc:'结案前夜,蛇在卷宗末页发现一句名言被打散了。它说:"嘶——上半句 Time flies like an arrow(光阴似箭),人人会背。下半句才是我的藏品——拼出来,然后想想哪里不对劲。"词块里照例埋了钓饵。',
+  stem:'拼出下半句(干扰词留在原地):',
+  tokens:['like','banana','fruit','an','flies','a','arrow'],
+  ansStr:'fruit flies like a banana',
+  ep:'拼出来是 fruit flies like a banana——乍读"水果像香蕉一样飞"?回头再看:<b>fruit flies 是果蝇</b>(名词),like 是<b>喜欢</b>(动词):果蝇喜欢香蕉。上半句刚教你的解析套路(X flies like a Y),下半句原地背叛。<b>上一句的套路,就是下一句的陷阱</b>——雅思阅读的长难句最爱这招。机器翻译在这句上栽了几十年;猴先生表示他两种意思都没读出来,他只看见了香蕉。' },
+
+{ n:16, hall:4, t:'tap2', b:'SP', tag:'结案陈词 · 法律双面人',
+  sc:'<b>深水区结案陈词。</b>驴念完卷宗,只在门上留了一条新闻短讯,说里面有两个词没安好心——把它们点出来,准予毕业。<br><i>新闻短讯:He was charged with battery.</i><br>猴先生译:"他被人用电池充了电。"',
+  stem:'点出两个真正的"卧底词":',
+  tokens:['He','was','charged','with','battery','yesterday'],
+  ansIdx:[2,4],
+  ep:'法律频道的两副面孔:<b>charge</b> = 控告(be charged with 被控某罪;它另兼收费、充电、冲锋——free of charge 免费 / in charge 负责)/ <b>battery</b> = 殴打罪(法律术语,assault and battery 人身侵犯)。整句=他被控殴打罪。最妙的是:battery 先有"连续击打"义,富兰克林把串联电瓶比作"炮组"才有了电池——<b>电池才是殴打的引申义</b>,猴先生的方向整个反了。结案。',
+  } ,
+];
+
+// ============ M2 数据装配:称号表 / 猴先生战绩 / 教师弹药库 / 泳区打包 ============
+
+// ---- 称号表(16 题制) ----
+const TITLES_SH = [
+  { min: 15, name: '鱼小姐亲传 · 反差绝缘体', note: '十六个"你以为"在你身上全部失效。鱼小姐把卧底组的备用眼镜借你戴了一秒,以示最高敬意。' },
+  { min: 12, name: '半猴半鱼(进化中)', note: '大多数反转逃不过你,但还有几个"想当然"藏在暗处。回去把错题的"你以为"挨个揪出来示众——它们最怕见光。' },
+  { min: 8,  name: '驴认证 · 反差学徒', note: '驴给你盖了章:错得很诚实。本卷每个坑的凶手都是同一个——直译。认清它的脸,下次它就骗不到你。' },
+  { min: 5,  name: '与猴先生并肩(危)', note: '你和猴先生的世界观高度一致:所见即所得。他很高兴,要请你喝 red tea,被驴拦下了。' },
+  { min: 0,  name: '比猴先生还猴', note: '黑化肥看了你的成绩,当场挥发。好消息:本卷所有坑只骗第一次——从解析里爬上岸,你就是新的人。' },
+];
+const TITLES_DP = [
+  { min: 15, name: '鱼小姐亲传 · 语境判官', note: '惯犯在你面前全部现出原形。稽查科已为你预留工位,月薪面议(以官方语录形式支付)。' },
+  { min: 12, name: '半猴半鱼(进化中)', note: '多数惯犯难逃你的眼睛,但还有几个戴着"眼熟"的面具溜了。复盘时把它们的第二职业记进小本子。' },
+  { min: 8,  name: '驴认证 · 正版阅读人', note: '驴盖章认证:你的错全错在"太熟"。熟词才有资格骗你——这是深水区的第一课,也是唯一一课。' },
+  { min: 5,  name: '与猴先生并肩(危)', note: '猴先生宣布收你为徒,传授 0.3 秒答题法。鱼小姐建议你先把解析读完,再考虑拜师。' },
+  { min: 0,  name: '比猴先生还猴', note: '蛇提议把你收进证物柜当藏品,已被驴拦下。深水区淹不死人,淹死的都是"你以为"——晾干了再来。' },
+];
+
+// ---- 教师休息室 · 弹药库(仅教师模式可见) ----
+const TEACH_ROOM_SH = [
+['反转题讲评法(本卷总纲)',
+ '先别公布答案,先让学生大声说出"你以为"——反差越当众,记忆越深。判据:讲完解析,学生应该<b>笑出来</b>而不是记下来;笑,说明反差击中了;只顾记,说明又变成了背条目。错题归因永远一句话:不是不认识,是太自信。'],
+['直译车祸 · 扩容名单',
+ '开水龙头 turn on the tap · 大风 strong wind · 大太阳 bright sunshine · 吃药 take medicine(不是 eat)· 喝汤 eat/have soup(西汤稠,用勺,论"吃")· 人山人海 a huge crowd(mountain 和 sea 都不来上班)· 开会 have a meeting · 开玩笑 joke / kid。板书技巧:左列写中文的"开/大/吃",右列写各自分家的英文——一把钥匙变一串钥匙,视觉冲击本身就是记忆。'],
+['客套话识别器(一条判据走天下)',
+ '判据:<b>有没有日历信息</b>。"You must come over sometime" 无日期=客套;"Saturday, seven?" 有日期=真约。客套三件套:Let\'s do lunch(好莱坞级)· We should hang out more(友好告别)· How are you?(问候,不是问诊——回 Good, you? 即可,别报病历)。反向提醒:中国学生也容易把真邀请当客套推掉——同一条判据,反着用。'],
+['夸奖应答 · 台词库',
+ '底线:先 Thank you 接住,再自由发挥。进阶三式:归因式 Thanks! I\'ve been practicing(把夸奖变努力)· 回夸式 Thank you! Your Chinese is amazing too(礼尚往来)· 幽默式 Thank you, my teacher will be thrilled(荣誉转移给第三方)。课堂活动:两人一组互夸,谁先说出 No no no,谁表演快速朗读"红鲤鱼与绿鲤鱼与驴"三遍。'],
+['动物换头案 · 扩容名单',
+ '胆小如鼠 as timid as a rabbit(兔)· 犟得像牛 as stubborn as a mule(骡——驴要求特别注明:骡不是驴)· 对牛弹琴 cast pearls before swine(猪)· 热锅上的蚂蚁 a cat on hot bricks(猫)· 如鱼得水 like a duck to water(鸭——鱼小姐对此保留意见)· 一箭双雕 kill two birds with one stone(雕换鸟,箭换石头,只有"二"活了下来)。讲法:先让学生猜英文会派哪只动物上场,猜错的那一瞬间,反差自动完成教学。'],
+['彩蛋清单 · 浅水区(留给学生自己发现)',
+ '① 驴端出的那杯 red tea 确有其物:洛神花茶/南非博士茶英文真叫 red tea——驴没有恶意,它只是字面执行;② 微波炉记仇事件(Q10):它是真的被 open 过;③ 蛋私人认购了一箱香蕉拉链(Q7);④ 结案陈词"卷宗移交 M3"是官方伏笔;⑤ 两片泳区的厅三都归猴先生——事故现场和专案组,他一人分饰两岸,且两边都是受害人。'],
+];
+const TEACH_ROOM_DP = [
+['惯犯词 · 扩容档案(每个都够讲半节课)',
+ 'novel 新颖的 · address 处理(address the issue)· appreciate 升值 · court 招致/追求(court disaster)· execute 执行 · fine 罚款 · sentence 判刑(The judge gave him a long sentence——语法老师和法官抢同一个词)· party 当事方 · will 遗嘱 · story 楼层(英式 storey)。讲评公式:先给"你以为"的句子,再给惯犯上岗的句子,让反差自己说话。'],
+['复数变义 · 全家福',
+ 'interests 利益 · minutes 纪要 · manners 礼貌 · customs 海关 · works 工厂/著作 · papers 证件/论文 · arms 武器 · goods 货物 · looks 相貌 · times 时代。规律一句话:<b>加个 s,词义就搬家</b>。读长难句先查单复数,再动笔翻译。'],
+['语境判官 · 三步法(雅思阅读通用)',
+ '① 词性定位:它在句里站什么岗(read 后面的 minutes=名词=纪要);② 搭配扫描:左右邻居是谁(pass + bill = 法案);③ 语域判断:现在是财经/法律/新闻哪个频道(Senate 一出场,bill 自动换制服)。三步走完再翻译,能拦下九成熟词生义诈骗。'],
+['法律词双面人 · 名单',
+ 'charge 控告 · battery 殴打罪 · assault 恐吓伤害 · suit 诉讼(lawsuit)· case 案件 · brief 辩护状 · hearing 听证会(不是听力考试)· trial 庭审(不是试用装)· bar 律师界(the Bar)· bench 法官席。美剧一集=一节课,字幕组的错译就是现成考题。'],
+['搭配即词块 · 教学法',
+ 'Firth 名言:You shall know a word by the company it keeps(观其伴而知其词)。单词表记不住的,词块一次就住:run a temperature / catch one\'s eye / make ends meet / break the news——run·catch·meet·break 四大惯犯各列五条搭配贴墙一个月,雅思写作口语双向受益。'],
+['彩蛋清单 · 深水区',
+ '① 蛇的谜语墙第四行 break a leg 是期末伏笔,它说到做到;② wanting 档案缺页事件,驴已立案,主题即案情;③ 猴先生的"To our friendship——祝我们的船!"确有其事,餐巾纸证据在鱼小姐处;④ A7 的"鸟喙"选项是真词义,专钓冷知识型高手——题眼是语境为王;⑤ 两片泳区都以"结案陈词"收尾,卷宗均移交 M3。'],
+];
+
+// ---- 泳区数据包 ----
+const DATA_SHALLOW = {
+  id: 'shallow', label: '浅水区 · 中级卷', shortLabel: '浅水区',
+  sub: '认知反转 · 你以为的,恰好是错的',
+  doorNote: '中级 · 初三~高一<br>16 题 · 词你全认识,坑你全没见过',
+  coverArt: ART.fish + ART.donkey,
+  qs: QS_SH, halls: HALLS_SH, titles: TITLES_SH, teachRoom: TEACH_ROOM_SH, deep: DEEP_SH,
+  monkeyScore: 3, certMin: 12,
+  monkeyNote: '用时 4.8 秒——他至今坚持 restroom 是休息室,并已二次扛桌',
+  troomNote: '浅水区弹药库 · 直译车祸扩容 / 客套识别器 / 夸奖应答台词库 / 动物换头案扩容 / 彩蛋清单',
+  permitNote: { 4: ' · 蛇亲封物证' },
+  hiddenLines: {
+    1: '驴:"我是驴。第二职业,还是驴。"',
+    2: '鱼小姐:"第三下了。你听出这句话下面那层了吗?"',
+    3: '猴先生:"别点了,事故现场不收门票。真不收。收的话一根香蕉。"',
+    4: '蛇:"嘶——证物不许摸。再摸,你也进卷宗。"',
+  },
+};
+const DATA_DEEP = {
+  id: 'deep', label: '深水区 · 高级卷', shortLabel: '深水区',
+  sub: '惯犯词档案 · 越眼熟的,越危险',
+  doorNote: '高级 · 雅思易错档<br>16 题 · 惯犯词落网名录',
+  coverArt: ART.snake + ART.monkey,
+  qs: QS_DP, halls: HALLS_DP, titles: TITLES_DP, teachRoom: TEACH_ROOM_DP, deep: DEEP_DP,
+  monkeyScore: 2, certMin: 12,
+  monkeyNote: '用时 4.8 秒——他要求给 battery 充电,申请已被驳回',
+  troomNote: '深水区弹药库 · 惯犯词扩容 / 复数变义家族 / 语境判官三步法 / 法律词双面人 / 彩蛋清单',
+  permitNote: { 1: ' · 驴亲盖惯犯章' },
+  hiddenLines: {
+    1: '驴:"惯犯我见多了。你已经是今天第三个点我的。"',
+    2: '鱼小姐:"语境,语境,还是语境。重要的事情,点三下。"',
+    3: '猴先生:"别点了——搭档全跑了,就剩香蕉没跑。"',
+    4: '蛇:"嘶——柜子里没有新谜题。柜子本身是。"',
+  },
+};
+
+// ============ 猴与鱼 M2 · 引擎(双泳区壳,复用 M1)============
+// 双轨制:TRACKS 装两套完全独立的题库(shallow 浅水区 / deep 深水区)。
+// 进门先选泳区;进度、判分、战报各自独立,互不干扰。
+const TRACKS = { shallow: DATA_SHALLOW, deep: DATA_DEEP };
+const NUMCN = ['零','一','二','三','四','五'];
+let TRACK = null;   // 当前泳区 id
+let PACK = null;    // 当前泳区数据包
+let ALLQ = [], TOTAL = 0, HALLS = [], TITLES = [], MONKEY_SCORE = 0, TEACH_ROOM = [], DEEP = {};
+let SAVE_KEY = '';
+const TEACHER_CODE = '1020';
+
+// ---- 状态 ----
+let S = {
+  name: '', screen: 'gate', curN: 1, phase: 'answering', // answering | ice | done
+  answers: {},          // n -> 答案(mc:字母 / tap:[i] / tap2:[i,j] / match:[j0..j3] / input:字符串)
+  marked: [],           // 标记△的题号
+  iceLeft: 3, changed: [], // 回冰权
+  elapsed: 0, done: false, result: null,
+  seenIntro: {},        // 已看过的厅介绍
+  mode: 'solo',         // solo 单人闯关 | class 课堂模式(一题一评)
+  revealed: {},         // 课堂模式:已揭晓判决的题
+  streak: 0, maxStreak: 0,
+  times: {},            // 每题思考用时(秒,累计)
+  egghunt: false,       // 隐藏彩蛋题是否达成
+  cd: false, cdLeft: {}, cdLocked: {},   // 倒计时模式:开关/每题剩余秒/超时锁定
+};
+let teacher = false;
+let matchSel = null;    // 连线题暂存左列选择
+let footTaps = 0, footTimer = null;
+
+// ---- 存取 ----
+function save(){ if(!SAVE_KEY) return; try{ localStorage.setItem(SAVE_KEY, JSON.stringify(S)); }catch(e){} }
+function load(){ if(!SAVE_KEY) return; try{ const d = localStorage.getItem(SAVE_KEY); if(d) S = Object.assign(S, JSON.parse(d)); }catch(e){} }
+
+// ---- 泳区(双轨) ----
+function defaultState(){ return { name:'', screen:'cover', curN:1, phase:'answering', answers:{}, marked:[], iceLeft:3, changed:[], elapsed:0, done:false, result:null, seenIntro:{}, mode:'solo', revealed:{}, streak:0, maxStreak:0, times:{}, egghunt:false, cd:false, cdLeft:{}, cdLocked:{} }; }
+function enterTrack(t){
+  TRACK = t; PACK = TRACKS[t];
+  ALLQ = PACK.qs; TOTAL = ALLQ.length; HALLS = PACK.halls; TITLES = PACK.titles;
+  MONKEY_SCORE = PACK.monkeyScore; TEACH_ROOM = PACK.teachRoom; DEEP = PACK.deep || {};
+  SAVE_KEY = 'mf_m2_' + t + '_v1';
+  const keepName = S.name;
+  S = defaultState(); S.name = keepName;
+  load();
+  if(S.done && !S.result) S.result = grade();
+  S.screen = S.done ? 'cover' : 'cover';
+  render();
+}
+function leaveTrack(){ save(); SAVE_KEY = ''; TRACK = null; PACK = null; S.screen = 'gate'; render(); }
+function peekTrack(t){
+  try{ const d = JSON.parse(localStorage.getItem('mf_m2_' + t + '_v1') || 'null'); if(!d) return null;
+    const cnt = Object.keys(d.answers || {}).length;
+    return { done: d.done, cnt, score: d.result ? d.result.score : null,
+      revealed: Object.keys(d.revealed || {}).length, mode: d.mode };
+  }catch(e){ return null; }
+}
+
+// ---- 工具 ----
+const $ = sel => document.querySelector(sel);
+const app = () => $('#app');
+function esc(s){ return String(s); } // 数据自产自销,直接注入
+function fmtT(sec){ const m = Math.floor(sec/60), s = sec%60; return (m<10?'0':'')+m+':'+(s<10?'0':'')+s; }
+function hallQs(h){ return ALLQ.filter(q => q.hall === h); }
+function answered(n){ return S.answers[n] !== undefined; }
+function hallDone(h){ return hallQs(h).every(q => answered(q.n)); }
+function allDone(){ return ALLQ.every(q => answered(q.n)); }
+function countDone(){ return ALLQ.filter(q => answered(q.n)).length; }
+
+// ---- 判分 ----
+function isRight(q){
+  const a = S.answers[q.n];
+  if(a === undefined) return false;
+  if(q.t === 'mc') return a === q.ans;
+  if(q.t === 'tap') return Array.isArray(a) && a.length === 1 && a[0] === q.ansIdx[0];
+  if(q.t === 'tap2'){ if(!Array.isArray(a) || a.length !== 2) return false;
+    const x = a.slice().sort((p,q2)=>p-q2), y = q.ansIdx.slice().sort((p,q2)=>p-q2);
+    return x[0]===y[0] && x[1]===y[1]; }
+  if(q.t === 'match') return Array.isArray(a) && a.length===q.left.length && a.every((v,i)=>v===q.ansMap[i]);
+  if(q.t === 'input'){ const norm = String(a).trim().toLowerCase().replace(/[。.!,\s]/g,'');
+    return q.accept.some(x => x.toLowerCase() === norm); }
+  if(q.t === 'order'){ if(!Array.isArray(a) || !a.length) return false;
+    return a.map(i => q.tokens[i]).join(' ') === q.ansStr; }
+  if(q.t === 'slot') return a === q.gap;
+  if(q.t === 'sort') return Array.isArray(a) && a.length===q.tokens.length && a.every((v,i)=>v===q.ansSort[i]);
+  return false;
+}
+function grade(){
+  let score = 0; const perHall = {}; HALLS.forEach(h => perHall[h.id] = 0);
+  ALLQ.forEach(q => { if(isRight(q)){ score++; perHall[q.hall]++; } });
+  const title = TITLES.find(t => score >= t.min);
+  return { score, perHall, title };
+}
+
+// ---- 倒计时模式(猴先生代答) ----
+const CD_SECS = { mc:40, tap:35, tap2:45, match:80, input:60, order:80, slot:40, sort:80 };
+function cdOn(n){ // 当前题是否处于倒计时状态
+  const q = ALLQ.find(x=>x.n===n);
+  return q && S.cd && S.mode==='solo' && S.phase==='answering' && !S.done && !teacher
+    && !answered(n) && !S.cdLocked[n];
+}
+function monkeyAnswer(q){
+  const R = a => a[Math.floor(Math.random()*a.length)];
+  if(q.t==='mc') return R(['A','B','C','D']);
+  if(q.t==='tap') return [Math.floor(Math.random()*q.tokens.length)];
+  if(q.t==='tap2'){ const i = Math.floor(Math.random()*q.tokens.length);
+    let j = Math.floor(Math.random()*q.tokens.length); if(j===i) j=(j+1)%q.tokens.length; return [i,j]; }
+  if(q.t==='match'){ const idx = q.left.map((_,i)=>i);
+    for(let i=idx.length-1;i>0;i--){ const k=Math.floor(Math.random()*(i+1)); [idx[i],idx[k]]=[idx[k],idx[i]]; } return idx; }
+  if(q.t==='input') return R(['banana','香蕉','bananana']);
+  if(q.t==='order'){ const idx = q.tokens.map((_,i)=>i);
+    for(let i=idx.length-1;i>0;i--){ const k=Math.floor(Math.random()*(i+1)); [idx[i],idx[k]]=[idx[k],idx[i]]; }
+    return idx.slice(0, Math.max(2, q.tokens.length-2)); }
+  if(q.t==='slot') return Math.floor(Math.random()*(q.words.length+1));
+  if(q.t==='sort') return q.tokens.map(()=>Math.random()<0.5?'A':'B');
+  return null;
+}
+function monkeyTakeover(n){
+  const q = ALLQ.find(x=>x.n===n); if(!q) return;
+  S.answers[n] = monkeyAnswer(q);
+  S.cdLocked[n] = 1;
+  S.times[n] = Math.round(((S.times[n]||0) + (CD_SECS[q.t]||40)) * 10) / 10;
+  FX.takeover();
+  save();
+  if(S.screen==='q' && S.curN===n) renderQ(n);
+}
+
+// ---- 全屏反馈 ----
+function flash(){ const f = $('#flash'); f.classList.remove('go'); void f.offsetWidth; f.classList.add('go'); }
+function shake(){ document.body.classList.remove('shaking'); void document.body.offsetWidth;
+  document.body.classList.add('shaking'); }
+function burst(x, y, n){
+  const colors = ['#f5b731','#1f9e8e','#e0452c','#8e6fd8','#fff'];
+  for(let i=0;i<(n||26);i++){
+    const p = document.createElement('div');
+    p.style.cssText = `position:fixed;left:${x}px;top:${y}px;width:8px;height:8px;pointer-events:none;z-index:95;background:${colors[i%5]};border-radius:${i%2?'50%':'2px'};border:2px solid #28211a`;
+    document.body.appendChild(p);
+    const a = Math.random()*Math.PI*2, v = 3+Math.random()*5.5;
+    let vx = Math.cos(a)*v, vy = Math.sin(a)*v-3.4, px = 0, py = 0, life = 62;
+    (function tick(){ vy += .18; px += vx; py += vy; life--;
+      p.style.transform = `translate(${px}px,${py}px) rotate(${life*9}deg)`; p.style.opacity = life/62;
+      life>0 ? requestAnimationFrame(tick) : p.remove(); })();
+  }
+}
+function floatNum(txt, color){
+  const f = document.createElement('div'); f.className = 'floatNum'; f.textContent = txt;
+  f.style.color = color || 'var(--teal)'; f.style.left = '50%'; f.style.top = '38%';
+  document.body.appendChild(f); setTimeout(()=>f.remove(), 1050);
+}
+
+// ---- 计时 ----
+setInterval(()=>{ if(S.screen !== 'cover' && S.screen !== 'gate' && !S.done){ S.elapsed++; const t = $('#tmr'); if(t) t.textContent = fmtT(S.elapsed); if(S.elapsed % 5 === 0) save(); }
+  // 倒计时:仅单人闯关 + 答题阶段 + 当前题未作答
+  if(S.screen === 'q' && cdOn(S.curN)){
+    const n = S.curN, q = ALLQ.find(x=>x.n===n);
+    if(S.cdLeft[n] === undefined) S.cdLeft[n] = CD_SECS[q.t] || 40;
+    S.cdLeft[n]--;
+    const num = $('#cdNum'), bar = $('#cdBar');
+    if(num) num.textContent = Math.max(0, S.cdLeft[n]) + 's';
+    if(bar) bar.style.width = (Math.max(0, S.cdLeft[n]) / (CD_SECS[q.t]||40) * 100) + '%';
+    if(S.cdLeft[n] === 10){ const r = document.querySelector('.cdRow'); if(r) r.classList.add('cdLow'); }
+    if(S.cdLeft[n] <= 0) monkeyTakeover(n);
+  }
+}, 1000);
+
+// ============ 渲染 ============
+function render(){
+  matchSel = null;
+  const scr = S.screen;
+  if(scr === 'gate') renderGate();
+  else if(scr === 'cover') renderCover();
+  else if(scr === 'map') renderMap();
+  else if(scr === 'hallintro') renderHallIntro(S._hall);
+  else if(scr === 'q') renderQ(S.curN);
+  else if(scr === 'report') renderReport();
+  else if(scr === 'troom') renderTRoom();
+  else if(scr === 'egghunt') renderEgghunt();
+  window.scrollTo(0, 0);
+  save();
+}
+
+// ---- 泳区大门 ----
+function renderGate(){
+  document.body.classList.toggle('teacher', teacher);
+  const doorStat = t => { const p = peekTrack(t); if(!p) return '未下水';
+    if(p.done) return '已交卷 · ' + p.score + '/' + TRACKS[t].qs.length;
+    const c = p.mode === 'class' ? p.revealed : p.cnt;
+    return c > 0 ? '进行中 · ' + c + '/' + TRACKS[t].qs.length : '未下水'; };
+  app().innerHTML = `
+  <div class="cover">
+    <div class="lore">一 个 因 读 错 而 诞 生 的 世 界</div>
+    <div class="twister" id="tw">${'红鲤鱼与绿鲤鱼与驴'.split('').map(c=>`<span class="zh">${c}</span>`).join('')}</div>
+    <div class="heroRow" id="heroes">${ART.carpR}${ART.carpG}${ART.donkey}</div>
+    <div style="margin:4px 0 10px"><button class="btn sm ghost" id="readBtn">⚡ 快速朗读 × 3(慎点)</button></div>
+    <h1>猴与鱼 <em>M2</em><br>《一词多义诈骗案》</h1>
+    <div class="sub">MYSKME 词义稽查科 · 同一宗案子 · 两片水域 · 两套完全不同的题</div>
+    <div class="gateWrap">
+      <div class="card doorCard" data-t="shallow">
+        <div class="doorArt">${ART.fish}</div>
+        <div class="doorName">🌊 浅水区</div>
+        <div class="doorSub">${TRACKS.shallow.doorNote}</div>
+        <div class="doorStat">${doorStat('shallow')}</div>
+      </div>
+      <div class="card doorCard" data-t="deep">
+        <div class="doorArt">${ART.snake}</div>
+        <div class="doorName">🌀 深水区</div>
+        <div class="doorSub">${TRACKS.deep.doorNote}</div>
+        <div class="doorStat">${doorStat('deep')}</div>
+      </div>
+    </div>
+    <div style="font-size:.75rem;color:var(--ink3);margin-top:8px;font-weight:700">两片水域题目完全不同,进度互不干扰,随时可回大门换泳区。<br>猴先生在两片水域各淹过一次。救生员(驴)表示不想聊这个。</div>
+  </div>
+  ${footHtml()}`;
+  $('#readBtn').onclick = twisterGag;
+  document.querySelectorAll('.doorCard').forEach(el => el.onclick = () => { flash(); enterTrack(el.dataset.t); });
+  bindFoot();
+}
+
+// ---- 封面 ----
+function renderCover(){
+  document.body.classList.toggle('teacher', teacher);
+  app().innerHTML = `
+  <div class="cover">
+    <div class="lore">M Y S K M E 词 义 稽 查 科</div>
+    <div class="heroRow">${PACK.coverArt}</div>
+    <h1>猴与鱼 <em>M2</em><br>《一词多义诈骗案》<br><span style="font-size:.72em">${PACK.label}</span></h1>
+    <div class="sub">${PACK.sub} · ${NUMCN[HALLS.length]}厅 ${TOTAL} 题 · 看似送分,题题埋雷</div>
+    <div class="rulebox">
+      <b>规则:</b>① 每题都长着送分题的脸,请勿相信任何一张脸;② 做完全部 ${TOTAL} 题才能交卷,交卷前有一次<b>回冰权</b>——至多回改 3 题;③ 对错要等交卷后才揭晓,想立刻知道答案的冲动,正是本卷考点之一;④ 没有时间限制,但用时会被记录(猴先生的纪录是 0.3 秒/题,不建议挑战)。
+    </div>
+    <div class="nameRow"><input id="nameIn" maxlength="12" placeholder="挑战者代号(可不填)" value="${S.name||''}"></div>
+    ${S.done ? `<button class="btn" id="startBtn">查看战损报告</button>` : `
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn ${S.mode==='solo'&&countDone()>0?'':'ghost'}" id="soloBtn">🧗 单人闯关${S.mode==='solo'&&countDone()>0?' · 继续('+countDone()+'/'+TOTAL+')':''}</button>
+      <button class="btn teal" id="classBtn">🏫 课堂模式 · 一题一评${S.mode==='class'&&countDone()>0?' · 继续('+countDone()+'/'+TOTAL+')':''}</button>
+    </div>
+    <div style="font-size:.75rem;color:var(--ink3);margin-top:10px;font-weight:700">课堂模式:每题作答后先听讲评,再点"揭晓判决"——自动记对错、连对与思考用时<br>单人闯关:全部做完统一判分,交卷前有回冰权${countDone()>0?'<br><b>已有进度 '+countDone()+'/'+TOTAL+',两种模式共享进度,任选一个继续</b>':''}</div>
+    <div style="margin-top:12px"><button class="btn sm ${S.cd?'red':'ghost'}" id="cdBtn">${S.cd?'⏱ 倒计时模式:开(猴先生已就位)':'⏱ 倒计时模式:关'}</button></div>
+    <div style="font-size:.72rem;color:var(--ink3);margin-top:6px;font-weight:700">倒计时仅单人闯关生效:每题限时,超时猴先生替你作答并锁题,只有回冰权能救回。<br>开不开由你——反正他已经在你身后热身了。</div>`}
+    <div style="margin-top:10px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn sm ghost" id="gateBtn">⇄ 回大门换泳区</button>
+      ${countDone()>0 ? '<button class="btn sm ghost" id="resetBtn">从头再来(清空本泳区进度)</button>' : ''}
+    </div>
+  </div>
+  ${footHtml()}`;
+  $('#gateBtn').onclick = () => { const ni = $('#nameIn'); if(ni) S.name = ni.value.trim(); leaveTrack(); };
+  const sb0 = $('#startBtn'); if(sb0) sb0.onclick = () => { S.name = $('#nameIn').value.trim(); S.screen = S.done ? 'report' : 'map'; render(); };
+  const sol = $('#soloBtn'); if(sol) sol.onclick = () => { S.mode='solo'; S.name = $('#nameIn').value.trim(); S.screen='map'; render(); };
+  const clb = $('#classBtn'); if(clb) clb.onclick = () => { S.mode='class'; S.name = $('#nameIn').value.trim(); S.screen='map'; render(); };
+  const rb = $('#resetBtn'); if(rb) rb.onclick = () => { if(confirm('确定清空本泳区全部进度,从头再来?')){ const keep = S.name, cd = S.cd; S = defaultState(); S.name = keep; S.cd = cd; render(); } };
+  const cdb = $('#cdBtn'); if(cdb) cdb.onclick = () => { S.cd = !S.cd; save(); renderCover(); };
+  bindFoot();
+}
+
+// 封面彩蛋:快速朗读三遍 → 世界读错
+let gagLock = false;
+function twisterGag(){
+  if(gagLock) return; gagLock = true;
+  const spans = Array.from($('#tw').querySelectorAll('.zh'));
+  let round = 0;
+  const jiggle = () => { spans.forEach((s,i)=>{ s.style.display='inline-block';
+    s.style.transform = `translateY(${(Math.random()*10-5)}px) rotate(${(Math.random()*22-11)}deg)`; });
+    round++;
+    if(round < 7) setTimeout(jiggle, 110);
+    else {
+      spans.forEach(s => s.style.transform = '');
+      // 读错瞬间:部分字飞出,替换为"猴 与 鱼(与驴)"
+      setTimeout(()=>{
+        flash(); shake();
+        const keep = ['猴','与','鱼','(','与','驴',')'];
+        $('#tw').innerHTML = keep.map((c,i)=>`<span class="zh pop" style="animation:cardIn .4s ${i*0.07}s both">${c}</span>`).join('');
+        $('#heroes').innerHTML = ART.monkey + ART.fish + ART.donkey;
+        burst(window.innerWidth/2, window.innerHeight*0.3, 34);
+        setTimeout(()=>{ gagLock = false; }, 600);
+      }, 250);
+    }
+  };
+  jiggle();
+}
+
+// ---- 地图 ----
+function renderMap(){
+  document.body.classList.toggle('teacher', teacher);
+  const ice = S.phase === 'ice';
+  let html = `<div class="mapHead"><h2>${ice?'❄ 回冰阶段':NUMCN[HALLS.length]+' 厅 地 图'}</h2><div class="timer">⏱ <span id="tmr">${fmtT(S.elapsed)}</span></div></div>`;
+  if(ice) html += `<div class="iceBanner">回冰权剩余 <b>${S.iceLeft}</b> / 3 · 只有被你回改的题才消耗<br><span style="font-size:.8rem;font-weight:700;opacity:.9">改哪几题,本身就是一道题。改完点最下方"正式交卷"。</span></div>`;
+  if(S.done) html += `<div class="iceBanner" style="background:var(--ink)">复盘模式 · 点任意题查看解析 · <b>${S.result.score}/${TOTAL}</b></div>`;
+
+  HALLS.forEach(h => {
+    const qs = hallQs(h.id), done = qs.filter(q=>answered(q.n)).length, tot = qs.length;
+    const locked = !S.done && S.phase==='answering' && h.id>1 && !hallDone(h.id-1);
+    let stat;
+    if(S.done){ const r = qs.filter(q=>isRight(q)).length; stat = `${r}<small>/${tot}</small>`; }
+    else stat = `${done}<small>/${tot}</small>`;
+    html += `<div class="card hallCard ${locked?'locked':''}" data-h="${h.id}">
+      <div class="portrait">${ART[h.glyph]}</div>
+      <div class="info">
+        <div class="hname">厅${'一二三四五'[h.id-1]} · ${h.owner}的${h.title}<small>${h.en}</small></div>
+        <div class="htheme">${h.theme}</div>
+        <div class="hbar"><i style="width:${Math.round(done/tot*100)}%"></i></div>
+      </div>
+      <div class="stat">${stat}</div>
+      ${locked?'<div class="sticker" style="background:var(--ink3)">上一厅通关后开放</div>':''}
+    </div>`;
+    if(!S.done && hallDone(h.id) && S.phase==='answering') html += `<div class="interludeCard">${h.interlude}</div>`;
+  });
+
+  // 题号格
+  html += `<div class="card"><div style="font-weight:900;font-size:.85rem;letter-spacing:.1em;margin-bottom:4px">全卷速览 ${S.done?'(绿对红错)':'(黄=已答 · 红框=标记△)'}</div><div class="grid">`;
+  ALLQ.forEach(q => {
+    let cls = 'g';
+    if(S.done || (S.mode==='class' && S.revealed[q.n])) cls += isRight(q) ? ' right' : ' wrong';
+    else { if(answered(q.n)) cls += ' done'; if(S.marked.includes(q.n)) cls += ' marked'; }
+    html += `<div class="${cls}" data-n="${q.n}">${q.n}</div>`;
+  });
+  html += `</div></div>`;
+
+  if(teacher){
+    html += `<div class="card hallCard" id="troomCard" style="border-style:dashed">
+      <div class="portrait">${ART.snake}</div>
+      <div class="info"><div class="hname">教师休息室<small>TEACHERS' LOUNGE</small></div>
+      <div class="htheme">${PACK.troomNote}</div></div>
+      <div class="stat">🔑</div></div>`;
+  }
+  if(!S.done){
+    if(S.mode === 'class'){
+      const rev = Object.keys(S.revealed).length;
+      html += `<div class="submitZone"><button class="btn teal" id="classRepBtn">📋 课堂战报(已判 ${rev}/${TOTAL})</button>
+      <div class="hint">课堂模式 · 一题一评 · 进度自动保存,下次接着上</div></div>`;
+    } else if(S.phase === 'answering'){
+      html += `<div class="submitZone"><button class="btn red" id="subBtn" ${allDone()?'':'disabled'}>交卷(先进入回冰阶段)</button>
+      <div class="hint">${allDone()?'交卷前,你有一次回改至多 3 题的机会':'还有 '+(TOTAL-countDone())+' 题未作答,'+NUMCN[HALLS.length]+'厅通关后开放交卷'}</div></div>`;
+    } else {
+      html += `<div class="submitZone"><button class="btn red" id="finalBtn">正式交卷 · 揭晓战损</button>
+      <div class="hint">交卷后不可再改。黑化肥在等你的成绩。</div></div>`;
+    }
+  } else {
+    html += `<div class="submitZone"><button class="btn teal" id="repBtn">回到战损报告</button></div>`;
+  }
+  app().innerHTML = html + footHtml();
+
+  document.querySelectorAll('.hallCard').forEach(el => el.onclick = () => {
+    const h = +el.dataset.h;
+    if(!S.done && S.phase==='answering' && !S.seenIntro[h]){ S._hall = h; S.screen='hallintro'; render(); return; }
+    const first = hallQs(h).find(q => !answered(q.n)) || hallQs(h)[0];
+    S.curN = first.n; S.screen = 'q'; render();
+  });
+  document.querySelectorAll('.g').forEach(el => el.onclick = () => { S.curN = +el.dataset.n; S.screen='q'; render(); });
+  const tc = $('#troomCard'); if(tc) tc.onclick = () => { S.screen='troom'; render(); };
+  const crb = $('#classRepBtn'); if(crb) crb.onclick = () => { S.screen='report'; render(); };
+  const sb = $('#subBtn'); if(sb) sb.onclick = () => { S.phase='ice'; flash(); render(); };
+  const fb = $('#finalBtn'); if(fb) fb.onclick = finalSubmit;
+  const rp = $('#repBtn'); if(rp) rp.onclick = () => { S.screen='report'; render(); };
+  bindFoot();
+}
+
+// ---- 厅介绍 ----
+function renderHallIntro(h){
+  const H = HALLS.find(x=>x.id===h);
+  app().innerHTML = `
+  <div class="card hallIntro">
+    <div class="sticker">厅${'一二三四五'[h-1]}</div>
+    <div class="portraitBig">${ART[H.glyph]}</div>
+    <h2>${H.owner}的${H.title}</h2>
+    <div class="en">${H.en}</div>
+    <div class="bio">${H.bio.map(b=>`<p>${b}</p>`).join('')}</div>
+    <button class="btn" id="goBtn">开门 · 进厅答题</button>
+    <div class="permit">本厅经 MYSKME 谜题管理局批准运营 · 批号:MYSKME-稽(2026)第 ${TRACK==='deep'?'2':'1'}0${h} 号${(PACK.permitNote&&PACK.permitNote[h])||''}</div>
+  </div>${footHtml()}`;
+  $('#goBtn').onclick = () => { S.seenIntro[h]=1; const first = hallQs(h).find(q=>!answered(q.n)) || hallQs(h)[0];
+    S.curN = first.n; S.screen='q'; render(); };
+  const HIDDEN = PACK.hiddenLines || {};
+  let ptaps = 0, ptimer = null;
+  document.querySelector('.portraitBig').onclick = () => {
+    ptaps++; clearTimeout(ptimer); ptimer = setTimeout(()=>ptaps=0, 1200);
+    if(ptaps >= 3){ ptaps = 0; if(HIDDEN[h]) FX.bubble(HIDDEN[h], 3000); }
+  };
+  bindFoot();
+}
+
+// ---- 答题 ----
+function renderQ(n){
+  document.body.classList.toggle('teacher', teacher);
+  const q = ALLQ.find(x=>x.n===n);
+  const H = HALLS.find(x=>x.id===q.hall);
+  if(S._shownFor !== n){ S._shownFor = n; S._shownAt = Date.now(); if(!S.done && !teacher){ FX.cameo();
+    if(Math.random() < 0.04) setTimeout(()=>FX.inspect(), 800); } }
+  const classRevealed = S.mode==='class' && !!S.revealed[n];
+  const reveal = S.done || teacher || classRevealed; // 揭晓答案(复盘/教师/课堂已判)
+  const a = S.answers[n];
+  const inHall = hallQs(q.hall), idx = inHall.indexOf(q);
+
+  let body = '';
+  if(q.sc) body += `<div class="sc">${q.sc}</div>`;
+  body += `<div class="stem">${q.stem}</div>`;
+
+  if(q.t === 'mc'){
+    body += q.opts.map((o,i) => {
+      const L = 'ABCD'[i];
+      let cls = 'opt';
+      if(reveal){ if(L === q.ans) cls += ' good'; else if(a === L) cls += ' bad'; }
+      else if(a === L) cls += ' sel';
+      return `<div class="${cls}" data-l="${L}"><div class="L">${L}</div><div class="txt">${o}</div></div>`;
+    }).join('');
+  }
+  else if(q.t === 'tap' || q.t === 'tap2'){
+    const need = q.t === 'tap' ? 1 : 2;
+    const sel = Array.isArray(a) ? a : [];
+    body += `<div class="tokens">` + q.tokens.map((tk,i)=>{
+      let cls = 'tok';
+      if(reveal){ if(q.ansIdx.includes(i)) cls += ' good'; else if(sel.includes(i)) cls += ' bad'; }
+      else if(sel.includes(i)) cls += ' sel';
+      return `<span class="${cls}" data-i="${i}">${tk}</span>`;
+    }).join('') + `</div>`;
+    if(!reveal) body += `<div class="qNav"><span class="mid">${q.t==='tap'?'点选 1 个词(点选即保存)':'点选 2 个词(选满 2 个即保存)'}</span></div>`;
+  }
+  else if(q.t === 'match'){
+    const pairs = Array.isArray(a) ? a : q.left.map(()=>null);
+    body += `<div class="matchWrap">`;
+    q.left.forEach((L,i)=>{
+      let cls = 'mItem';
+      if(reveal) cls += (a===undefined) ? ' paired' : (pairs[i]===q.ansMap[i] ? ' good' : ' bad');
+      else { if(matchSel===i) cls += ' sel'; else if(pairs[i]!==null) cls += ' paired'; }
+      const tag = pairs[i]!==null ? `<span class="pairTag">${pairs[i]+1}</span>` : '';
+      body += `<div class="${cls}" data-side="l" data-i="${i}">${L}${tag}</div>`;
+      const rIdx = i; // 右列按序号展示
+      let rcls = 'mItem';
+      if(reveal){ rcls += ' paired'; }
+      body += `<div class="${rcls}" data-side="r" data-i="${rIdx}"><b>${rIdx+1}.</b> ${q.right[rIdx]}</div>`;
+    });
+    body += `</div>`;
+    if(!reveal) body += `<div class="qNav"><span class="mid">先点左列的词,再点右列它的身份;四对连满即保存。点已连的词可重连。</span></div>`;
+    if(reveal) body += `<div class="qNav"><span class="mid">正确配对:${q.left.map((L,i)=>`${L} → ${q.ansMap[i]+1}`).join(' · ')}</span></div>`;
+  }
+  else if(q.t === 'input'){
+    body += `<div class="inputRow"><input id="inpAns" maxlength="20" placeholder="输入答案" value="${a!==undefined?String(a):''}" ${reveal?'disabled':''}><button class="btn sm teal" id="inpBtn" ${reveal?'disabled':''}>确定</button></div>`;
+    if(reveal) body += `<div class="qNav"><span class="mid">可接受答案:${q.accept.join(' / ')}</span></div>`;
+  }
+  else if(q.t === 'order'){
+    const draft = (window.__od && window.__od.n === n) ? window.__od.seq : (Array.isArray(a) ? a.slice() : []);
+    if(reveal){
+      body += `<div class="orderLine good">${q.ansStr}</div>`;
+      if(Array.isArray(a) && a.length){
+        const mine = a.map(i=>q.tokens[i]).join(' ');
+        if(mine !== q.ansStr) body += `<div class="orderLine bad">你的拼法:${mine}</div>`;
+      }
+    } else {
+      body += `<div class="orderSlots">${draft.length ? draft.map((ti,k)=>`<span class="tok sel" data-k="${k}">${q.tokens[ti]}</span>`).join('') : '<span class="orderHint">(点下方词块按顺序入句;小心,词块里有干扰词)</span>'}</div>`;
+      body += `<div class="tokens">` + q.tokens.map((tk,i)=> draft.includes(i) ? '' : `<span class="tok" data-i="${i}">${tk}</span>`).join('') + `</div>`;
+      const locked = Array.isArray(a) && JSON.stringify(a) === JSON.stringify(draft) && draft.length;
+      body += `<div class="revealBtnRow"><button class="btn sm teal" id="lockBtn" ${draft.length ? '' : 'disabled'}>${locked ? '已锁定 ✓(可继续改)' : '🔒 锁定答案'}</button>
+        <span style="font-size:.74rem;color:var(--ink3);font-weight:700;margin-left:8px">干扰词留在原地,别拼进去;点句中的词可撤回</span></div>`;
+    }
+  }
+  else if(q.t === 'slot'){
+    const gaps = q.words.length + 1;
+    let line = '';
+    for(let g=0; g<gaps; g++){
+      let gcls = 'gapBox', content = '·';
+      if(reveal){
+        if(g === q.gap){ gcls += ' good'; content = q.tile; }
+        else if(g === a){ gcls += ' bad'; content = q.tile; }
+      } else if(g === a){ gcls += ' filled'; content = q.tile; }
+      line += `<span class="${gcls}" data-g="${g}">${content}</span>`;
+      if(g < q.words.length) line += `<span class="slotWord">${q.words[g]}</span>`;
+    }
+    body += `<div class="slotLine">${line}</div>`;
+    if(!reveal) body += `<div class="qNav"><span class="mid">点任意"·"空位,把 ${q.tile} 滑进去;再点别处可换位</span></div>`;
+  }
+  else if(q.t === 'sort'){
+    const asg = Array.isArray(a) ? a : q.tokens.map(()=>null);
+    body += `<div class="basketHead"><span class="bk bkA">🧺 ${q.baskets[0]}</span><span class="bk bkB">🧺 ${q.baskets[1]}</span></div>`;
+    body += `<div class="tokens">` + q.tokens.map((tk,i)=>{
+      let cls = 'tok';
+      const v = reveal ? q.ansSort[i] : asg[i];
+      if(v === 'A') cls += ' sortA'; else if(v === 'B') cls += ' sortB';
+      if(reveal && Array.isArray(a) && a[i] !== q.ansSort[i]) cls += ' bad';
+      const badge = v ? `<i class="sortTag">${v==='A'?'①':'②'}</i>` : '';
+      return `<span class="${cls}" data-i="${i}">${tk}${badge}</span>`;
+    }).join('') + `</div>`;
+    if(!reveal) body += `<div class="qNav"><span class="mid">点词循环切换:无筐 → ①${q.baskets[0]} → ②${q.baskets[1]};全部入筐即保存</span></div>`;
+    else body += `<div class="qNav"><span class="mid">正确分法:①=${q.tokens.filter((_,i)=>q.ansSort[i]==='A').join(', ')} · ②=${q.tokens.filter((_,i)=>q.ansSort[i]==='B').join(', ')}</span></div>`;
+  }
+
+  // 解析(复盘/教师)
+  if(S.done || teacher){
+    body += `<div class="ep"><div class="epTitle">📖 解析 · ${q.tag}</div>${q.ep}`;
+    if(q.ei) body += `<ul class="eiList">` + q.ei.map(e=>`<li class="${e[1]}">${e[1]==='yes'?'✔':'✘'} <b>${e[0]}</b> ${e[2]}</li>`).join('') + `</ul>`;
+    if(q.t==='mc') body += `<div class="ansLine">正确答案:${q.ans}</div>`;
+    body += `</div>`;
+    if(teacher && DEEP[q.n]) body += `<div class="deepBox"><div class="deepT">🎩 撑场面冷知识 · 教师专属</div>${DEEP[q.n]}</div>`;
+  }
+
+  const markOn = S.marked.includes(n);
+  let cdHtml = '';
+  if(cdOn(n)){
+    if(S.cdLeft[n] === undefined) S.cdLeft[n] = CD_SECS[q.t] || 40;
+    const total = CD_SECS[q.t] || 40, left = Math.max(0, S.cdLeft[n]);
+    cdHtml = `<div class="cdRow ${left<=10?'cdLow':''}"><span class="cdMonkey">🐒</span><div class="cdTrack"><i id="cdBar" style="width:${left/total*100}%"></i></div><span id="cdNum">${left}s</span></div>`;
+  } else if(S.cdLocked[n] && !S.done && S.phase==='answering'){
+    cdHtml = `<div class="cdRow cdLocked">⏰ 超时——本题已由猴先生代答并锁定,交卷前用回冰权可抢救</div>`;
+  }
+  app().innerHTML = `
+  <div class="qTop">
+    <button class="back" id="backBtn">← 地图</button>
+    <div class="qProg hbar"><i style="width:${((idx+1)/inHall.length)*100}%"></i></div>
+    <div class="timer">⏱ <span id="tmr">${fmtT(S.elapsed)}</span></div>
+  </div>
+  ${cdHtml}
+  <div class="card qCard">
+    <div class="qNumRow">
+      <span class="qNum">Q${n}</span>
+      <span class="qBadge ${q.b}">${q.b}</span>
+      <span style="font-size:.75rem;font-weight:800;color:var(--ink3)">厅${'一二三四五'[q.hall-1]} · ${H.owner}${reveal?' · '+q.tag:''}</span>
+      ${!S.done?`<button class="qMark ${markOn?'on':''}" id="markBtn">${markOn?'△ 已标记':'△ 标记存疑'}</button>`:''}
+    </div>
+    ${body}
+    ${classRevealed && !S.done && !teacher ? `<div class="verdict ${isRight(q)?'v-ok':'v-no'}">${isRight(q)?'✓ 判决:对':'✗ 判决:错'}${S.times[n]?` · 思考 ${Math.round(S.times[n])} 秒`:''}${isRight(q)&&S.streak>1?` · ${S.streak} 连对`:''}</div>` : ''}
+  </div>
+  ${S.mode==='class' && !S.done && !teacher && answered(n) && !S.revealed[n] ? `<div class="revealBtnRow"><button class="btn red" id="revealBtn">🔨 揭晓判决</button><div style="font-size:.74rem;color:var(--ink3);margin-top:6px;font-weight:700">听完讲评再点;揭晓后本题封卷</div></div>` : ''}
+  <div class="qNav">
+    <button class="btn sm ghost" id="prevBtn" ${n===1?'disabled':''}>← 上一题</button>
+    <span class="mid">${n} / ${TOTAL}</span>
+    <button class="btn sm" id="nextBtn">${n===TOTAL?'回地图':'下一题 →'}</button>
+  </div>${footHtml()}`;
+
+  // ---- 绑定 ----
+  $('#backBtn').onclick = () => { S.screen='map'; render(); };
+  $('#prevBtn').onclick = () => { if(n>1){ S.curN=n-1; render(); } };
+  $('#nextBtn').onclick = () => { if(n===TOTAL){ S.screen='map'; } else { S.curN=n+1; } render(); };
+  const mk = $('#markBtn'); if(mk) mk.onclick = () => {
+    const i = S.marked.indexOf(n); if(i>=0) S.marked.splice(i,1); else S.marked.push(n); renderQ(n); save(); };
+  bindFoot();
+  const rvb = $('#revealBtn'); if(rvb) rvb.onclick = () => {
+    S.revealed[n] = 1;
+    const ok = isRight(q);
+    if(ok){ S.streak++; if(S.streak > S.maxStreak) S.maxStreak = S.streak; FX.right(); FX.streak(S.streak); }
+    else { S.streak = 0; FX.wrong(); }
+    const _roll = Math.random();
+    if(_roll < 0.07) setTimeout(()=>FX.seal(), 1400);
+    else if(_roll < 0.13) setTimeout(()=>FX.warrant(), 1400);
+    save(); renderQ(n);
+  };
+
+  if(reveal) return;
+
+  const setAns = (val) => {
+    if(S.mode==='class' && S.revealed[n]){ FX.bubble('判决已揭晓,本题封卷——下一题见。'); return; }
+    if(S.cdLocked[n] && S.phase !== 'ice'){ FX.bubble('⏰ 本题已被猴先生代答锁定——交卷前用回冰权才能抢救。'); return; }
+    if(S.phase === 'ice'){
+      const changedBefore = S.changed.includes(n);
+      const same = JSON.stringify(S.answers[n]) === JSON.stringify(val);
+      if(same) return;
+      if(!changedBefore){
+        if(S.iceLeft <= 0){ alert('回冰权已用完(3/3)。这题只能相信过去的自己了。'); renderQ(n); return; }
+        S.iceLeft--; S.changed.push(n);
+        floatNum('❄ 回冰 -1', 'var(--teal)');
+      }
+    }
+    S.answers[n] = val;
+    const dt = (Date.now() - (S._shownAt || Date.now())) / 1000;
+    S.times[n] = Math.round(((S.times[n] || 0) + dt) * 10) / 10; S._shownAt = Date.now();
+    if(dt < 3 && !teacher) FX.fastAlarm(dt);
+    save();
+  };
+
+  if(q.t === 'mc'){
+    document.querySelectorAll('.opt').forEach(el => el.onclick = () => {
+      setAns(el.dataset.l); renderQ(n);
+    });
+  }
+  else if(q.t === 'tap' || q.t === 'tap2'){
+    const need = q.t === 'tap' ? 1 : 2;
+    document.querySelectorAll('.tok').forEach(el => el.onclick = () => {
+      let sel = Array.isArray(S.answers[n]) ? S.answers[n].slice() : [];
+      const i = +el.dataset.i;
+      if(sel.includes(i)) sel = sel.filter(x=>x!==i);
+      else { sel.push(i); if(sel.length > need) sel.shift(); }
+      if(sel.length === need) setAns(sel);
+      else { // 未选满:暂存但不算正式作答(ice 阶段避免误耗回冰权)
+        if(S.phase !== 'ice'){ S.answers[n] = sel.length ? sel : undefined;
+          if(sel.length===0) delete S.answers[n]; save(); } }
+      renderQ(n);
+    });
+  }
+  else if(q.t === 'match'){
+    document.querySelectorAll('.mItem').forEach(el => el.onclick = () => {
+      const side = el.dataset.side, i = +el.dataset.i;
+      let pairs = Array.isArray(S.answers[n]) ? S.answers[n].slice() : q.left.map(()=>null);
+      if(side === 'l'){ matchSel = (matchSel === i) ? null : i; }
+      else if(matchSel !== null){
+        pairs = pairs.map(p => p === i ? null : p); // 右项被占则解绑
+        pairs[matchSel] = i; matchSel = null;
+        if(pairs.every(p => p !== null)) setAns(pairs);
+        else if(S.phase !== 'ice'){ S.answers[n] = pairs; save(); }
+      }
+      // 手动重绘(保留 matchSel)
+      const keep = matchSel; renderQ(n); matchSel = keep;
+      if(keep !== null){ const el2 = document.querySelector(`.mItem[data-side="l"][data-i="${keep}"]`); if(el2) el2.classList.add('sel'); }
+    });
+  }
+  else if(q.t === 'input'){
+    $('#inpBtn').onclick = () => {
+      const v = $('#inpAns').value.trim();
+      if(!v){ alert('先输入点什么——空白是不给分的,连猴先生都知道。'); return; }
+      setAns(v); renderQ(n);
+    };
+  }
+  else if(q.t === 'order'){
+    const getDraft = () => (window.__od && window.__od.n === n) ? window.__od.seq.slice() : (Array.isArray(S.answers[n]) ? S.answers[n].slice() : []);
+    document.querySelectorAll('.tokens .tok').forEach(el => el.onclick = () => {
+      const seq = getDraft(); seq.push(+el.dataset.i);
+      window.__od = { n, seq }; renderQ(n);
+    });
+    document.querySelectorAll('.orderSlots .tok').forEach(el => el.onclick = () => {
+      const seq = getDraft(); seq.splice(+el.dataset.k, 1);
+      window.__od = { n, seq }; renderQ(n);
+    });
+    const lb = $('#lockBtn'); if(lb) lb.onclick = () => {
+      const seq = getDraft();
+      if(!seq.length) return;
+      setAns(seq); window.__od = null; renderQ(n);
+    };
+  }
+  else if(q.t === 'slot'){
+    document.querySelectorAll('.gapBox').forEach(el => el.onclick = () => {
+      setAns(+el.dataset.g); renderQ(n);
+    });
+  }
+  else if(q.t === 'sort'){
+    document.querySelectorAll('.tok').forEach(el => el.onclick = () => {
+      let asg = Array.isArray(S.answers[n]) ? S.answers[n].slice() : q.tokens.map(()=>null);
+      const i = +el.dataset.i;
+      asg[i] = asg[i] === null ? 'A' : asg[i] === 'A' ? 'B' : null;
+      if(asg.every(v => v !== null)) setAns(asg);
+      else if(S.phase !== 'ice'){ S.answers[n] = asg; save(); }
+      renderQ(n);
+    });
+  }
+}
+
+// ---- 正式交卷 ----
+function finalSubmit(){
+  if(!confirm('正式交卷?交卷后答案不可更改。')) return;
+  S.result = grade(); S.done = true; S.phase = 'done'; S.screen = 'report';
+  flash(); shake();
+  setTimeout(()=>burst(window.innerWidth/2, window.innerHeight*0.32, 40), 250);
+  render();
+}
+
+// ---- 课堂战报 ----
+function classStats(){
+  const rev = ALLQ.filter(q => S.revealed[q.n]);
+  const right = rev.filter(q => isRight(q));
+  const ts = rev.map(q => ({ n:q.n, t:S.times[q.n]||0, ok:isRight(q) }));
+  const slow = ts.slice().sort((a,b)=>b.t-a.t).slice(0,3).filter(x=>x.t>2);
+  const avg = ts.length ? ts.reduce((sum,x)=>sum+x.t,0)/ts.length : 0;
+  const fastWrong = ts.filter(x=>!x.ok && x.t>0).sort((a,b)=>a.t-b.t)[0];
+  const perHall = {}; HALLS.forEach(h => perHall[h.id] = { r:0, n:0 });
+  rev.forEach(q => { perHall[q.hall].n++; if(isRight(q)) perHall[q.hall].r++; });
+  return { rev, right, slow, avg, fastWrong, perHall };
+}
+function renderClassReport(){
+  const c = classStats();
+  const doneAll = c.rev.length === TOTAL;
+  app().innerHTML = `
+  <div class="card report">
+    <div class="sticker">课堂战报${doneAll?'·完卷':''}</div>
+    <div style="font-weight:900;letter-spacing:.2em;color:var(--ink3);font-size:.8rem;margin-bottom:2px">${S.name ? '挑战者 · '+S.name : 'CLASS REPORT'}</div>
+    <div class="scoreBig">${c.right.length}<small> / ${c.rev.length||0} 已判</small></div>
+    ${doneAll ? '<div class="title">'+TITLES.find(t=>c.right.length>=t.min).name+'</div>' : ''}
+    <div class="hallStats">
+      ${HALLS.map(h=>`<div class="hs"><div class="o">${h.owner} · ${h.title}</div><div class="n">${c.perHall[h.id].r}<small> /${c.perHall[h.id].n||'—'}</small></div></div>`).join('')}
+    </div>
+    <div style="font-size:.86rem;color:var(--ink2);font-weight:700;line-height:2">
+      🔥 最长连对 <b>${S.maxStreak}</b> &nbsp;·&nbsp; ⏱ 平均思考 <b>${c.avg?c.avg.toFixed(1):'—'}</b> 秒 &nbsp;·&nbsp; 总用时 ${fmtT(S.elapsed)}<br>
+      ${c.slow.length ? '🐢 慢工题:'+c.slow.map(x=>'Q'+x.n+'('+Math.round(x.t)+'s'+(x.ok?'✓':'✗')+')').join(' · ')+'<br>' : ''}
+      ${c.fastWrong ? '🐒 猴指数最高:Q'+c.fastWrong.n+'——'+c.fastWrong.t.toFixed(1)+' 秒就答错了(比猴先生还快)' : ''}
+    </div>
+    ${S.egghunt ? '<div style="margin-top:8px"><span class="qBadge UR">🏅 彩蛋猎人</span></div>' : ''}
+    <div class="brandBox"><span class="brandLogo">MYSKME</span><span class="brandTxt">猴与鱼系列 · M2 一词多义诈骗案 · ${PACK.shortLabel} · ${FX.slogan()}</span></div>
+    <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn teal" id="backMapBtn">${doneAll?'回地图复看':'返回地图 · 继续上课'}</button>
+      ${doneAll ? '<button class="btn ghost" id="againBtn">重新挑战</button>' : ''}
+    </div>
+    <div class="eggDot" id="eggDot">?</div>
+  </div>${footHtml()}`;
+  $('#backMapBtn').onclick = () => { S.screen='map'; render(); };
+  const ag = $('#againBtn'); if(ag) ag.onclick = () => { if(confirm('清空本次成绩,重新挑战?')){
+    const keep = { name:S.name, seenIntro:S.seenIntro, mode:S.mode }; S = defaultState(); Object.assign(S, keep); render(); } };
+  $('#eggDot').onclick = () => { S.screen='egghunt'; render(); };
+  bindFoot();
+}
+
+// ---- 战损报告 ----
+function renderReport(){
+  document.body.classList.toggle('teacher', teacher);
+  if(S.mode === 'class' && !S.done){ renderClassReport(); return; }
+  const r = S.result || grade();
+  const t = r.title;
+  const diff = r.score - MONKEY_SCORE;
+  const diffTxt = diff > 0 ? `你比猴先生多对了 <b>${diff}</b> 题` : diff === 0 ? `你和猴先生打成了平手 <b>(这不是好消息)</b>` : `你比猴先生还少对 <b>${-diff}</b> 题(他要请你吃香蕉庆祝)`;
+  app().innerHTML = `
+  <div class="card report">
+    <div class="sticker">战损报告</div>
+    <div style="font-weight:900;letter-spacing:.2em;color:var(--ink3);font-size:.8rem;margin-bottom:2px">${S.name ? '挑战者 · '+S.name : 'BATTLE DAMAGE REPORT'}</div>
+    <div class="stampWrap"><div class="scoreBig">${r.score}<small> / ${TOTAL}</small></div>
+    ${r.score >= PACK.certMin ? '<div class="stamp">驴认证·如假包换</div>' : ''}</div>
+    <div class="title">${t.name}</div>
+    <div class="note">${t.note}</div>
+    <div class="vsMonkey">🐒 ${diffTxt}<br><span style="font-size:.78rem;color:var(--ink3)">(猴先生:${MONKEY_SCORE}/${TOTAL},${PACK.monkeyNote})</span></div>
+    <div class="hallStats">
+      ${HALLS.map(h=>`<div class="hs"><div class="o">${h.owner} · ${h.title}</div><div class="n">${r.perHall[h.id]}<small> /${hallQs(h.id).length}</small></div></div>`).join('')}
+    </div>
+    <div style="font-size:.82rem;color:var(--ink3);font-weight:700">总用时 ${fmtT(S.elapsed)} · 回冰权使用 ${3-S.iceLeft}/3${S.changed.length?` · 回改了 Q${S.changed.join('、Q')}`:''}${Object.keys(S.cdLocked||{}).length?` · ⏰ 被猴先生代答 ${Object.keys(S.cdLocked).length} 题`:''}</div>
+    <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn teal" id="revBtn">逐题复盘 · 看解析</button>
+      <button class="btn ghost" id="againBtn">重新挑战</button>
+    </div>
+    ${S.egghunt ? '<div style="margin-top:10px"><span class="qBadge UR">🏅 彩蛋猎人</span></div>' : ''}
+    <div class="brandBox"><span class="brandLogo">MYSKME</span><span class="brandTxt">猴与鱼系列 · M2 一词多义诈骗案 · ${PACK.shortLabel} · ${FX.slogan()}</span></div>
+    <div class="eggDot" id="eggDot">?</div>
+  </div>${footHtml()}`;
+  $('#eggDot').onclick = () => { S.screen='egghunt'; render(); };
+  $('#revBtn').onclick = () => { S.screen='map'; render(); };
+  $('#againBtn').onclick = () => { if(confirm('清空本次成绩,重新挑战?')){
+    const keep = { name:S.name, seenIntro:S.seenIntro, mode:S.mode }; S = defaultState(); Object.assign(S, keep); render(); } };
+  bindFoot();
+}
+
+// ---- 隐藏彩蛋题:全家福 ----
+const EGG_LINES = {
+  monkey: '猴先生:"我?我连自己的名字都是读错来的。"',
+  fish: '鱼小姐:"我就是被读错出来的,谢谢。"',
+  egg: '蛋:"我曾用名都常年被人读错着写,别提了。"',
+  snake: '蛇:"嘶——我的全名本身就是个谜,十个人九个读错。"',
+};
+function renderEgghunt(){
+  app().innerHTML = `
+  <div class="card" style="text-align:center">
+    <div class="sticker">隐藏题</div>
+    <div style="font-weight:900;font-size:1.1rem;margin:4px 0 2px">全家福 · 编外第 ${TOTAL+1} 题</div>
+    <div style="font-size:.85rem;color:var(--ink2);margin-bottom:12px">这幅全家福里,只有一位<b>从未被读错过</b>。点它。</div>
+    <div class="famRow">
+      ${['monkey','fish','donkey','egg','snake'].map(k=>`<div class="famP" data-k="${k}">${ART[k]}</div>`).join('')}
+    </div>
+    <div style="font-size:.74rem;color:var(--ink3);margin-top:10px;font-weight:700">${S.egghunt?'🏅 已达成:彩蛋猎人':'答对没有奖励,只有荣誉。荣誉也不多。'}</div>
+    <div style="margin-top:12px"><button class="btn sm ghost" id="backBtn">← 返回战报</button></div>
+  </div>${footHtml()}`;
+  document.querySelectorAll('.famP').forEach(el => el.onclick = () => {
+    const k = el.dataset.k;
+    if(k === 'donkey'){
+      if(!S.egghunt){ S.egghunt = true; save(); }
+      flash(); burst(window.innerWidth/2, window.innerHeight*0.35, 36);
+      FX.bubble('正确!驴是那场事故唯一的幸存正版。它没有表示激动,它说:"我是驴,如假包换。" 🏅 彩蛋猎人达成');
+      setTimeout(()=>renderEgghunt(), 900);
+    } else {
+      FX.bubble(EGG_LINES[k]);
+    }
+  });
+  $('#backBtn').onclick = () => { S.screen='report'; render(); };
+  bindFoot();
+}
+
+// ---- 教师休息室 ----
+function renderTRoom(){
+  document.body.classList.toggle('teacher', teacher);
+  if(!teacher){ S.screen='map'; render(); return; }
+  let html = `<div class="qTop"><button class="back" id="backBtn">← 地图</button>
+    <div style="font-weight:900;letter-spacing:.15em;font-size:1.05rem">教 师 休 息 室</div>
+    <div class="timer">🔑 口令模式</div></div>`;
+  html += `<div class="card" style="border-style:dashed"><div style="font-size:.85rem;color:var(--ink2);line-height:1.8">
+    本室内容仅教师可见:拓展弹药按厅对位,两个泳区各配一套。讲评顺序建议:先让学生复述自己改了哪三题(回冰权),再逐厅过错题,同厅错题只算一种病;弹药按需抽用,一次别超过三件——弹药也要交房租。</div></div>`;
+  TEACH_ROOM.forEach((it, i) => {
+    html += `<div class="card" style="padding:16px 20px"><div style="font-weight:900;margin-bottom:6px">🗃 ${i+1} · ${it[0]}</div>
+      <div style="font-size:.88rem;color:var(--ink2);line-height:1.85">${it[1]}</div></div>`;
+  });
+  app().innerHTML = html + footHtml();
+  $('#backBtn').onclick = () => { S.screen='map'; render(); };
+  bindFoot();
+}
+
+// ---- 页脚 + 教师模式 ----
+const FOOT_VARIANTS = [
+  '本页脚由 MYSKME 页脚管理科维护 · 编号:脚(2026)001',
+  'MYSKME 提醒:页脚没有彩蛋。真的没有。别连点。(点了也就那样)',
+  '本页面已通过 MYSKME 荒诞性年检 · 有效期:一直',
+  'MYSKME 法务部声明:猴先生的一切发言不代表本机构立场',
+  '你正在阅读页脚。MYSKME 欣赏你的仔细,这正是猴先生缺的。',
+];
+function footHtml(){
+  const line = Math.random() < 0.1
+    ? FOOT_VARIANTS[Math.floor(Math.random()*FOOT_VARIANTS.length)]
+    : '猴与鱼 · THE MONKEY &amp; THE FISH <span class="dot">●</span> M2 一词多义诈骗案' + (TRACK ? ' · ' + PACK.shortLabel : '') + ' <span class="dot">●</span> 特邀出题:MYSKME 王老师(客串)';
+  return `<div class="foot" id="foot">${line}</div>`;
+}
+function bindFoot(){
+  const f = $('#foot'); if(!f) return;
+  f.onclick = () => {
+    footTaps++; clearTimeout(footTimer); footTimer = setTimeout(()=>footTaps=0, 1600);
+    if(footTaps >= 5){ footTaps = 0;
+      if(teacher){ teacher = false; document.body.classList.remove('teacher'); const b=$('.teacherBar'); if(b) b.remove(); render(); return; }
+      const code = prompt('教师口令:');
+      if(code === TEACHER_CODE){ teacher = true;
+        const bar = document.createElement('div'); bar.className='teacherBar'; bar.textContent='教 师 模 式 · 答 案 与 解 析 已 解 锁(再连点页脚五下退出)';
+        document.body.appendChild(bar); render();
+      } else if(code !== null){ alert('口令不对。黑化肥表示它也不知道。'); }
+    }
+  };
+}
+
+// ---- QA 自测钩子(仅供出题端校验判分) ----
+window.__mf_qa = function(){
+  ALLQ.forEach(q => {
+    if(q.t==='mc') S.answers[q.n] = q.ans;
+    else if(q.t==='tap') S.answers[q.n] = q.ansIdx.slice();
+    else if(q.t==='tap2') S.answers[q.n] = q.ansIdx.slice();
+    else if(q.t==='match') S.answers[q.n] = q.ansMap.slice();
+    else if(q.t==='input') S.answers[q.n] = q.accept[0];
+    else if(q.t==='order'){ const words = q.ansStr.split(' '); const used = [];
+      S.answers[q.n] = words.map(w => { const i = q.tokens.findIndex((t,k)=>t===w && !used.includes(k)); used.push(i); return i; }); }
+    else if(q.t==='slot') S.answers[q.n] = q.gap;
+    else if(q.t==='sort') S.answers[q.n] = q.ansSort.slice();
+  });
+  return grade();
+};
+window.__mf_wrong = function(){ // 全错版自测
+  ALLQ.forEach(q => {
+    if(q.t==='mc') S.answers[q.n] = q.ans === 'A' ? 'B' : 'A';
+    else if(q.t==='tap') S.answers[q.n] = [q.ansIdx[0] === 0 ? 1 : 0];
+    else if(q.t==='tap2') S.answers[q.n] = [0, 1].every(i=>q.ansIdx.includes(i)) ? [2,3] : [0,1];
+    else if(q.t==='match') S.answers[q.n] = q.ansMap.map((v,i,arr)=>arr[(i+1)%arr.length]);
+    else if(q.t==='input') S.answers[q.n] = 'xxx';
+    else if(q.t==='order') S.answers[q.n] = q.tokens.map((_,i)=>q.tokens.length-1-i);
+    else if(q.t==='slot') S.answers[q.n] = q.gap === 0 ? 1 : 0;
+    else if(q.t==='sort') S.answers[q.n] = q.ansSort.map(v => v==='A'?'B':'A');
+  });
+  return grade();
+};
+
+// ---- 发呆检测(蛇探头) ----
+window.__lastAct = Date.now();
+document.addEventListener('pointerdown', () => { window.__lastAct = Date.now(); }, true);
+setInterval(() => {
+  if(S.screen === 'q' && !S.done && !teacher && Date.now() - window.__lastAct > 45000){
+    FX.idlePoke(); window.__lastAct = Date.now();
+  }
+}, 5000);
+
+// ---- MYSKME 厂牌开场 ----
+function playSplash(next){
+  const d = document.createElement('div');
+  d.id = 'splash';
+  d.innerHTML = `
+    <div class="spLetters">${'MYSKME'.split('').map((c,i)=>`<span style="animation-delay:${i*0.16}s" class="spL ${c==='K'?'spK':''}">${c}</span>`).join('')}</div>
+    <div class="spSub">P R E S E N T S</div>
+    <div class="spRunner">${ART.monkey}</div>
+    <div class="spSkip">点击跳过</div>`;
+  document.body.appendChild(d);
+  let done = false;
+  const finish = () => { if(done) return; done = true; d.classList.add('spOut'); setTimeout(()=>{ d.remove(); next(); }, 350); };
+  d.onclick = finish;
+  setTimeout(()=>{ const k = d.querySelector('.spK'); if(k) k.classList.add('spKnocked'); }, 2350);
+  setTimeout(finish, 3900);
+}
+
+// ---- 启动 ----
+window.__mf_track = enterTrack;   // 控制台切泳区:__mf_track('shallow'|'deep')
+playSplash(render);
+
+</script>
+</body>
+</html>
