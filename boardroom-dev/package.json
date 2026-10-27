@@ -1,0 +1,10 @@
+{
+  "name": "myskme-boardroom",
+  "version": "3.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python -m http.server 4173 --directory ../boardroom",
+    "test": "node tests/run.js"
+  }
+}

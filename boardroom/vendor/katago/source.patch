@@ -1,0 +1,163 @@
+diff --git a/cpp/kataeval/kataeval.cpp b/cpp/kataeval/kataeval.cpp
+index 703702e..7a80b60 100644
+--- a/cpp/kataeval/kataeval.cpp
++++ b/cpp/kataeval/kataeval.cpp
+@@ -53,7 +53,7 @@ InputBuffers* gInputs = nullptr;
+ int gXLen = 19, gYLen = 19, gModelVersion = 0;
+ bool gUseNHWC = false;  // WebGPU wants NCHW (false); the Eigen CPU backend wants NHWC (true)
+ std::string gErr = "";
+-const int KGE_MAX_BATCH = 16;  // batched eval: per-batch GPU latency is ~fixed, so a
++const int KGE_MAX_BATCH = 4;  // batched eval: per-batch GPU latency is ~fixed, so a
+                                // bigger batch (more in-flight search threads) raises
+                                // nnEvals/s — but the batch is thread-limited anyway, so
+                                // 16 matches 32 for <=16-core clients while halving the
+@@ -100,6 +100,7 @@ double whiteUtil(float wL, float lL, float nL) {
+ // Expand a leaf: its legal top-K policy moves become children (priors softmaxed over K).
+ void expandNode(SNode* node, const float* policyLogits, const Board& board,
+                 const BoardHistory& hist, Player pla, int topK) {
++  if(hist.isGameFinished) { node->expanded = true; return; }
+   const int hw = gXLen * gYLen;
+   std::vector<std::pair<float,int>> cand;  // (logit, move)
+   cand.reserve(hw + 1);
+@@ -196,9 +197,30 @@ KATAEVAL_EXPORT int kgeLoad(const char* modelPath, int boardSize) {
+   }
+ }
+ 
++// MYSKME: match upstream NNEvaluator's perspective and score postprocessing.
++// The fixed ABI returns white win/loss logits, no-result disabled under area/PSK,
++// and white score/lead in points (not the raw network's 1/20 point units).
++static void copyWhiteValues(const NNOutput& out, Player pla, float* dst) {
++  const auto& pp = NeuralNet::getModelDesc(gModel).postProcessParams;
++  const float sign = pla == P_WHITE ? 1.0f : -1.0f;
++  dst[0] = (pla == P_WHITE ? out.whiteWinProb : out.whiteLossProb) * pp.outputScaleMultiplier;
++  dst[1] = (pla == P_WHITE ? out.whiteLossProb : out.whiteWinProb) * pp.outputScaleMultiplier;
++  dst[2] = -100000.0f;
++  dst[3] = sign * out.whiteScoreMean * pp.outputScaleMultiplier * pp.scoreMeanMultiplier;
++  dst[4] = sign * out.whiteLead * pp.outputScaleMultiplier * pp.leadMultiplier;
++}
++
+ // Run the net on a prepared board + history and write outputs (raw logits).
+ static int evalBoardHist(const Board& board, const BoardHistory& hist, Player nextPla,
+                          float* policyOut, float* valueOut, float* ownerOut) {
++  if(hist.isGameFinished) {
++    const float score = hist.finalWhiteMinusBlackScore;
++    for(int i=0;i<gXLen*gYLen;i++) { policyOut[i] = -100000.0f; if(ownerOut) ownerOut[i] = 0; }
++    policyOut[gXLen*gYLen] = 0;
++    valueOut[0] = score > 0 ? 30.0f : score < 0 ? -30.0f : 0.0f;
++    valueOut[1] = -valueOut[0]; valueOut[2] = -100000.0f;
++    valueOut[3] = score; valueOut[4] = score; return 1;
++  }
+   NNResultBuf buf;
+   const int spatialLen = NNModelVersion::getNumSpatialFeatures(gModelVersion) * gXLen * gYLen;
+   const int globalLen = NNModelVersion::getNumGlobalFeatures(gModelVersion);
+@@ -214,7 +236,7 @@ static int evalBoardHist(const Board& board, const BoardHistory& hist, Player ne
+   NNOutput output;
+   output.nnXLen = gXLen;
+   output.nnYLen = gYLen;
+-  output.whiteOwnerMap = ownerOut;
++  output.whiteOwnerMap = ownerOut ? new float[gXLen * gYLen] : nullptr; // NNOutput owns and deletes this map.
+   NNResultBuf* bufs[1] = { &buf };
+   std::vector<NNOutput*> outputs = { &output };
+   NeuralNet::getOutput(gHandle, gInputs, 1, bufs, outputs);
+@@ -222,11 +244,8 @@ static int evalBoardHist(const Board& board, const BoardHistory& hist, Player ne
+   std::memcpy(policyOut, output.policyProbs, (hw + 1) * sizeof(float));  // raw logits
+   // valueOut[0..2] are raw win/loss/noResult logits too — the caller softmaxes
+   // them (see web/demo/analyze.html); valueOut[3..4] are scoreMean / lead.
+-  valueOut[0] = output.whiteWinProb;
+-  valueOut[1] = output.whiteLossProb;
+-  valueOut[2] = output.whiteNoResultProb;
+-  valueOut[3] = output.whiteScoreMean;
+-  valueOut[4] = output.whiteLead;
++  copyWhiteValues(output, nextPla, valueOut);
++  if(ownerOut) for(int i=0;i<hw;i++) ownerOut[i] = std::tanh(output.whiteOwnerMap[i] * NeuralNet::getModelDesc(gModel).postProcessParams.outputScaleMultiplier) * (nextPla == P_WHITE ? 1.0f : -1.0f);
+   return 1;
+ }
+ 
+@@ -261,11 +280,13 @@ static int evalBatch(const std::vector<const Board*>& boards,
+   const int hw = gXLen * gYLen;
+   for(int i = 0; i < B; i++) {
+     std::memcpy(policyOut + (size_t)i * (hw + 1), outs[i].policyProbs, (hw + 1) * sizeof(float));
+-    valueOut[i*5+0] = outs[i].whiteWinProb;
+-    valueOut[i*5+1] = outs[i].whiteLossProb;
+-    valueOut[i*5+2] = outs[i].whiteNoResultProb;
+-    valueOut[i*5+3] = outs[i].whiteScoreMean;
+-    valueOut[i*5+4] = outs[i].whiteLead;
++    copyWhiteValues(outs[i], plas[i], valueOut + i*5);
++    if(hists[i]->isGameFinished) {
++      const float score = hists[i]->finalWhiteMinusBlackScore;
++      valueOut[i*5] = score > 0 ? 30.0f : score < 0 ? -30.0f : 0.0f;
++      valueOut[i*5+1] = -valueOut[i*5]; valueOut[i*5+2] = -100000.0f;
++      valueOut[i*5+3] = score; valueOut[i*5+4] = score;
++    }
+   }
+   return 1;
+ }
+@@ -282,6 +303,7 @@ KATAEVAL_EXPORT int kgeEval(const int* stones, int pla, double komi,
+         if(c == 1 || c == 2) board.setStone(Location::getLoc(x, y, gXLen), (Color)c);
+       }
+     Rules rules = Rules::getTrompTaylorish();
++    rules.multiStoneSuicideLegal = false; // MYSKME: Chinese area rules, positional superko, no suicide.
+     rules.komi = (float)komi;
+     Player nextPla = (Player)pla;
+     BoardHistory hist(board, nextPla, rules, 0);
+@@ -302,6 +324,7 @@ KATAEVAL_EXPORT int kgeEval(const int* stones, int pla, double komi,
+ static void buildBoardHist(const int* moveLocs, const int* moveCols, int numMoves, double komi,
+                            Board& board, BoardHistory& hist) {
+   Rules rules = Rules::getTrompTaylorish();
++    rules.multiStoneSuicideLegal = false; // MYSKME: Chinese area rules, positional superko, no suicide.
+   rules.komi = (float)komi;
+   board = Board(gXLen, gYLen);
+   auto toLoc = [](int mv) {
+@@ -311,22 +334,29 @@ static void buildBoardHist(const int* moveLocs, const int* moveCols, int numMove
+   // >= 2 BLACK stones as handicap. (Restricting to black avoids misreading a malformed
+   // leading white run as "white handicap" and applying the wrong komi.)
+   int setup = 0;
+-  if(numMoves >= 2 && moveCols[0] == P_BLACK)
+-    while(setup < numMoves && moveLocs[setup] >= 0 && moveCols[setup] == P_BLACK) setup++;
++  if(numMoves >= 2 && (moveCols[0] & 3) == P_BLACK)
++    while(setup < numMoves && moveLocs[setup] >= 0 && (moveCols[setup] & 3) == P_BLACK) setup++;
+   if(setup >= 2) {
+     for(int i = 0; i < setup; i++) board.setStone(toLoc(moveLocs[i]), C_BLACK);
+-    Player nextPla = (numMoves > setup) ? (Player)moveCols[setup] : P_WHITE;
++    Player nextPla = (numMoves > setup) ? (Player)(moveCols[setup] & 3) : P_WHITE;
+     hist = BoardHistory(board, nextPla, rules, 0);
+     hist.setAssumeMultipleStartingBlackMovesAreHandicap(true);  // correct komi/score for handicap
+   } else {
+     setup = 0;
+-    Player firstPla = (numMoves > 0) ? (Player)moveCols[0] : P_BLACK;
++    Player firstPla = (numMoves > 0) ? (Player)(moveCols[0] & 3) : P_BLACK;
+     hist = BoardHistory(board, firstPla, rules, 0);
+   }
+   for(int i = setup; i < numMoves; i++) {
+     Loc loc = toLoc(moveLocs[i]);
+-    Player pla = (Player)moveCols[i];
+-    if(hist.isLegal(board, loc, pla)) hist.makeBoardMoveAssumeLegal(board, loc, pla, NULL);
++    Player pla = (Player)(moveCols[i] & 3);
++    if(!hist.isLegal(board, loc, pla)) throw std::runtime_error("illegal history move " + std::to_string(i));
++    hist.makeBoardMoveAssumeLegal(board, loc, pla, NULL);
++    if(moveCols[i] & 256) { // MYSKME resumed scoring: preserve ko history, reset ending state.
++      hist.isGameFinished = false; hist.isPastNormalPhaseEnd = false;
++      hist.isScored = false; hist.isNoResult = false; hist.isResignation = false;
++      hist.winner = C_EMPTY; hist.finalWhiteMinusBlackScore = 0;
++      hist.consecutiveEndingPasses = 0;
++    }
+   }
+ }
+ 
+@@ -361,6 +391,7 @@ KATAEVAL_EXPORT int kgeEvalBatch(const int* stonesBatch, const int* plas, int nu
+   try {
+     const int hw = gXLen * gYLen;
+     Rules rules = Rules::getTrompTaylorish();
++    rules.multiStoneSuicideLegal = false; // MYSKME: Chinese area rules, positional superko, no suicide.
+     rules.komi = (float)komi;
+     std::vector<Board> boards;
+     boards.reserve(numPos);                 // reserve so element addresses stay stable
+@@ -832,7 +863,7 @@ static bool prepareSearch(const int* moveLocs, const int* moveCols, int numMoves
+   if(!ensureKataEngine()) { gErr = "engine init failed"; return false; }
+   stopPonder();
+   std::vector<std::pair<Loc,Player>> newLine;
+-  for(int i = 0; i < numMoves; i++) newLine.push_back({ decodeLoc(moveLocs[i]), (Player)moveCols[i] });
++  for(int i = 0; i < numMoves; i++) newLine.push_back({ decodeLoc(moveLocs[i]), (Player)(moveCols[i] & 3) });
+   size_t common = 0;
+   while(common < gBotLine.size() && common < newLine.size() && gBotLine[common] == newLine[common]) common++;
+   bool reused = false;

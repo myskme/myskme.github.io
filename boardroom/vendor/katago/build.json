@@ -1,0 +1,25 @@
+{
+  "upstream": "https://github.com/saigo-online/katago-webgpu",
+  "revision": "d5ad1c0423dba989c60a2f06b1848e7eec2b5941",
+  "emscripten": "6.0.13",
+  "eigen": "3.4.0",
+  "patchSha256": "7a15b33797ea7f2c4dd6353cb13933191a0cfd75cfb0a5c8cd198d9af6e5f068",
+  "files": {
+    "kataeval.js": {
+      "bytes": 117069,
+      "sha256": "a241277a4acc2d87dbf659e2b64599a39e8385fe3522473e3906481a09a713f8"
+    },
+    "kataeval.wasm": {
+      "bytes": 1321595,
+      "sha256": "a55f92829bb1b9bc37d42da1029e485096e5ee76dab6bf2fb198eb2802637372"
+    },
+    "model-b10.bin.gz": {
+      "bytes": 11138361,
+      "sha256": "1a8e05a4ea3fca20dab79410cbb566c760767fcdd2fa0b701cfe259a84cc8b04"
+    },
+    "model-b6.bin.gz": {
+      "bytes": 3827339,
+      "sha256": "f5d32604e3675c480c7c8f6aa579a1ea857135628a0afccc8fa56330fbacd38d"
+    }
+  }
+}

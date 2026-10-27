@@ -1,0 +1,155 @@
+{
+  "app": "myskme-boardroom",
+  "version": "3.2.0",
+  "channel": "stable",
+  "files": {
+    ".nojekyll": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "app.js": {
+      "bytes": 73023,
+      "sha256": "ae45fc311e04338830c7e2cb3cb52f9c1c596b330750903fa7da0f4ff0a3f861"
+    },
+    "assets/kind-garden.webp": {
+      "bytes": 193530,
+      "sha256": "dba6f5ea17243e5c50e7bc93766993e879e51da66d8d5a13af80dc114fd75905"
+    },
+    "assets/pebble.svg": {
+      "bytes": 960,
+      "sha256": "e3aa66e551026fc503fba645d6c90da1db57e8d163217e506f68fdd054d6302a"
+    },
+    "backup.js": {
+      "bytes": 11570,
+      "sha256": "78f4bd82a53c2add100f39a0691f19c26e203b6983ea94ff2a4c8880fd443f1e"
+    },
+    "brand-bloom.svg": {
+      "bytes": 283,
+      "sha256": "a6e22182cbdeb63b801ea30a9f8d81ba6da4f8755710fff010d2964a33ac0973"
+    },
+    "coach-ui.js": {
+      "bytes": 12681,
+      "sha256": "329a5cb906879f491fe169a0078e96afa788347328c02495ae3c452edf40b2dc"
+    },
+    "coach.css": {
+      "bytes": 9180,
+      "sha256": "b401bb0d85eed79f351472ea27820f9f81ac0b8f0ba2c6700212d0cebbce1570"
+    },
+    "engine.js": {
+      "bytes": 12233,
+      "sha256": "aa012fb9fbe3339fc2fa8b99d4de037124f3c66c466287ee01ff6cf7d93c126a"
+    },
+    "experience.css": {
+      "bytes": 25062,
+      "sha256": "7b478982835e3478f760e9b0f3308bcf2bbfc7736a1523db26febd300a8415d9"
+    },
+    "favicon.svg": {
+      "bytes": 347,
+      "sha256": "59f61d2c1915420780e5656eaa8b92863f0e8bad812c03d3150e0f659ff23e45"
+    },
+    "garden-art.js": {
+      "bytes": 5639,
+      "sha256": "7c221a2549f0128bb90ea146d9cb3ee949db799e4de26975d3f7d7b96ab62215"
+    },
+    "garden-board.js": {
+      "bytes": 3251,
+      "sha256": "60eb3ac19c2dd07fab5b44662f3d36e687aec9a9de4d4254cff4b67b3cc7fecb"
+    },
+    "garden-core.js": {
+      "bytes": 15210,
+      "sha256": "e4b5db23bfff25175e7528a6bd5df00a49b305ae1ec5fef08b0b6c13c18f351e"
+    },
+    "garden-ui.js": {
+      "bytes": 33868,
+      "sha256": "e8dc66ed524b8ff3dc911580be5712b483f90a603fbde54c0f6f2557398f89d9"
+    },
+    "garden.css": {
+      "bytes": 34366,
+      "sha256": "1ef8e64ae65704c625ee791992858fbaf5770bb525bf2a77497225f383c14034"
+    },
+    "index.html": {
+      "bytes": 30535,
+      "sha256": "df62177e539346dc3a347bf0bea2739737747e02818577ace695f1571d915553"
+    },
+    "katago-client.js": {
+      "bytes": 1909,
+      "sha256": "6c5f38b64ca65c6152991bdbcde99616b9ca5ee393bd2f15edf4fc2ecad643cc"
+    },
+    "katago-worker.js": {
+      "bytes": 9479,
+      "sha256": "39d5194d29bb458a0c1f166a3b417d097beab6813f26c686be47c0e61ca83e5c"
+    },
+    "release-ui.js": {
+      "bytes": 4491,
+      "sha256": "bf245b6440e15cd8095ef4479f8dad190ba6f54fda0b71fe1b145e6d050481ad"
+    },
+    "release.css": {
+      "bytes": 17385,
+      "sha256": "c84734ee60c88c1e2b7ee6b1e6f55072d7510a8e51927ac93331786d42d91fe6"
+    },
+    "review-core.js": {
+      "bytes": 9446,
+      "sha256": "16e067421ccc1e3b409c64acbe40e0d9dbd6d1257053ebb5417c1bbf4acaa3ee"
+    },
+    "review-worker.js": {
+      "bytes": 1259,
+      "sha256": "a4d8384526575fb26ecb3d3e78db0ef773028c88734ae5b1c7a2c5d5960f1a51"
+    },
+    "special.js": {
+      "bytes": 8797,
+      "sha256": "6825f8cc33133740ae36dc5f79cf9179cb8cf24b3506b24cd1deb07d135fb5e8"
+    },
+    "style.css": {
+      "bytes": 38913,
+      "sha256": "ace6c79027b83bd285c11b29661aa347cd5cad827bed8fd554a22a47e0cf2e81"
+    },
+    "vendor/katago/NOTICE.txt": {
+      "bytes": 102905,
+      "sha256": "4984aa3c03c8967a3f825a1584526cdf883fd1000287e7f220de36e09de73e32"
+    },
+    "vendor/katago/SOURCE.md": {
+      "bytes": 6235,
+      "sha256": "c1b126076be54fa567a48bcfafb0be504b70cdb4a006f4554269b939a5173ac3"
+    },
+    "vendor/katago/build-katago.py": {
+      "bytes": 4268,
+      "sha256": "8803fa852e427b5a822a9d824e6ac85f19dadd5c225117423b328a033fd3f6ba"
+    },
+    "vendor/katago/build.json": {
+      "bytes": 823,
+      "sha256": "81401a7990f27605d7ef9cceacf48863d7e896a7390aeb2a9151d5e5e5fc73d3"
+    },
+    "vendor/katago/kataeval.js": {
+      "bytes": 117069,
+      "sha256": "a241277a4acc2d87dbf659e2b64599a39e8385fe3522473e3906481a09a713f8"
+    },
+    "vendor/katago/kataeval.wasm": {
+      "bytes": 1321595,
+      "sha256": "a55f92829bb1b9bc37d42da1029e485096e5ee76dab6bf2fb198eb2802637372"
+    },
+    "vendor/katago/model-b10.bin.gz": {
+      "bytes": 11138361,
+      "sha256": "1a8e05a4ea3fca20dab79410cbb566c760767fcdd2fa0b701cfe259a84cc8b04"
+    },
+    "vendor/katago/model-b6.bin.gz": {
+      "bytes": 3827339,
+      "sha256": "f5d32604e3675c480c7c8f6aa579a1ea857135628a0afccc8fa56330fbacd38d"
+    },
+    "vendor/katago/package.json": {
+      "bytes": 20,
+      "sha256": "dbf8353f77358bc12169b7bb7301e1978d5b503e002ee927229a8993672818fc"
+    },
+    "vendor/katago/source.patch": {
+      "bytes": 9247,
+      "sha256": "7a15b33797ea7f2c4dd6353cb13933191a0cfd75cfb0a5c8cd198d9af6e5f068"
+    },
+    "visual.css": {
+      "bytes": 74680,
+      "sha256": "97f2b045a0dc393b5a73229f0c0253900f27a446a3d01a15895a5b15a08ffc33"
+    },
+    "worker.js": {
+      "bytes": 242,
+      "sha256": "fdbb88b84267d0cb77400322d6b0d9c90ffb182b8f7225404e28544ac9000523"
+    }
+  }
+}
