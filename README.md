@@ -11,13 +11,7 @@
 *不喧哗，自有声 — quietly, but clearly.*
 
 
-## MYSKME 特别棋室
+## 棋室工程
 
-[棋室正式版 3.2.0](https://myskme.github.io/boardroom/)：围棋、五子棋、KataGo 本机陪练、关键手教学、成长花园与原创双生共弈。
-
-- `boardroom/`：独立静态应用及 SHA-256 发布清单；只增加此目录，不替换个人主页。
-- `boardroom-dev/`：维护说明、112 项测试、发布脚本与 KataGo 可复现编译来源。测试和脚本直接使用 `boardroom/` 运行源码，模型只存一份。
-- 验证：`cd boardroom-dev && npm test`；发布检查：`python scripts/check-release.py ../boardroom`。
-- 正式发布记录：[boardroom-dev/RELEASE.md](boardroom-dev/RELEASE.md)。棋谱保存在各浏览器本机，可在棋室偏好设置中导出或导入完整备份。
-
-`myskme.com` 使用独立发布链路；这里的 GitHub Pages 更新不会覆盖其「每日大厅」。
+`boardroom/` 保存棋室 3.2.0 的静态运行源码，`boardroom-dev/` 保存测试和发布工具。
+正式接入目标为自有域名 `https://myskme.com/boardroom/`，不在个人主页中展示入口。
